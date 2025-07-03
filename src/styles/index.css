@@ -49,7 +49,6 @@
   --sidebar-ring: oklch(0.708 0 0);
 }
 
-
 @theme inline {
 
   --radius-sm: calc(var(--radius) - 4px);

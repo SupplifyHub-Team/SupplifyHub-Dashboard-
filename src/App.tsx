@@ -1,4 +1,6 @@
+import AppLayout from "./components/AppLayout";
 import ProtectedRoute from "./components/ProtectedRoute";
+import LoginPage from "./pages/LoginPage";
 import Overview from "./pages/Overview";
 import MainProvider from "./providers/MainProvider";
 import { BrowserRouter, Route, Routes } from "react-router";
@@ -8,8 +10,11 @@ function App() {
     <MainProvider>
       <BrowserRouter>
         <Routes>
+          <Route path="/login" element={<LoginPage />} />
           <Route element={<ProtectedRoute />}>
-            <Route path="/" element={<Overview />} />
+            <Route element={<AppLayout />}>
+              <Route path="/" element={<Overview />} />
+            </Route>
           </Route>
 
           <Route
