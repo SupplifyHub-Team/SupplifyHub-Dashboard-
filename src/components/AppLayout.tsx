@@ -4,9 +4,9 @@ import { Outlet } from "react-router";
 
 export default function AppLayout() {
   return (
-    <SidebarProvider>
-      <AppSidebar />
-      <div>
+    <SidebarProvider >
+      <AppSidebar side="right" />
+      <div >
         <Outlet />
       </div>
     </SidebarProvider>
