@@ -35,19 +35,21 @@ export default function FormPassword<TFormValues extends FieldValues>({
       className={className}
       {...inputProps}
       Icon={
-        <Button
-          variant="link"
-          className="text-muted-foreground w-fit cursor-pointer"
-          size="icon"
-          type="button"
-          onClick={() => setShowPassword(!showPassword)}
-        >
-          {showPassword ? (
-            <Eye className="h-4 w-4" />
-          ) : (
-            <EyeOff className="h-4 w-4" />
-          )}
-        </Button>
+        <div className="absolute inset-y-9 end-1 flex items-center justify-center">
+          <Button
+            variant="link"
+            className="text-gray-400 p-0 hover:text-white"
+            size="icon"
+            type="button"
+            onClick={() => setShowPassword(!showPassword)}
+          >
+            {showPassword ? (
+              <Eye className="w-4 h-4" />
+            ) : (
+              <EyeOff className="w-4 h-4" />
+            )}
+          </Button>
+        </div>
       }
     />
   );

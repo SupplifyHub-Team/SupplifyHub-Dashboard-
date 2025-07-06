@@ -39,14 +39,17 @@ export default function FormInput<TFormValues extends FieldValues>({
       render={({ field }) => (
         <FormItem>
           {label && (
-            <FormLabel htmlFor={name} className={cn("mb-1", labelClassName)}>
+            <FormLabel
+              htmlFor={name}
+              className={cn("sr-only", labelClassName)}
+            >
               {label}
             </FormLabel>
           )}
           <FormControl>
             <div className="relative h-fit">
               {Icon && (
-                <div className="absolute inset-y-0 end-2.5 flex items-center justify-center">
+                <div >
                   {Icon}
                 </div>
               )}
@@ -54,7 +57,7 @@ export default function FormInput<TFormValues extends FieldValues>({
                 id={name}
                 {...field}
                 {...inputProps}
-                className={cn("py-3!", Icon && "pl-8", className)}
+                className={cn("h-11 py-3 pr-4 pl-10", Icon && "pl-10", className)}
               />
             </div>
           </FormControl>
