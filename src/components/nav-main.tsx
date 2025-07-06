@@ -1,6 +1,6 @@
-"use client";
 
 import { type LucideIcon } from "lucide-react";
+import { NavLink } from "react-router-dom";
 
 import { Collapsible, CollapsibleTrigger } from "@/components/ui/collapsible";
 import {
@@ -36,15 +36,21 @@ export function NavMain({
           >
             <SidebarMenuItem>
               <CollapsibleTrigger asChild>
-                <SidebarMenuButton
-                  className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground data-[active=true]:bg-indigo-500! data-[active=true]:text-white! data-[active=true]:text-white"
-                  size={"lg"}
-                  isActive={item.isActive}
-                  tooltip={item.title}
-                >
-                  {item.icon && <item.icon />}
-                  <span>{item.title}</span>
-                </SidebarMenuButton>
+                <NavLink to={item.url}>
+                  {({ isActive }) => (
+                    <SidebarMenuButton
+                      asChild
+                      tooltip={item.title}
+                      size="lg"
+                      isActive={isActive}
+                    >
+                      <div className="flex items-center gap-2 w-full">
+                        {item.icon && <item.icon className="size-4" />}
+                        <span>{item.title}</span>
+                      </div>
+                    </SidebarMenuButton>
+                  )}
+                </NavLink>
               </CollapsibleTrigger>
             </SidebarMenuItem>
           </Collapsible>

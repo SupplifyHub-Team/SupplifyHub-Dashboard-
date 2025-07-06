@@ -38,7 +38,7 @@ export default function FormPassword<TFormValues extends FieldValues>({
         <div className="absolute inset-y-9 end-1 flex items-center justify-center">
           <Button
             variant="link"
-            className="text-gray-400 p-0 hover:text-white"
+            className="text-gray-400 p-0 hover:text-white "
             size="icon"
             type="button"
             onClick={() => setShowPassword(!showPassword)}
