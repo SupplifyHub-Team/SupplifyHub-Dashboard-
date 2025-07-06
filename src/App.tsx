@@ -2,6 +2,7 @@ import AppLayout from "./components/AppLayout";
 import ProtectedRoute from "./components/ProtectedRoute";
 import LoginPage from "./pages/LoginPage";
 import Overview from "./pages/Overview";
+import UsersManagementPage from "./pages/UsersManagementPage";
 import MainProvider from "./providers/MainProvider";
 import { BrowserRouter, Route, Routes } from "react-router";
 
@@ -14,6 +15,7 @@ function App() {
           <Route element={<ProtectedRoute />}>
             <Route element={<AppLayout />}>
               <Route path="/" element={<Overview />} />
+              <Route path="/user-management" element={<UsersManagementPage />} />
             </Route>
           </Route>
 

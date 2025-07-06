@@ -1,5 +1,6 @@
 import * as React from "react";
 import {
+<<<<<<< HEAD
   LayoutDashboard,
   UserCog,
   Layers,
@@ -10,6 +11,24 @@ import {
 
 import { NavMain } from "@/components/nav-main";
 import { NavUser } from "@/components/nav-user";
+=======
+  AudioWaveform,
+  BookOpen,
+  Bot,
+  Command,
+  Frame,
+  GalleryVerticalEnd,
+  Map,
+  PieChart,
+  Settings2,
+  SquareTerminal,
+} from "lucide-react";
+
+import { NavMain } from "@/components/nav-main";
+import { NavProjects } from "@/components/nav-projects";
+import { NavUser } from "@/components/nav-user";
+import { TeamSwitcher } from "@/components/team-switcher";
+>>>>>>> origin/table
 import {
   Sidebar,
   SidebarContent,
@@ -48,6 +67,26 @@ const data = {
       icon: Boxes,
     },
   ],
+<<<<<<< HEAD
+=======
+  projects: [
+    {
+      name: "Design Engineering",
+      url: "#",
+      icon: Frame,
+    },
+    {
+      name: "Sales & Marketing",
+      url: "#",
+      icon: PieChart,
+    },
+    {
+      name: "Travel",
+      url: "#",
+      icon: Map,
+    },
+  ],
+>>>>>>> origin/table
 };
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {

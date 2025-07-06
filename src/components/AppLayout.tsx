@@ -1,12 +1,13 @@
-import { SidebarProvider } from "./ui/sidebar";
+import { SidebarProvider, SidebarTrigger } from "./ui/sidebar";
 import { AppSidebar } from "./app-sidebar";
 import { Outlet } from "react-router";
 
 export default function AppLayout() {
   return (
-    <SidebarProvider >
+    <SidebarProvider>
       <AppSidebar side="right" />
-      <div >
+      <div className="p-3 sm:p-6 flex-1 ">
+        <SidebarTrigger />
         <Outlet />
       </div>
     </SidebarProvider>
