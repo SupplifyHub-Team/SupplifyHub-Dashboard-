@@ -18,7 +18,7 @@ export default function UsersTableRow({ user }: { user: IUser }) {
         <span>{user.email}</span>
       </TableCell>
       <TableCell>
-       <UserRoundX color="#f20707" className="w-6 h-6"/>
+       <UserRoundX color="#f20707" className="w-6 h-6 cursor-pointer"/>
       </TableCell>
     </TableRow>
   );
