@@ -3,7 +3,6 @@ declare interface IUser {
   name: string;
   email: string;
   role: "client" | "jobber" | "supplier";
-  createdAt: string; 
-category: string;
-  
-} 
+  createdAt: string;
+  category: string;
+}

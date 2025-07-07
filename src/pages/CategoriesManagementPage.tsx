@@ -1,5 +1,7 @@
 
 
+ 
+
 const CategoriesManagementPage = () => {
   return (
     <div>CategoryManagementPage</div>
