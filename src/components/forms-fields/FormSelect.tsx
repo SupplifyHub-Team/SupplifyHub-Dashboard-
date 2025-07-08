@@ -56,31 +56,20 @@ export default function FormSelect<TFormValues extends FieldValues>({
           )}
           <FormControl>
             <Select
-              onValueChange={(val) => {
-                if (val == "") {
-                  console.log("nothing");
-                } else {
-                  field.onChange(parseInt(val, 10));
-                }
-              }}
-              defaultValue={field.value?.toString()}
               value={field.value?.toString()}
+              onValueChange={field.onChange}
               disabled={disabled}
-              required={required}
-              {...props}
-            >
+              {...props}>
               <SelectTrigger
                 dir="rtl"
-                className={cn("w-full h-full", className)}
-              >
+                className={cn("w-full h-full bg-background", className)}>
                 <SelectValue placeholder={placeholder} />
               </SelectTrigger>
               <SelectContent dir="rtl">
                 {options.map((option) => (
                   <SelectItem
                     key={option.value}
-                    value={option.value.toString()}
-                  >
+                    value={option.value.toString()}>
                     {option.label}
                   </SelectItem>
                 ))}

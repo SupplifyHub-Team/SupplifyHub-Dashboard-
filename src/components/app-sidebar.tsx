@@ -5,12 +5,16 @@ import {
   Layers,
   CircleDollarSign,
   Boxes,
-  LogOut,
+  
+
 } from "lucide-react";
 
 import { NavMain } from "@/components/nav-main";
+ 
+
 import { NavUser } from "@/components/nav-user";
-import {
+
+  import {
   Sidebar,
   SidebarContent,
   SidebarFooter,
@@ -23,38 +27,39 @@ const data = {
   navMain: [
     {
       title: "لوحة التحكم",
-      url: "#",
+      url: "/", 
       icon: LayoutDashboard,
-      isActive: true,
     },
     {
       title: "إدارة المستخدمين",
-      url: "#",
+      url: "/user-management",
       icon: UserCog,
     },
     {
       title: "إدارة الطلبات",
-      url: "#",
+      url: "/orders",
       icon: Layers,
     },
     {
       title: "خطط التسعير",
-      url: "#",
+      url: "/pricing",
       icon: CircleDollarSign,
     },
     {
       title: "إدارة الفئات",
-      url: "#",
+      url: "/categories",
       icon: Boxes,
     },
   ],
+
 };
+
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
     <Sidebar collapsible="icon"  {...props}>
       <SidebarHeader>
-        <img src="/logo.svg" className="w-12 h-12  rounded-full" alt="logo" />
+        <img src="/logo.svg" className="w-12 h-12 object-contain rounded-full" alt="logo" />
       </SidebarHeader>
       <SidebarContent>
         <NavMain items={data.navMain} />

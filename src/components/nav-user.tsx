@@ -18,7 +18,7 @@ export function NavUser() {
         key={"تسجيل الخروج"}
         asChild
         defaultOpen={false}
-        className="group/collapsible"
+        className=" group/collapsible"
       >
         <SidebarMenuItem>
           <DropdownMenu>
@@ -27,7 +27,7 @@ export function NavUser() {
                 <SidebarMenuButton
                   tooltip={"تسجيل الخروج"}
                   size="lg"
-                  className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
+               
                 >
                   <LogOut className="size-4 " />
                   <span>تسجيل الخروج</span>
