@@ -1,7 +1,7 @@
 import { FC, ReactNode } from "react";
 import clsx from "clsx";
 
-type Palette = "pink" | "blue" | "green" | "purple" | "yellow";
+type Palette = "pink" | "blue" | "green" | "purple" | "yellow" | "indigo";
 
 interface StatCardProps {
   title: string;
@@ -16,6 +16,11 @@ interface StatCardProps {
 
 const palette: Record<Palette, { bg: string; border: string; accent: string }> =
   {
+    indigo: {
+      bg: "bg-indigo-50",
+      border: "border-indigo-100",
+      accent: "text-indigo-500",
+    },
     pink: {
       bg: "bg-pink-50",
       border: "border-pink-100",
@@ -60,18 +65,17 @@ export const StatCard: FC<StatCardProps> = ({
   return (
     <div
       className={clsx(
-        "w-full rounded-xl p-4 shadow-sm flex justify-between items-start gap-2 text-sm text-gray-800 border",
+        "w-full rounded-xl p-4 shadow-sm flex justify-between items-start gap-2 text-sm  text-gray-800 border",
         bg,
         border,
         className
-      )}
-    >
+      )}>
       {/* النصوص */}
-      <div className="flex flex-col">
+      <div className="flex flex-col min-h-25 justify-between">
         <p className="text-sm font-medium text-gray-500">{title}</p>
         <p className="text-2xl font-bold text-gray-900">{value}</p>
         <p className={clsx("mt-1 text-xs", changeColor)}>
-          {arrow} {change}  
+          {arrow} {change}
         </p>
       </div>
 

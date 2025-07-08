@@ -6,8 +6,10 @@ export default function AppLayout() {
   return (
     <SidebarProvider>
       <AppSidebar side="right" />
-      <div className="  p-4 sm:p-6 flex-1 ">
-        <SidebarTrigger />
+      <div className="  p-4 sm:p-6 flex-1  ">
+        <div className="flex items-center justify-between mb-4">
+          <SidebarTrigger />
+        </div>
         <Outlet />
       </div>
     </SidebarProvider>

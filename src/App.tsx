@@ -3,7 +3,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import CategoriesManagementPage from "./pages/CategoriesManagementPage";
 import LoginPage from "./pages/LoginPage";
 import OrdersManagementPage from "./pages/OrdersManagementPage";
-import Overview from "./pages/Overview";
+import OverviewPage from "./pages/OverviewPage";
 import PricingPlanPage from "./pages/PricingPlanPage";
 import UsersManagementPage from "./pages/UsersManagementPage";
 import MainProvider from "./providers/MainProvider";
@@ -17,7 +17,7 @@ function App() {
           <Route path="/login" element={<LoginPage />} />
           <Route element={<ProtectedRoute />}>
             <Route element={<AppLayout />}>
-              <Route path="/" element={<Overview />} />
+              <Route path="/" element={<OverviewPage />} />
               <Route
                 path="/user-management"
                 element={<UsersManagementPage />}
