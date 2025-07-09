@@ -6,9 +6,7 @@ import PricingPlanCard from "@/components/pricing-plan/PricingPlanCard";
 const PricingPlanPage = () => {
   return (
     <div className="flex flex-col gap-1 ">
-
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 mb-2 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 mb-2 gap-6">
         <StatCard
           title=" الخطه المجانيه"
           value={128}
@@ -37,34 +35,31 @@ const PricingPlanPage = () => {
         />
       </div>
 
-
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 mb-4 gap-2 ">
         <PricingPlanCard
           title="الخطة المجانية"
           price="0"
-          duration="شهر"
-          advantages={["One workspace", "Email support"]}
-          disadvantages={["No priority support", "Help center access"]}
+          duration="شهريًا"
+          advantages={["مساحة عمل واحدة", "دعم عبر البريد الإلكتروني"]}
+          disadvantages={["لا يوجد دعم أولوية", "الوصول إلى مركز المساعدة فقط"]}
         />
 
         <PricingPlanCard
           title="الخطة المهنية"
           price="10"
-          duration="شهر"
-          advantages={["Up to 5 workspaces", "Priority support"]}
-          disadvantages={["Limited integrations", "No custom branding"]}
+          duration="شهريًا"
+          advantages={["حتى 5 مساحات عمل", "دعم أولوية"]}
+          disadvantages={["تكاملات محدودة", "لا توجد علامة تجارية مخصصة"]}
         />
 
         <PricingPlanCard
           title="الخطة المميزة"
           price="20"
-          duration="3 شهر"
-          advantages={["Unlimited workspaces", "24/7 support"]}
-          disadvantages={["No custom domains", "Limited API access"]}
+          duration="كل 3 أشهر"
+          advantages={["مساحات عمل غير محدودة", "دعم على مدار 24/7"]}
+          disadvantages={["لا توجد نطاقات مخصصة", "وصول محدود لواجهة API"]}
         />
       </div>
-
-    
 
       <SubscribedTable />
     </div>
