@@ -13,7 +13,7 @@ const TABLE_HEADERS: string[] = [
 
 export default function UsersTable() {
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-4 ">
       <UsersTableHeader />
       <hr />
       <ReusableTable<IUser>

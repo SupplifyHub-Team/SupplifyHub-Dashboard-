@@ -9,7 +9,7 @@ const TABLE_HEADERS: string[] = [
 
 export default function PendingCatTable() {
   return (
-    <div className="flex flex-col gap-4 p-4">
+    <div className="flex flex-col gap-4 ">
       <h2 className="text-xl mb-4 font-semibold text-gray-600 text-right md:text-2xl">
         الفئات المقترحة
       </h2>

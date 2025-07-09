@@ -5,7 +5,7 @@ import { AlertCircle, CheckCircle, PlayCircle, RotateCcw } from "lucide-react";
 
 const OrdersManagementPage = () => {
   return (
-    <Box className="w-full">
+    <Box className="w-full ">
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 mb-6 gap-6">
         <StatCard
           title="Completed"
