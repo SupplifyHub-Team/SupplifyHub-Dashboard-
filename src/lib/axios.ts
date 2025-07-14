@@ -1,7 +1,10 @@
+import { refreshToken } from "@/services/authService";
 import axios from "axios";
+import { as } from "node_modules/react-router/dist/development/lib-B33EY9A0.d.mts";
 
 const api = axios.create({
   baseURL: import.meta.env.VITE_API_URL,
+  
 });
 
 api.interceptors.request.use((config) => {
@@ -13,11 +16,12 @@ api.interceptors.request.use((config) => {
 });
 
 api.interceptors.response.use(
-  (response) => response,
-  (error) => {
+   (response) =>  response,
+  async (error) => {
     if (error.response.status === 401) {
       localStorage.removeItem("token");
-      window.location.href = "/login";
+      const accessToken = await refreshToken();
+      localStorage.setItem("token", accessToken.token);
     }
     return Promise.reject(error);
   }

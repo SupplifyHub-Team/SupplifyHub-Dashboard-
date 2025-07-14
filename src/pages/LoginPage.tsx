@@ -8,6 +8,8 @@ import FormInput from "@/components/forms-fields/FormInput";
 import { Mail } from "lucide-react";
 import FormPassword from "@/components/forms-fields/FormPassword";
 import { loginSchema } from "@/schemas/loginSchema";
+import useLogin from "@/hooks/useLogin";
+import Spinner from "@/components/Spinner";
 
 export default function LoginPage() {
   // form hook
@@ -17,10 +19,13 @@ export default function LoginPage() {
       email: "",
       password: "",
     },
+    mode: "onChange",
   });
 
+  const { isValid } = form.formState;
+  const { mutate, isPending } = useLogin();
   function onSubmit(values: loginSchema) {
-    console.log(values);
+    mutate(values);
   }
   return (
     <Form {...form}>
@@ -60,13 +65,18 @@ export default function LoginPage() {
             placeholder="ادخل كلمة المرور"
             className="mt-4 bg-[#2c2f3a] border border-gray-600 text-white placeholder:text-gray-400 rounded-full h-11 pl-10 pr-4"
           />
-          
 
           <Button
+            disabled={isPending}
+            size="lg"
             type="submit"
-            className="w-full mt-6 h-11 rounded-full bg-indigo-500 text-white hover:bg-indigo-600 transition-colors"
+            className={`w-full mt-6 h-11 rounded-full bg-indigo-500 text-white hover:bg-indigo-600 transition-colors ${
+              !isValid
+                ? "opacity-30 cursor-not-allowed hover:bg-indigo-500"
+                : ""
+            }`}
           >
-            تسجيل الدخول
+            {isPending ? <Spinner /> : "تسجيل الدخول"}
           </Button>
         </form>
       </div>
