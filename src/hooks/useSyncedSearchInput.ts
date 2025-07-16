@@ -30,7 +30,7 @@ export function useSyncedSearchInput(searchKey: string, delay = 500) {
     }
 
     setSearchParams(params);
-  }, [debouncedValue]);
+  }, [debouncedValue, searchKey, searchParams, setSearchParams]);
 
   return {
     inputValue,

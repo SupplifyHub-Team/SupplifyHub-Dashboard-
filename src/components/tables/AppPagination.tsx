@@ -26,10 +26,12 @@ export default function AppPagination({
   const handlePageChange = (page: number) => {
     if (page < 1 || page > totalPages) return;
 
+    const newSearchParams = new URLSearchParams(searchParams.toString());
+
     if (page === 1) {
-      searchParams.delete(`Page-${name}`);
+      newSearchParams.delete(`Page-${name}`);
     } else {
-      searchParams.set(`Page-${name}`, page.toString());
+      newSearchParams.set(`Page-${name}`, page.toString());
     }
     setSearchParams(searchParams);
   };
@@ -88,7 +90,7 @@ export default function AppPagination({
         </Pagination>
         <p className="text-xs text-nowrap">اقصى عدد : {totalPages}</p>
       </div>
-      <div className="text-xs     text-muted-foreground">
+      <div className="text-xs text-muted-foreground">
         عرض {startItem} الى {endItem}
       </div>
     </div>

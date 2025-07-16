@@ -2,15 +2,19 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 import { useInView } from "react-intersection-observer";
 import { useEffect } from "react";
 
-function useInfinite<T>({
-  queryKey,
-  fetchFn,
-  refetchInterval,
-}: {
+type UseInfiniteProps<T> = {
   queryKey: unknown[];
   fetchFn: (pageNumber: number) => Promise<IPaginatedResponse<T>>;
   refetchInterval?: number;
-}) {
+  enabled?: boolean;
+};
+
+function useInfinite<T>({
+  queryKey, 
+  fetchFn, 
+  refetchInterval,
+  enabled = true, 
+}: UseInfiniteProps<T>) {
   const result = useInfiniteQuery({
     queryKey,
     refetchInterval,
@@ -24,6 +28,7 @@ function useInfinite<T>({
       return nextPage;
     },
     initialPageParam: 1,
+    enabled,
   });
 
   const { ref, inView } = useInView();
