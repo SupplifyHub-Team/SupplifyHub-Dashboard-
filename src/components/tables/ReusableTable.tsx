@@ -1,4 +1,3 @@
-// components/shared/ReusableTable.tsx
 import {
   Table,
   TableBody,

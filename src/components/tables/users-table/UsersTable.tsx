@@ -22,7 +22,7 @@ export default function UsersTable() {
 
   if (error) {
     return (
-      <div className="text-center text-red-500">Error: {error.message}</div>
+      <div className="text-center text-red-500">{error.message}</div>
     );
   }
 

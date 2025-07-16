@@ -15,7 +15,7 @@ interface GetAllUsersParams {
 export default async function getAllUsers(params: GetAllUsersParams) {
   const apiParams: Record<string, string> = {
     Page: params.Page || "1",
-    PageSize: params.PageSize || "10",
+    PageSize: params.PageSize || "3",
   };
 
   if (params.search) {
