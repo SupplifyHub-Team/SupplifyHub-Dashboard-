@@ -2,8 +2,8 @@ import api from "@/lib/axios";
 import { isAxiosError } from "axios";
 
 interface getOrdersParams {
-  Page?: string;
-  PageSize?: string;
+  page?: string;
+  pageSize?: string;
   search?: string;
   status?: string;
   sortColumn?: string;
@@ -14,8 +14,8 @@ interface getOrdersParams {
 
 export async function getOrders(params: getOrdersParams) {
   const apiParams: Record<string, string> = {
-    Page: params.Page || "1",
-    PageSize: params.PageSize || "3",
+    Page: params.page || "1",
+    PageSize: params.pageSize || "10", 
   };
 
   if (params.search) {

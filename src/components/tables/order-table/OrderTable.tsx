@@ -16,9 +16,9 @@ const TABLE_HEADERS: string[] = [
 const OrderTable = () => {
   const { data, isPending, error } = useGetOrders();
 
-  const orders = data?.pages.flatMap((page) => page.data) || [];
-  const totalPages = data?.pages[0]?.meta?.totalPages || 0;
-  const totalItems = data?.pages[0]?.meta?.totalItems || 0;
+const orders = data?.data || []; 
+const totalPages = data?.meta?.totalPages || 0; 
+const totalItems = data?.meta?.totalItems || 0;
 
   if (error) {
     return (
@@ -42,7 +42,7 @@ const OrderTable = () => {
             totalPages,
           }}
           data={orders}
-          isPending={false}
+          isPending={isPending}
           renderRow={(order) => <OrderTableRow order={order} key={order.OrderId} />}
         />
       )}

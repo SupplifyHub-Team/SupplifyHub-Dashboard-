@@ -1,18 +1,17 @@
 import { getOrders } from "@/services/ordersManagementService";
-import useInfinite from "../useInfinite";
+import usePaginatedData from "../usePaginatedData";
 import useTableQueries from "../useTableQueries";
-
+import { TABLE_ROWS } from "@/lib/constants";
 export default function useGetOrders() {
-    const result = useTableQueries("orders");
+  const queryParams = useTableQueries("orders");
 
-    return useInfinite<IOrder>({
-        queryKey: ["orders", JSON.stringify(result)],
+  return usePaginatedData<IOrder>({
+    queryKey: ["orders", JSON.stringify(queryParams)],
 
-        fetchFn: async (pageParam) =>
-            getOrders({
-                ...result,
-                Page: pageParam.toString(),
-            }),
-    });
-
+    fetchFn: async () =>
+      getOrders({
+        ...queryParams,
+        pageSize: TABLE_ROWS.toString(),
+      }),
+  });
 }

@@ -1,9 +1,10 @@
 import api from "@/lib/axios";
+import { TABLE_ROWS } from "@/lib/constants";
 import { isAxiosError } from "axios";
 
 interface GetAllUsersParams {
-  Page?: string;
-  PageSize?: string;
+  page?: string;
+  pageSize?: string;
   search?: string; 
   role?: string; 
   category?: string; 
@@ -14,8 +15,8 @@ interface GetAllUsersParams {
 
 export default async function getAllUsers(params: GetAllUsersParams) {
   const apiParams: Record<string, string> = {
-    Page: params.Page || "1",
-    PageSize: params.PageSize || "3",
+    page: params.page || "1",
+    pageSize: params.pageSize || TABLE_ROWS.toString(),
   };
 
   if (params.search) {
@@ -29,6 +30,8 @@ export default async function getAllUsers(params: GetAllUsersParams) {
   if (params.category) {
     apiParams.category = params.category;
   }
+
+  
 
   if (params.sortBy) {
     const [column, direction] = params.sortBy.split("_");

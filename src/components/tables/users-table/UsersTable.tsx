@@ -15,15 +15,12 @@ const TABLE_HEADERS: string[] = [
 export default function UsersTable() {
   const { data, isPending, error } = useGetAllUsers();
 
-  const users = data?.pages.flatMap((page) => page.data) || [];
-
-  const totalPages = data?.pages[0]?.meta?.totalPages || 0;
-  const totalItems = data?.pages[0]?.meta?.totalItems || 0;
+  const users = data?.data || [];
+  const totalPages = data?.meta?.totalPages || 0;
+  const totalItems = data?.meta?.totalItems || 0;
 
   if (error) {
-    return (
-      <div className="text-center text-red-500">{error.message}</div>
-    );
+    return <div className="text-center text-red-500">{error.message}</div>;
   }
 
   return (
