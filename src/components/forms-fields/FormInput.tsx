@@ -20,6 +20,7 @@ interface FormInputProps<TFormValues extends FieldValues>
   Icon?: React.ReactNode;
   labelClassName?: string;
   defaultValue?: string;
+  isEditing?: boolean;
 }
 
 export default function FormInput<TFormValues extends FieldValues>({
@@ -30,6 +31,7 @@ export default function FormInput<TFormValues extends FieldValues>({
   description,
   className,
   labelClassName,
+  isEditing = true, 
   ...inputProps
 }: FormInputProps<TFormValues>) {
   return (
@@ -39,28 +41,29 @@ export default function FormInput<TFormValues extends FieldValues>({
       render={({ field }) => (
         <FormItem>
           {label && (
-            <FormLabel
-              htmlFor={name}
-              className={cn("sr-only", labelClassName)}
-            >
+            <FormLabel htmlFor={name} className={cn("sr-only", labelClassName)}>
               {label}
             </FormLabel>
           )}
+
           <FormControl>
-            <div className="relative h-fit">
-              {Icon && (
-                <div >
-                  {Icon}
-                </div>
-              )}
-              <Input
-                id={name}
-                {...field}
-                {...inputProps}
-                className={cn("h-11 py-3 pr-4 pl-10", Icon && "pl-10", className)}
-              />
-            </div>
+            {isEditing ? (
+              <div className="relative h-fit">
+                {Icon && <div>{Icon}</div>}
+                <Input
+                  id={name}
+                  {...field}
+                  {...inputProps}
+                  className={cn("h-11 py-3 pr-4", Icon && "pl-10", className)}
+                />
+              </div>
+            ) : (
+              <p className="text-sm text-gray-800 py-2 px-1 min-h-[2.75rem] border rounded-md bg-gray-50">
+                {field.value || "-"}
+              </p>
+            )}
           </FormControl>
+
           {description && <FormDescription>{description}</FormDescription>}
           <FormMessage />
         </FormItem>

@@ -1,4 +1,3 @@
-// components/shared/ReusableTable.tsx
 import {
   Table,
   TableBody,
@@ -62,7 +61,8 @@ export default function ReusableTable<T>({
           />
         ) : (
           <>
-            {data.map(renderRow)}
+            {data?.map(renderRow)
+            }
             {Array.from({ length: emptyRows }).map((_, index) => (
               <TableRow key={`empty-${index}`}>
                 {headers.map((_, cellIndex) => (

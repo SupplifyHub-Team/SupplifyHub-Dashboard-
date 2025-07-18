@@ -1,32 +1,37 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-const formSchema = z.object({
-  username: z.string().optional(),
-  category: z.string().optional(),
-  sortBy: z.string().optional(),
-});
-type formSchema = z.infer<typeof formSchema>;
 import { Form } from "@/components/ui/form";
 import FormSelect from "@/components/forms-fields/FormSelect";
 import { Button } from "@/components/ui/button";
 import { useSyncFormToSearchParams } from "@/hooks/useSyncFormToSearchParams";
+import FormInfiniteSelect from "@/components/forms-fields/FormInfiniteSelect";
+import { getCategories } from "@/services/categoriesServices";
+
+const formSchema = z.object({
+  role: z.string().optional(),
+  category: z.string().optional(),
+  sortBy: z.string().optional(),
+});
+
+type formSchemaType = z.infer<typeof formSchema>;
 
 const defaultValues = {
-  username: "",
+  role: "",
   category: "",
   sortBy: "",
 };
 
 export default function UsersFilters() {
-  const form = useForm<formSchema>({
+  const form = useForm<formSchemaType>({
     resolver: zodResolver(formSchema),
+    defaultValues,
   });
 
-  useSyncFormToSearchParams<formSchema>(form);
+  useSyncFormToSearchParams<formSchemaType>(form, "users");
 
-  function onSubmit(values: formSchema) {
-    console.log(values);
+  function onSubmit(values: formSchemaType) {
+    console.log("Form submitted with values:", values);
   }
 
   return (
@@ -35,37 +40,35 @@ export default function UsersFilters() {
         onSubmit={form.handleSubmit(onSubmit)}
         className="flex gap-4 items-center justify-between w-full flex-wrap">
         <div className="flex items-center gap-3 flex-wrap">
-          <FormSelect<formSchema>
+          <FormSelect<formSchemaType>
             control={form.control}
-            name="username"
+            name="role"
             options={[
-              { label: "المستخدم 1", value: "user1" },
-              { label: "المستخدم 2", value: "user2" },
-              { label: "المستخدم 3", value: "user3" },
+              { label: " الموردين", value: "Suppliers" },
+              { label: " العملاء", value: "Clients" },
+              { label: " الباحثون عن عمل", value: "JobSeeker" },
             ]}
             placeholder="اختر دورا ..."
             className="min-w-44"
           />
-          <FormSelect<formSchema>
+          {/* <FormInfiniteSelect<formSchemaType, IActiveCategory>
             control={form.control}
             name="category"
-            options={[
-              { label: "المستخدمين", value: "users" },
-              { label: "المدراء", value: "admins" },
-              { label: "المشرفين", value: "supervisors" },
-            ]}
-            placeholder="اختر فئة ..."
+            queryKey={["categories"]}
+            fetchFn={(pageNumber) => getCategories({ page: pageNumber })}
+            getOptionLabel={(item) => item.name}
+            getOptionValue={(item) => item.id}
+            placeholder="اختر فئة..."
             className="min-w-44"
-          />
-          <FormSelect<formSchema>
+          /> */}
+          <FormSelect<formSchemaType>
             control={form.control}
             name="sortBy"
             options={[
-              { label: "الأحدث", value: "latest" },
-              { label: "الأقدم", value: "oldest" },
-              { label: "الأكثر نشاطا", value: "most_active" },
+              { label: "الأحدث", value: "CreatedAt_Desc" },
+              { label: "الأقدم", value: "CreatedAt_Asc" },
             ]}
-            placeholder="رتب حسب ..."
+            placeholder="رتب حسب..."
             className="min-w-44"
           />
         </div>
@@ -76,7 +79,7 @@ export default function UsersFilters() {
           onClick={() => {
             form.reset(defaultValues);
           }}>
-          الغي الفلاتر
+          ألغي الفلاتر
         </Button>
       </form>
     </Form>

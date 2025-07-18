@@ -7,7 +7,7 @@ import FormSelect from "@/components/forms-fields/FormSelect";
 import { Button } from "@/components/ui/button";
 // form schema
 const formSchema = z.object({
-  username: z.string().optional(),
+  status: z.string().optional(),
   category: z.string().optional(),
   sortBy: z.string().optional(),
 });
@@ -15,7 +15,7 @@ const formSchema = z.object({
 type FormSchemaType = z.infer<typeof formSchema>;
 
 const defaultValues = {
-  username: "",
+  status: "",
   category: "",
   sortBy: "",
 };
@@ -23,9 +23,10 @@ const defaultValues = {
 export default function OrdersFilters() {
   const form = useForm<FormSchemaType>({
     resolver: zodResolver(formSchema),
+    defaultValues,
   });
 
-  useSyncFormToSearchParams<FormSchemaType>(form);
+  useSyncFormToSearchParams<FormSchemaType>(form, "orders");
 
   function onSubmit(values: FormSchemaType) {
     console.log(values);
@@ -40,12 +41,12 @@ export default function OrdersFilters() {
         <div className="flex items-center gap-3 flex-wrap">
           <FormSelect<FormSchemaType>
             control={form.control}
-            name="username"
+            name="status"
             options={[
-              { label: "نشط", value: "نشط" },
-              { label: "جاري التفاوض", value: " جاري التفاوض " },
-              { label: "مكتمل", value: "مكتمل" },
-              { label: "ملغي", value: "ملغي" },
+              { label: "نشط", value: "Active" },
+              { label: "جاري التفاوض", value: "InProgress" },
+              { label: "مكتمل", value: "Completed" },
+              { label: "ملغي", value: "Failed" },
             ]}
             placeholder="اختر حالة الطلب "
             className="min-w-44"
@@ -54,9 +55,9 @@ export default function OrdersFilters() {
             control={form.control}
             name="category"
             options={[
-              { label: "التجارة", value: "category1" },
-              { label: "الزراعه", value: "category2" },
-              { label: "المستخدمات الطبية", value: "category3" },
+              { label: "Furniture", value: "Furniture" },
+              { label: "Electronics", value: "Electronics" },
+              { label: "Software", value: "Software" },
             ]}
             placeholder="اختر الفئة "
             className="min-w-44"
@@ -67,10 +68,10 @@ export default function OrdersFilters() {
             control={form.control}
             name="sortBy"
             options={[
-              { label: "حالة الطلب", value: "status" },
-              { label: "موعد التسليم", value: "deadline" },
+              { label: "الأحدث", value: "CreatedAt_Desc" },
+              { label: "الأقدم", value: "CreatedAt_Asc" },
             ]}
-            placeholder=" رتب حسب..."
+            placeholder="رتب حسب..."
             className="min-w-44"
           />
           <Button

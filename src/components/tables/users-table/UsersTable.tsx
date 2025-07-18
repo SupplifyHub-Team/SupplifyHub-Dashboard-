@@ -1,6 +1,7 @@
 import ReusableTable from "../ReusableTable";
 import UsersTableHeader from "./UsersTableHeader";
 import UsersTableRow from "./UsersTableRow";
+import useGetAllUsers from "@/hooks/users/useGetAllUsers";
 
 const TABLE_HEADERS: string[] = [
   "الاسم",
@@ -12,30 +13,35 @@ const TABLE_HEADERS: string[] = [
 ];
 
 export default function UsersTable() {
+  const { data, isPending, error } = useGetAllUsers();
+
+  const users = data?.data || [];
+  const totalPages = data?.meta?.totalPages || 0;
+  const totalItems = data?.meta?.totalItems || 0;
+
+  if (error) {
+    return <div className="text-center text-red-500">{error.message}</div>;
+  }
+
   return (
     <div className="flex flex-col gap-4 ">
       <UsersTableHeader />
       <hr />
-      <ReusableTable<IUser>
-        headers={TABLE_HEADERS}
-        paginationProps={{
-          totalItems: 100,
-          name: "users",
-          totalPages: 10,
-        }}
-        data={[
-          {
-            id: "1",
-            name: "محمد علي",
-            email: "mohamed@example.com",
-            role: "client",
-            createdAt: "2023-01-01",
-            category: "التجارة",
-          },
-        ]}
-        isPending={false}
-        renderRow={(user) => <UsersTableRow user={user} key={user.id} />}
-      />
+      {!isPending && users.length === 0 ? (
+        <div className="text-center text-gray-500">لا توجد بيانات لعرضها</div>
+      ) : (
+        <ReusableTable<IUser>
+          headers={TABLE_HEADERS}
+          paginationProps={{
+            totalItems,
+            name: "users",
+            totalPages,
+          }}
+          data={users}
+          isPending={isPending}
+          renderRow={(user) => <UsersTableRow user={user} key={user.userId} />}
+        />
+      )}
     </div>
   );
 }

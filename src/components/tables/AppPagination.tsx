@@ -21,17 +21,21 @@ export default function AppPagination({
   totalItems,
 }: AppPaginationProps) {
   const [searchParams, setSearchParams] = useSearchParams();
-  const currentPage = Number(searchParams.get(`Page-${name}`)) || 1;
+  const pageParamNameInUrl = `page-${name.toLowerCase()}`;
+
+  const currentPage = Number(searchParams.get(pageParamNameInUrl)) || 1;
 
   const handlePageChange = (page: number) => {
     if (page < 1 || page > totalPages) return;
 
+    const newSearchParams = new URLSearchParams(searchParams.toString());
+
     if (page === 1) {
-      searchParams.delete(`Page-${name}`);
+      newSearchParams.delete(pageParamNameInUrl);
     } else {
-      searchParams.set(`Page-${name}`, page.toString());
+      newSearchParams.set(pageParamNameInUrl, page.toString());
     }
-    setSearchParams(searchParams);
+    setSearchParams(newSearchParams);
   };
 
   const handlePageInput = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -56,7 +60,8 @@ export default function AppPagination({
                 size="icon"
                 onClick={() => handlePageChange(currentPage - 1)}
                 disabled={currentPage <= 1}
-                className="h-8 w-8 bg-primary">
+                className="h-8 w-8 bg-primary"
+              >
                 <ChevronRight className="h-4 w-4 text-white" />
               </Button>
             </PaginationItem>
@@ -80,7 +85,8 @@ export default function AppPagination({
                 size="icon"
                 onClick={() => handlePageChange(currentPage + 1)}
                 disabled={currentPage >= totalPages}
-                className="h-8 w-8 ">
+                className="h-8 w-8 "
+              >
                 <ChevronLeft className="h-4 w-4 text-white" />
               </Button>
             </PaginationItem>
@@ -88,7 +94,7 @@ export default function AppPagination({
         </Pagination>
         <p className="text-xs text-nowrap">اقصى عدد : {totalPages}</p>
       </div>
-      <div className="text-xs     text-muted-foreground">
+      <div className="text-xs text-muted-foreground">
         عرض {startItem} الى {endItem}
       </div>
     </div>

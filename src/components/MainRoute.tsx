@@ -1,16 +1,13 @@
 import useAuth from "@/store/authStore";
 import { useEffect } from "react";
 import { Outlet, useNavigate } from "react-router";
-
-export default function ProtectedRoute() {
+export default function MainRoute() {
   const { user } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (user === undefined) return;
-    const token = localStorage.getItem("token");
-    if (!token) {
-      navigate("/login");
+    if (user !== null) {
+      navigate("/");
     }
   }, [user, navigate]);
 

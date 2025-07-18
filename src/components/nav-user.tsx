@@ -1,15 +1,14 @@
 "use client";
 
-import { LogOut } from "lucide-react";
 
 import { DropdownMenu } from "@/components/ui/dropdown-menu";
 import {
   SidebarMenu,
-  SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
 import { Collapsible } from "@radix-ui/react-collapsible";
 import { CollapsibleTrigger } from "./ui/collapsible";
+import LogoutButton from "./LogoutButton";
 
 export function NavUser() {
   return (
@@ -24,14 +23,7 @@ export function NavUser() {
           <DropdownMenu>
             <SidebarMenuItem>
               <CollapsibleTrigger asChild>
-                <SidebarMenuButton
-                  tooltip={"تسجيل الخروج"}
-                  size="lg"
-               
-                >
-                  <LogOut className="size-4 " />
-                  <span>تسجيل الخروج</span>
-                </SidebarMenuButton>
+                <LogoutButton />
               </CollapsibleTrigger>
             </SidebarMenuItem>
           </DropdownMenu>
@@ -40,4 +32,3 @@ export function NavUser() {
     </SidebarMenu>
   );
 }
-

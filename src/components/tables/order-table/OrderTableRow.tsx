@@ -1,9 +1,9 @@
 import { TableCell, TableRow } from "@/components/ui/table";
-
+import { formattedData } from "@/lib/utils/formatDate";
 // handle color status in table
 type statusColor = "red" | "green" | "yellow" | "blue";
 
-const statusColors: Record<statusColor, { bg: string; accent: string }> = {
+const statusColors: Record<statusColor, { bg: string ; accent: string }> = {
   red: { bg: "bg-red-100", accent: "text-red-800" },
   green: { bg: "bg-green-100", accent: "text-green-800" },
   yellow: { bg: "bg-yellow-100", accent: "text-yellow-800" },
@@ -11,19 +11,19 @@ const statusColors: Record<statusColor, { bg: string; accent: string }> = {
 };
 
 const stateToColor: Record<string, statusColor> = {
-  active: "blue",
-  inProgress: "yellow",
-  completed: "green",
-  failed: "red",
+  Active: "blue",
+  InProgress: "yellow",
+  Completed: "green",
+  Failed: "red",
 };
 
 export default function OrderTableRow({ order }: { order: IOrder }) {
-  const stateColorKey = stateToColor[order.state];
+  const stateColorKey = stateToColor[order.orderStatus];
   const { bg, accent } = statusColors[stateColorKey];
   return (
     <TableRow>
       <TableCell className="py-5">
-        <span>{order.name}</span>
+        <span>{order.companyName}</span>
       </TableCell>
       <TableCell>
         <span className="block max-w-[200px] truncate text-ellipsis overflow-hidden whitespace-nowrap">{order.email}</span>
@@ -32,23 +32,23 @@ export default function OrderTableRow({ order }: { order: IOrder }) {
         <span>{order.category}</span>
       </TableCell>
       <TableCell>
-        <span className="block max-w-[200px] truncate text-ellipsis overflow-hidden whitespace-nowrap">{order.desciption}</span>
+        <span className="block max-w-[200px] truncate text-ellipsis overflow-hidden whitespace-nowrap">{order.orderDisc}</span>
       </TableCell>
       <TableCell>
-        <span>{order.offersNumber}</span>
+        <span>{order.offerNumbers}</span>
       </TableCell>
       <TableCell>
         <span
           className={`text-xs font-medium rounded-3xl px-2.5 py-0.5 ${bg} ${accent}`}
         >
-          {order.state}
+          {order.orderStatus}
         </span>
       </TableCell>
       <TableCell>
-        <span>{order.createdAt}</span>
+        <span>{formattedData(order.createdAt)}</span>
       </TableCell>
       <TableCell>
-        <span>{order.deadline}</span>
+        <span>{formattedData(order.deadline)}</span>
       </TableCell>
     </TableRow>
   );

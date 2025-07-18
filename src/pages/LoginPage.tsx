@@ -8,27 +8,28 @@ import FormInput from "@/components/forms-fields/FormInput";
 import { Mail } from "lucide-react";
 import FormPassword from "@/components/forms-fields/FormPassword";
 import { loginSchema } from "@/schemas/loginSchema";
+import useLogin from "@/hooks/useLogin";
+import Spinner from "@/components/Spinner";
 
 export default function LoginPage() {
-  // form hook
   const form = useForm<loginSchema>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
-      email: "",
-      password: "",
+      email: "omar@gmail.com",
+      password: "omar12",
     },
   });
 
+  const { mutate, isPending } = useLogin();
   function onSubmit(values: loginSchema) {
-    console.log(values);
+    mutate(values);
   }
   return (
     <Form {...form}>
       <div className="flex items-center justify-center min-h-screen bg-accent-foreground">
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="w-full max-w-md bg-[#1d1f2b]  border border-gray-700 rounded-xl px-6 py-10 text-center shadow-lg"
-        >
+          className="w-full max-w-md bg-[#1d1f2b]  border border-gray-700 rounded-xl px-6 py-10 text-center shadow-lg">
           <div className="flex justify-center mb-6">
             <img
               src="/logo.svg"
@@ -60,13 +61,13 @@ export default function LoginPage() {
             placeholder="ادخل كلمة المرور"
             className="mt-4 bg-[#2c2f3a] border border-gray-600 text-white placeholder:text-gray-400 rounded-full h-11 pl-10 pr-4"
           />
-          
 
           <Button
+            disabled={isPending}
+            size="lg"
             type="submit"
-            className="w-full mt-6 h-11 rounded-full bg-indigo-500 text-white hover:bg-indigo-600 transition-colors"
-          >
-            تسجيل الدخول
+            className={`w-full mt-6 h-11 rounded-full bg-indigo-500 text-white hover:bg-indigo-600 transition-colors`}>
+            {isPending ? <Spinner /> : "تسجيل الدخول"}
           </Button>
         </form>
       </div>
