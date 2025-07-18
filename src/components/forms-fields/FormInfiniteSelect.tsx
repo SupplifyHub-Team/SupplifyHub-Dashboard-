@@ -15,8 +15,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../ui/select";
-import useInfinite from "@/hooks/usePaginatedData";
-import Spinner from "@/components/ui/Spinner";
+import useInfinite from "@/hooks/useInfinite";
+import Spinner from "../ui/Spinner";
 
 interface FormInfiniteSelectProps<TFormValues extends FieldValues, TData> {
   label?: string;

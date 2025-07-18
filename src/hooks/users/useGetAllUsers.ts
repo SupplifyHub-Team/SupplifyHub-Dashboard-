@@ -12,6 +12,7 @@ export default function useGetAllUsers() {
     fetchFn: async () =>
       getAllUsers({
         ...queryParams,
-        pageSize: TABLE_ROWS.toString(),}),
+        pageSize: TABLE_ROWS.toString(),
+      }),
   });
 }

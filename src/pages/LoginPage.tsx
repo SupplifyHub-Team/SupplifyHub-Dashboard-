@@ -12,17 +12,14 @@ import useLogin from "@/hooks/useLogin";
 import Spinner from "@/components/Spinner";
 
 export default function LoginPage() {
-  // form hook
   const form = useForm<loginSchema>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
-      email: "",
-      password: "",
+      email: "omar@gmail.com",
+      password: "omar12",
     },
-    mode: "onChange",
   });
 
-  const { isValid } = form.formState;
   const { mutate, isPending } = useLogin();
   function onSubmit(values: loginSchema) {
     mutate(values);
@@ -32,8 +29,7 @@ export default function LoginPage() {
       <div className="flex items-center justify-center min-h-screen bg-accent-foreground">
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="w-full max-w-md bg-[#1d1f2b]  border border-gray-700 rounded-xl px-6 py-10 text-center shadow-lg"
-        >
+          className="w-full max-w-md bg-[#1d1f2b]  border border-gray-700 rounded-xl px-6 py-10 text-center shadow-lg">
           <div className="flex justify-center mb-6">
             <img
               src="/logo.svg"
@@ -70,12 +66,7 @@ export default function LoginPage() {
             disabled={isPending}
             size="lg"
             type="submit"
-            className={`w-full mt-6 h-11 rounded-full bg-indigo-500 text-white hover:bg-indigo-600 transition-colors ${
-              !isValid
-                ? "opacity-30 cursor-not-allowed hover:bg-indigo-500"
-                : ""
-            }`}
-          >
+            className={`w-full mt-6 h-11 rounded-full bg-indigo-500 text-white hover:bg-indigo-600 transition-colors`}>
             {isPending ? <Spinner /> : "تسجيل الدخول"}
           </Button>
         </form>

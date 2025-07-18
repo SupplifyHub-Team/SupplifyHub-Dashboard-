@@ -1,7 +1,7 @@
 import SubscribedTable from "@/components/tables/subscribed-suppliers-table/SubscribedTable";
 import { StatCard } from "@/components/cards/StatCard";
 import { Landmark } from "lucide-react";
-import PricingPlanCard from "@/components/pricing-plan/PricingPlanCard";
+import PricingPlansList from "@/components/pricing-plan/PricingPlansList";
 
 const PricingPlanPage = () => {
   return (
@@ -35,7 +35,9 @@ const PricingPlanPage = () => {
         />
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 mb-4 gap-2 ">
+      <PricingPlansList />
+
+      {/* <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 mb-4 gap-2 ">
         <PricingPlanCard
           title="الخطة المجانية"
           price="0"
@@ -59,7 +61,7 @@ const PricingPlanPage = () => {
           advantages={["مساحات عمل غير محدودة", "دعم على مدار 24/7"]}
           disadvantages={["لا توجد نطاقات مخصصة", "وصول محدود لواجهة API"]}
         />
-      </div>
+      </div> */}
 
       <SubscribedTable />
     </div>

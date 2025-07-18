@@ -10,3 +10,13 @@ interface IPaginatedResponse<T> {
 
   meta: IPaginationMeta;
 }
+
+interface IApiResponse<T> {
+  data: T;
+}
+
+interface IErrorResponse {
+  data: {
+    message: string;
+  };
+}

@@ -5,6 +5,8 @@ import { Form } from "@/components/ui/form";
 import FormSelect from "@/components/forms-fields/FormSelect";
 import { Button } from "@/components/ui/button";
 import { useSyncFormToSearchParams } from "@/hooks/useSyncFormToSearchParams";
+import FormInfiniteSelect from "@/components/forms-fields/FormInfiniteSelect";
+import { getCategories } from "@/services/categoriesServices";
 
 const formSchema = z.object({
   role: z.string().optional(),
@@ -24,7 +26,6 @@ export default function UsersFilters() {
   const form = useForm<formSchemaType>({
     resolver: zodResolver(formSchema),
     defaultValues,
-  
   });
 
   useSyncFormToSearchParams<formSchemaType>(form, "users");
@@ -37,8 +38,7 @@ export default function UsersFilters() {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="flex gap-4 items-center justify-between w-full flex-wrap"
-      >
+        className="flex gap-4 items-center justify-between w-full flex-wrap">
         <div className="flex items-center gap-3 flex-wrap">
           <FormSelect<formSchemaType>
             control={form.control}
@@ -51,17 +51,16 @@ export default function UsersFilters() {
             placeholder="اختر دورا ..."
             className="min-w-44"
           />
-          <FormSelect<formSchemaType>
+          {/* <FormInfiniteSelect<formSchemaType, IActiveCategory>
             control={form.control}
             name="category"
-            options={[
-              { label: "Furniture", value: "Furniture" },
-              { label: "Electricity	", value: "Electricity" },
-              { label: "Software", value: "Software" },
-            ]}
+            queryKey={["categories"]}
+            fetchFn={(pageNumber) => getCategories({ page: pageNumber })}
+            getOptionLabel={(item) => item.name}
+            getOptionValue={(item) => item.id}
             placeholder="اختر فئة..."
             className="min-w-44"
-          />
+          /> */}
           <FormSelect<formSchemaType>
             control={form.control}
             name="sortBy"
@@ -79,8 +78,7 @@ export default function UsersFilters() {
           className="h-10"
           onClick={() => {
             form.reset(defaultValues);
-          }}
-        >
+          }}>
           ألغي الفلاتر
         </Button>
       </form>
