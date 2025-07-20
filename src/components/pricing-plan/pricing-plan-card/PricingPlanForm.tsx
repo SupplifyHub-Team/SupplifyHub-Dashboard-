@@ -30,6 +30,8 @@ export default function PricingPlanForm({
     },
   });
 
+  const isDirty = form.formState.isDirty;
+
   function onSubmit(values: pricingPlanSchema) {
     console.log(values);
     mutate({ ...values, id: plan.id });
@@ -70,7 +72,7 @@ export default function PricingPlanForm({
           />
         </div>
         <div className="grid grid-cols-2 gap-4">
-          <Button type="submit" className="">
+          <Button disabled={!isDirty} type="submit" className="">
             {"حفظ التغييرات"}
           </Button>
           <Button

@@ -3,24 +3,24 @@ import { TableCell, TableRow } from "@/components/ui/table";
 export default function SubscribedTableRow({
   subscriber,
 }: {
-  subscriber: SubscribedSuppliers;
+  subscriber: ISubscribedSuppliers;
 }) {
   return (
     <TableRow >
       <TableCell>
-        <span> {subscriber.name}</span>
+        <span> {subscriber.companyName}</span>
       </TableCell>
       <TableCell>
         <span> {subscriber.email}</span>
       </TableCell>
       <TableCell>
-        <span> {subscriber.subscribePlan}</span>
+        <span> {subscriber.planName}</span>
       </TableCell>
       <TableCell>
-        <span> {subscriber.subscriptionStart}</span>
+        <span> {subscriber.startPlanDate}</span>
       </TableCell>
       <TableCell>
-        <span> {subscriber.subscriptionEnd}</span>
+        <span> {subscriber.endPlanDate}</span>
       </TableCell>
       <TableCell>
         <span> {subscriber.joinDate}</span>
@@ -29,7 +29,7 @@ export default function SubscribedTableRow({
         <span> {subscriber.ordersCompleted}</span>
       </TableCell>
       <TableCell>
-        <span> {subscriber.planStatus}</span>
+        <span> {subscriber.paymentStatus}</span>
       </TableCell>
     </TableRow>
   );

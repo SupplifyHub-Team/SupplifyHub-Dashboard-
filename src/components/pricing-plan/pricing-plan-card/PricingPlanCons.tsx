@@ -12,7 +12,7 @@ export default function PricingPlanCons() {
   } = useFieldArray({
     control: form.control,
     //@ts-expect-error i know this is a string array
-    name: "pons",
+    name: "cons",
   });
 
   return (

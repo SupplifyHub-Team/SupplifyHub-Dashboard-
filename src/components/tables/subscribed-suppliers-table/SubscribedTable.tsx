@@ -1,3 +1,4 @@
+import useGetAllSubscribers from "@/hooks/subscribers/useGetAllSubscribers";
 import ReusableTable from "../ReusableTable";
 import SubscribedTableRow from "./SubscribedTableRow";
 
@@ -13,32 +14,27 @@ const TABLE_HEADERS: string[] = [
 ];
 
 export default function SubscribedTable() {
+  const { data, isLoading } = useGetAllSubscribers();
+  if (isLoading) {
+    return <div className="p-4">Loading...</div>;
+  }
+
+  console.log(data);
   return (
     <div className="flex flex-col gap-4 bg-white ">
       <ReusableTable
         headers={TABLE_HEADERS}
         paginationProps={{
-          totalItems: 100,
+          totalItems: data?.meta?.totalItems || 0,
           name: "users",
-          totalPages: 10,
+          totalPages: data?.meta?.totalPages || 0,
         }}
-        data={[
-          {
-            id: 1,
-            name: "محمد علي",
-            email: "mohamed@example.com",
-            subscribePlan: "مجانية",
-            subscriptionStart: "2023-01-01",
-            subscriptionEnd: "2023-01-01",
-            joinDate: "2023-01-01",
-            ordersCompleted: 5,
-            planStatus: "active",
-          },
-        ]}
+        data={data?.data || []}
         isPending={false}
         renderRow={(subscriber) => (
-          <SubscribedTableRow subscriber={subscriber} key={subscriber.id} />
+          <SubscribedTableRow subscriber={subscriber} key={subscriber.userId} />
         )}
+        height={37}
       />
     </div>
   );

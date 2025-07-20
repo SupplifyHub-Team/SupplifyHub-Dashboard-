@@ -2,7 +2,7 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 
-export function usePaginatedQuery<T>({
+export function usePaginatedTable<T>({
   tableName,
   queryKey,
   queryFn,
@@ -17,7 +17,7 @@ export function usePaginatedQuery<T>({
   const pageParam = `${tableName}-page`;
   const searchParam = `${tableName}-search`;
 
-  const currentPage = Number(searchParams.get(pageParam) || 1);
+  const currentPage = Number(searchParams.get(pageParam) ?? "1");
   const search = searchParams.get(searchParam) || undefined;
 
   const res = useQuery({
@@ -25,9 +25,9 @@ export function usePaginatedQuery<T>({
     queryFn,
   });
 
-  const meta = res.data;
-  const hasNextPage = meta ? meta.currentPage < meta.totalPages : false;
-  const hasPrevPage = meta ? meta.currentPage > 1 : false;
+  const meta = res.data?.meta;
+  const hasNextPage = meta ? currentPage < meta.totalPages : false;
+  const hasPrevPage = meta ? currentPage > 1 : false;
 
   useEffect(() => {
     if (hasNextPage) {
@@ -38,7 +38,7 @@ export function usePaginatedQuery<T>({
     }
     if (hasPrevPage) {
       queryClient.prefetchQuery({
-        queryKey,
+        queryKey: [queryKey, currentPage - 1],
         queryFn,
       });
     }
