@@ -21,6 +21,7 @@ interface FormInputProps<TFormValues extends FieldValues>
   labelClassName?: string;
   defaultValue?: string;
   isEditing?: boolean;
+  renderView?: (value: string) => React.ReactNode;
 }
 
 export default function FormInput<TFormValues extends FieldValues>({
@@ -31,7 +32,8 @@ export default function FormInput<TFormValues extends FieldValues>({
   description,
   className,
   labelClassName,
-  isEditing = true, 
+  isEditing = true,
+  renderView,
   ...inputProps
 }: FormInputProps<TFormValues>) {
   return (
@@ -40,8 +42,8 @@ export default function FormInput<TFormValues extends FieldValues>({
       name={name}
       render={({ field }) => (
         <FormItem>
-          {label && (
-            <FormLabel htmlFor={name} className={cn("sr-only", labelClassName)}>
+          {label && isEditing && (
+            <FormLabel htmlFor={name.toString()} className={cn(labelClassName)}>
               {label}
             </FormLabel>
           )}
@@ -51,16 +53,22 @@ export default function FormInput<TFormValues extends FieldValues>({
               <div className="relative h-fit">
                 {Icon && <div>{Icon}</div>}
                 <Input
-                  id={name}
+                  onDoubleClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                  }}
+                  id={name.toString()}
                   {...field}
                   {...inputProps}
                   className={cn("h-11 py-3 pr-4", Icon && "pl-10", className)}
                 />
               </div>
             ) : (
-              <p className="text-sm text-gray-800 py-2 px-1 min-h-[2.75rem] border rounded-md bg-gray-50">
-                {field.value || "-"}
-              </p>
+              renderView?.(field.value) || (
+                <div className="text-center text-gray-800 font-bold text-2xl">
+                  {field.value || "لا يوجد قيمة"}
+                </div>
+              )
             )}
           </FormControl>
 

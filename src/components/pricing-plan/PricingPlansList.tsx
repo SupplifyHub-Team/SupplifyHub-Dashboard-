@@ -1,8 +1,18 @@
 import useGetAllPlans from "@/hooks/plans/useGetAllPlans";
-import PricingPlanCard from "./PricingPlanCard";
+import PricingPlanCard from "./pricing-plan-card/PricingPlanCard";
 
 export default function PricingPlansList() {
   const { data } = useGetAllPlans();
+  console.log(data);
+
+  if (!data) {
+    return (
+      <div className="flex items-center justify-center h-full">
+        <p className="text-gray-500">لا توجد خطط متاحة حاليا</p>
+      </div>
+    );
+  }
+
   console.log(data);
 
   return (

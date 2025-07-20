@@ -1,9 +1,9 @@
 import { refreshToken } from "@/services/authService";
-import axios, { AxiosRequestConfig } from "axios";
+import useAuth from "@/store/authStore";
+import axios from "axios";
 
 const api = axios.create({
   baseURL: import.meta.env.VITE_API_URL,
-  withCredentials: true,
 });
 
 api.interceptors.request.use((config) => {
@@ -14,38 +14,34 @@ api.interceptors.request.use((config) => {
   return config;
 });
 
-api.interceptors.response.use(
-  (response) => response,
-  async (error) => {
-    const config = error.config as AxiosRequestConfig & { _retry?: boolean };
+// api.interceptors.response.use(
+//   (response) => response,
+//   async (error) => {
+//     const originalRequest = error.config;
+//     if (error.response.status === 401 && !originalRequest._retry) {
+//       originalRequest._retry = true;
+//       try {
+//         const response = await refreshToken();
+//         console.log("yay new access token", response.accessToken);
+//         const accessToken = response.accessToken;
+//         localStorage.setItem("token", accessToken);
 
-    if (
-      error.response?.status === 401 &&
-      !config._retry &&
-      !config.url?.includes("/api/Auth/refresh")
-    ) {
-      config._retry = true;
+//         api.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
+//         return api(originalRequest);
+//       } catch (refreshError) {
+//         console.error("Token refresh failed:", refreshError);
+//         localStorage.removeItem("token");
+//         const logout = useAuth.getState().logout;
 
-      try {
-        const data = await refreshToken();
+//         logout();
+//         window.location.href = "/login";
 
-        localStorage.setItem("token", data.accessToken);
+//         return Promise.reject(refreshError);
+//       }
+//     }
 
-        config.headers = {
-          ...config.headers,
-          Authorization: `Bearer ${data.accessToken}`,
-        };
-
-        return api.request(config);
-      } catch (refreshError) {
-        localStorage.removeItem("token");
-        window.location.href = "/login";
-        return Promise.reject(refreshError);
-      }
-    }
-
-    return Promise.reject(error);
-  }
-);
+//     return Promise.reject(error);
+//   }
+// );
 
 export default api;
