@@ -6,6 +6,6 @@ interface IPlan {
   price: number;
   description: string;
   duration: number;
-  pons: string[] | null;
+  cons: string[] | null;
   pros: string[] | null;
 }

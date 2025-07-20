@@ -2,7 +2,7 @@ import FormInput from "@/components/forms-fields/FormInput";
 import { Button } from "@/components/ui/button";
 import { useFieldArray, useFormContext } from "react-hook-form";
 import { pricingPlanSchema } from "@/schemas/pricingPlanSchema";
-export default function PricingPlanPons() {
+export default function PricingPlanCons() {
   const form = useFormContext<pricingPlanSchema>();
 
   const {
@@ -23,7 +23,7 @@ export default function PricingPlanPons() {
         <div key={field.id} className="flex items-center gap-2">
           <FormInput<pricingPlanSchema>
             control={form.control}
-            name={`pons.${index}`}
+            name={`cons.${index}`}
             placeholder={`عيب ${index + 1}`}
           />
           <Button
@@ -43,7 +43,7 @@ export default function PricingPlanPons() {
           appendPons("عيب جديد");
         }}
         className="mt-2">
-        + إضافة ميزة
+        + إضافة عيب
       </Button>
     </div>
   );

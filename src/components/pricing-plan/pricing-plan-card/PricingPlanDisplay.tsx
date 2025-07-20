@@ -12,12 +12,12 @@ export default function PricingPlanDisplay({
 }) {
   const { mutate } = useDeletePlan();
   return (
-    <div className="flex flex-col gap-5">
-      <h2 className="text-xl text-gray-800 font-bold mb-4 text-center">
+    <div className="flex flex-col gap-4">
+      <h2 className="text-xl text-gray-800 font-bold  text-center">
         {plan.planName}
       </h2>
-      <p className="text-lg text-gray-800  mb-4 ">{plan.description}</p>
-      <p className="text-xl font-semibold text-center mb-4">
+      <p className="text-lg text-gray-800  ">{plan.description}</p>
+      <p className="text-xl font-semibold text-center">
         <span className="text-indigo-500">${plan.price}</span> /{plan.duration}{" "}
         {"شهر "}
       </p>
@@ -42,7 +42,7 @@ export default function PricingPlanDisplay({
           </ul>
         </>
       )}
-      {plan?.pons && (
+      {plan?.cons && (
         <>
           <div className="flex items-center">
             <span className=" px-3 font-medium text-red-600  bg-white left-1/2 dark:text-white dark:bg-gray-900">
@@ -51,13 +51,13 @@ export default function PricingPlanDisplay({
             <hr className="w-full h-0.5  bg-red-200 border-0 dark:bg-gray-700" />
           </div>
           <ul className="pl-5 flex flex-col gap-3">
-            {plan?.pons &&
-              plan.pons.map((pon, index) => (
+            {plan?.cons &&
+              plan.cons.map((con, index) => (
                 <li
                   key={index}
                   className="text-gray-700 flex  gap-2 font-semibold">
                   <CircleX className="inline mr-2 text-red-500" />
-                  <span className="text-red-700">{pon}</span>
+                  <span className="text-red-700">{con}</span>
                 </li>
               ))}
           </ul>

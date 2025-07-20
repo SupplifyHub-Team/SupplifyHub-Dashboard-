@@ -5,9 +5,9 @@ import { pricingPlanSchema } from "@/schemas/pricingPlanSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import PricingPlanPros from "./PricingPlanPros";
-import PricingPlanPons from "./PricingPlanPons";
 import useUpdatePlan from "@/hooks/plans/useUpdatePlan";
 import { Button } from "@/components/ui/button";
+import PricingPlanCons from "./PricingPlanCons";
 
 export default function PricingPlanForm({
   plan,
@@ -26,7 +26,7 @@ export default function PricingPlanForm({
       price: plan?.price.toString() || "0",
       duration: plan?.duration.toString() || "1",
       pros: plan.pros ? plan.pros : [""],
-      pons: plan.pons ? plan.pons : [""],
+      cons: plan.cons ? plan.cons : [""],
     },
   });
 
@@ -37,7 +37,7 @@ export default function PricingPlanForm({
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
         <FormInput<pricingPlanSchema>
           name="planName"
           control={form.control}
@@ -51,7 +51,7 @@ export default function PricingPlanForm({
           label="وصف الخطة"
         />
         <PricingPlanPros />
-        <PricingPlanPons />
+        <PricingPlanCons />
 
         <div className="grid grid-cols-2 gap-4">
           <FormInput<pricingPlanSchema>

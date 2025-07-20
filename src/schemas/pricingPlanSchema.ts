@@ -6,7 +6,7 @@ export const pricingPlanSchema = z.object({
   price: z.string(),
   duration: z.string(),
   pros: z.array(z.string()).nullable().optional(),
-  pons: z.array(z.string()).nullable().optional(),
+  cons: z.array(z.string()).nullable().optional(),
 });
 
 export type pricingPlanSchema = z.infer<typeof pricingPlanSchema>;
