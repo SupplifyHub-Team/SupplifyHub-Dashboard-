@@ -1,5 +1,5 @@
 interface IPlan {
-  id: number ;
+  id: number;
   createdAt: string;
   updatedAt: string;
   planName: string;
@@ -8,4 +8,11 @@ interface IPlan {
   duration: number;
   cons: string[] | null;
   pros: string[] | null;
+}
+
+interface IPlanStatistics {
+  planName: string;
+  totalSubscribers: number;
+  newSubscribersThisMonth: number;
+  newSubscriberPercentage: number;
 }

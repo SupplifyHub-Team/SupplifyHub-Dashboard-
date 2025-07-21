@@ -1,7 +1,7 @@
 import SubscribedTable from "@/components/tables/subscribed-suppliers-table/SubscribedSuppliersTable";
 
 import PricingPlansList from "@/components/pricing-plan/PricingPlansList";
-import PricingPlansStats from "@/components/PricingPlansStats";
+import PricingPlansStats from "@/components/pricing-plan/stats/PricingPlansStats";
 
 const PricingPlanPage = () => {
   return (
