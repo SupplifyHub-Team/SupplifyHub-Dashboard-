@@ -18,13 +18,8 @@ export default function SearchFilters({ control }: SearchFiltersProps) {
         control={control}
         name="search"
         placeholder="ابحث عن مستورد..."
-        Icon={<Search />}
-      />
-      <FormInput
-        control={control}
-        name="planName"
-        placeholder="اسم الخطة"
-        Icon={<Search />}
+        Icon={<Search className="size-4"/>}
+        className="text-sm md:text-base"
       />
     </div>
   );

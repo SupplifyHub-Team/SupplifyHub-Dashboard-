@@ -13,7 +13,7 @@ const filterSchema = z.object({
   sortColumnDirection: z.enum(["Asc", "Desc"]),
 });
 
-type FilterSchemaType = z.infer<typeof filterSchema>;
+export type FilterSchemaType = z.infer<typeof filterSchema>;
 
 const defaultFilters: FilterSchemaType = {
   search: "",
@@ -32,7 +32,7 @@ export default function SubscribedSuppliersFilters() {
 
   return (
     <Form {...form}>
-      <form className="flex items-center gap-4 justify-between">
+      <form className="flex items-center gap-4 justify-between sm:flex-row flex-col">
         <SearchFilters control={form.control} />
         <SortAndStatusFilters control={form.control} />
       </form>

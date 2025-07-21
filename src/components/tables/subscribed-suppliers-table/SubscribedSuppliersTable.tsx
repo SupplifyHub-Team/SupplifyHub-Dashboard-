@@ -18,7 +18,6 @@ const TABLE_HEADERS: string[] = [
 export default function SubscribedSuppliersTable() {
   const { data, isPending } = useGetAllSubscribers();
 
-  console.log(data);
   return (
     <div className="flex flex-col gap-4 bg-white p-4 rounded-lg shadow-lg ">
       <SubscribedSuppliersTableHeader />
