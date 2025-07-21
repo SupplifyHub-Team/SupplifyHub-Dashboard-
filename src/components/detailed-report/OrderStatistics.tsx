@@ -9,23 +9,29 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
+
 import SelectYear from "../SelectYear";
+import useGetOrdersStatistics from "@/hooks/statistics/useGetOrdersStatistics";
+import { OrderStatisticsLoading } from "./OrderStatisticsLoading";
+import { OrderStatisticsError } from "./OrderStatisticsError";
+import { OrderStatisticsEmpty } from "./OrderStatisticsEmpty";
 
 export const description = "A bar chart";
 
-const chartData = [
-  { month: "January", orders: 186 },
-  { month: "February", orders: 305 },
-  { month: "March", orders: 237 },
-  { month: "April", orders: 73 },
-  { month: "May", orders: 209 },
-  { month: "June", orders: 214 },
-  { month: "July", orders: 214 },
-  { month: "August", orders: 214 },
-  { month: "September", orders: 214 },
-  { month: "October", orders: 214 },
-  { month: "November", orders: 214 },
-  { month: "December", orders: 214 },
+// Optional: translate month number to name
+const monthNames = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
 ];
 
 const chartConfig = {
@@ -36,6 +42,27 @@ const chartConfig = {
 } satisfies ChartConfig;
 
 export function OrderStatistics() {
+  const { data, isPending, error, refetch } = useGetOrdersStatistics();
+  console.log(data);
+  // Transform API data
+  const transformedData =
+    data?.data.map((item) => ({
+      month: monthNames[item.month - 1],
+      orders: item.orderCount,
+    })) || [];
+
+  if (isPending) {
+    return <OrderStatisticsLoading />;
+  }
+
+  if (error) {
+    return <OrderStatisticsError onRetry={() => refetch?.()} />;
+  }
+
+  if (!transformedData || transformedData.length === 0) {
+    return <OrderStatisticsEmpty />;
+  }
+
   return (
     <Card className="flex flex-col w-full!">
       <CardHeader>
@@ -52,24 +79,20 @@ export function OrderStatistics() {
         <ChartContainer
           className="flex-1! max-h-96 w-full"
           config={chartConfig}>
-          <BarChart accessibilityLayer data={chartData}>
+          <BarChart data={transformedData}>
             <CartesianGrid vertical={false} />
             <XAxis
               dataKey="month"
               tickLine={false}
               tickMargin={10}
               axisLine={false}
-              tickFormatter={(value) => value.slice(0, 3)}
+              tickFormatter={(value) => value.slice(0, 3)} // e.g. "ينا" for "يناير"
             />
             <ChartTooltip
               cursor={false}
               content={<ChartTooltipContent hideLabel />}
             />
-            <Bar
-              dataKey="orders"
-              fill="var(--color-chart-clients)"
-              radius={10}
-            />
+            <Bar dataKey="orders" fill="var(--chart-1)" radius={10} />
           </BarChart>
         </ChartContainer>
       </CardContent>
