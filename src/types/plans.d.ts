@@ -6,4 +6,13 @@ interface IPlan {
   price: number;
   description: string;
   duration: number;
+  cons: string[] | null;
+  pros: string[] | null;
+}
+
+interface IPlanStatistics {
+  planName: string;
+  totalSubscribers: number;
+  newSubscribersThisMonth: number;
+  newSubscriberPercentage: number;
 }

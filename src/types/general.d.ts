@@ -18,5 +18,6 @@ interface IApiResponse<T> {
 interface IErrorResponse {
   data: {
     message: string;
+    details?: string[];
   };
 }

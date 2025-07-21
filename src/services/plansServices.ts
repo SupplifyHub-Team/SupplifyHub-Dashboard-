@@ -1,10 +1,13 @@
 import api from "@/lib/axios";
+import { pricingPlanSchema } from "@/schemas/pricingPlanSchema";
 import { isAxiosError } from "axios";
 
-export async function getPlans() {
+export async function getPlansStatistics() {
   try {
-    const response = await api.get<IApiResponse<IPlan[]>>("/api/plans");
-    return response?.data;
+    const response = await api.get<IApiResponse<IPlanStatistics[]>>(
+      "/api/Statistics/plans"
+    );
+    return response.data;
   } catch (error) {
     if (isAxiosError(error)) {
       throw new Error(
@@ -14,10 +17,23 @@ export async function getPlans() {
     throw error;
   }
 }
-export async function deletePlan(planId: string) {
+export async function getPlans() {
   try {
-    const response = await api.delete(`/api/Plans/plan/${planId}`);
-    return response?.data;
+    const response = await api.get<IApiResponse<IPlan[]>>("/api/plans");
+    return response.data;
+  } catch (error) {
+    if (isAxiosError(error)) {
+      throw new Error(
+        error.response?.data.message || "حدث خطأ ما حاول مرة أخرى "
+      );
+    }
+    throw error;
+  }
+}
+export async function deletePlan(planId: string | number) {
+  try {
+    const response = await api.delete(`/api/plans/${planId}`);
+    return response.data;
   } catch (error) {
     if (isAxiosError(error)) {
       throw new Error(
@@ -39,7 +55,27 @@ export async function postPlan(planData: {
       "/api/Plans/create-plan",
       planData
     );
-    return response?.data;
+    return response.data;
+  } catch (error) {
+    if (isAxiosError(error)) {
+      throw new Error(
+        error.response?.data.message || "حدث خطأ ما حاول مرة أخرى "
+      );
+    }
+    throw error;
+  }
+}
+
+export async function updatePlan(
+  planData: pricingPlanSchema,
+  id: string | number
+) {
+  try {
+    const response = await api.patch<IApiResponse<IPlan>>(
+      `/api/plans/${id}`,
+      planData
+    );
+    return response.data;
   } catch (error) {
     if (isAxiosError(error)) {
       throw new Error(
