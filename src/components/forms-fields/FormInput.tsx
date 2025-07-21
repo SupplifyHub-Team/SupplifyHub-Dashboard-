@@ -33,7 +33,6 @@ export default function FormInput<TFormValues extends FieldValues>({
   className,
   labelClassName,
   isEditing = true,
-  renderView,
   ...inputProps
 }: FormInputProps<TFormValues>) {
   return (
@@ -49,27 +48,23 @@ export default function FormInput<TFormValues extends FieldValues>({
           )}
 
           <FormControl>
-            {isEditing ? (
-              <div className="relative h-fit">
-                {Icon && <div>{Icon}</div>}
-                <Input
-                  onDoubleClick={(e) => {
-                    e.preventDefault();
-                    e.stopPropagation();
-                  }}
-                  id={name.toString()}
-                  {...field}
-                  {...inputProps}
-                  className={cn("h-11 py-3 pr-4", Icon && "pl-10", className)}
-                />
-              </div>
-            ) : (
-              renderView?.(field.value) || (
-                <div className="text-center text-gray-800 font-bold text-2xl">
-                  {field.value || "لا يوجد قيمة"}
+            <div className="relative h-fit">
+              {Icon && (
+                <div className="absolute left-3 top-1/2 transform -translate-y-1/2">
+                  {Icon}
                 </div>
-              )
-            )}
+              )}
+              <Input
+                onDoubleClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                }}
+                id={name.toString()}
+                {...field}
+                {...inputProps}
+                className={cn("py-3 pr-4", Icon && "pl-10", className)}
+              />
+            </div>
           </FormControl>
 
           {description && <FormDescription>{description}</FormDescription>}

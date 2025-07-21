@@ -1,12 +1,11 @@
-import useTableQueries from "../useTableQueries";
-import { usePaginatedTable } from "../usePaginatedTable";
 import { getAllSubscribedSuppliers } from "@/services/subscribersServices";
+import { usePaginatedQuery } from "../usePaginatedTable";
+import { SUBSCRIBED_SUPPLIERS_TABLE_NAME } from "@/lib/constants";
 
 export default function useGetAllSubscribers() {
-  const result = useTableQueries("subscribedSuppliers");
-  return usePaginatedTable<ISubscribedSuppliers>({
-    tableName: "subscribedSuppliers",
-    queryKey: "subscribedSuppliers",
-    queryFn: () => getAllSubscribedSuppliers(result),
+  return usePaginatedQuery<ISubscribedSuppliers, ISubscribedSuppliersFilters>({
+    tableName: SUBSCRIBED_SUPPLIERS_TABLE_NAME,
+    queryKey: SUBSCRIBED_SUPPLIERS_TABLE_NAME,
+    queryFn: getAllSubscribedSuppliers,
   });
 }

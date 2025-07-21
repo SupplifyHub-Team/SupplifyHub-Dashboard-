@@ -1,6 +1,8 @@
 import useGetAllSubscribers from "@/hooks/subscribers/useGetAllSubscribers";
 import ReusableTable from "../ReusableTable";
-import SubscribedTableRow from "./SubscribedTableRow";
+import SubscribedTableRow from "./SubscribedSuppliersTableRow";
+import { SUBSCRIBED_SUPPLIERS_TABLE_NAME } from "@/lib/constants";
+import SubscribedSuppliersTableHeader from "./SubscribedSuppliersTableHeader";
 
 const TABLE_HEADERS: string[] = [
   "اسم المستورد",
@@ -13,24 +15,22 @@ const TABLE_HEADERS: string[] = [
   "حالة الاشتراك",
 ];
 
-export default function SubscribedTable() {
-  const { data, isLoading } = useGetAllSubscribers();
-  if (isLoading) {
-    return <div className="p-4">Loading...</div>;
-  }
+export default function SubscribedSuppliersTable() {
+  const { data, isPending } = useGetAllSubscribers();
 
   console.log(data);
   return (
-    <div className="flex flex-col gap-4 bg-white ">
+    <div className="flex flex-col gap-4 bg-white p-4 rounded-lg shadow-lg ">
+      <SubscribedSuppliersTableHeader />
       <ReusableTable
         headers={TABLE_HEADERS}
         paginationProps={{
           totalItems: data?.meta?.totalItems || 0,
-          name: "users",
+          name: SUBSCRIBED_SUPPLIERS_TABLE_NAME,
           totalPages: data?.meta?.totalPages || 0,
         }}
         data={data?.data || []}
-        isPending={false}
+        isPending={isPending}
         renderRow={(subscriber) => (
           <SubscribedTableRow subscriber={subscriber} key={subscriber.userId} />
         )}
