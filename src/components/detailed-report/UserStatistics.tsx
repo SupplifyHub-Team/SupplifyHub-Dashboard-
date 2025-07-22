@@ -11,8 +11,7 @@ import {
 } from "@/components/ui/chart";
 import useGetUserStatistics from "@/hooks/statistics/useGetUserStatistics";
 import { UserStatisticsLoading } from "./UserStatisticsLoading";
-import { UserStatisticsError } from "./UserStatisticsError";
-import { UserStatisticsEmpty } from "./UserStatisticsEmpty";
+import { ErrorFetchingData } from "../ErrorFetchingData";
 
 export const description = "A simple pie chart";
 
@@ -63,52 +62,52 @@ export function UserStatistics() {
     return <UserStatisticsLoading />;
   }
 
-  if (error) {
-    return <UserStatisticsError onRetry={() => refetch?.()} />;
-  }
-
-  if (!transformedData || transformedData.length === 0) {
-    return <UserStatisticsEmpty />;
-  }
-
   return (
     <Card className="flex flex-col gap-0 pb-0! bg-white max-w-sm h-fit min-h-64">
       <CardHeader className="items-center pb-0">
         <CardTitle>احصائيات المستخدمين</CardTitle>
       </CardHeader>
-      <CardContent className="flex-1 grid grid-cols-[60%_auto] items-center px-4">
-        <ChartContainer
-          config={chartConfig}
-          className="aspect-square max-h-80 w-full">
-          <PieChart>
-            <ChartTooltip
-              content={<ChartTooltipContent hideLabel />}
-              animationDuration={100}
-              cursor={true}
-            />
-            <Pie
-              data={transformedData}
-              dataKey="visitors"
-              nameKey="userType"
-              innerRadius="50%"
-            />
-          </PieChart>
-        </ChartContainer>
-
-        <div className="flex flex-col gap-3">
-          {transformedData.map((item) => (
-            <div key={item.userType} className="flex items-center gap-2">
-              <div
-                className="w-3 h-3 rounded-full"
-                style={{ backgroundColor: item.fill }}
+      {error ? (
+        <CardContent className="flex-1 grid items-center px-4">
+          <ErrorFetchingData onRetry={() => refetch()} />
+        </CardContent>
+      ) : (
+        <CardContent className="flex-1 grid grid-cols-[60%_auto] items-center px-4">
+          <ChartContainer
+            config={chartConfig}
+            className="aspect-square max-h-80 w-full">
+            <PieChart>
+              <ChartTooltip
+                content={<ChartTooltipContent hideLabel />}
+                animationDuration={100}
+                cursor={true}
               />
-              <span className="text-[12px] text-muted-foreground">
-                {chartConfig[item.userType as keyof typeof chartConfig]?.label}
-              </span>
-            </div>
-          ))}
-        </div>
-      </CardContent>
+              <Pie
+                data={transformedData}
+                dataKey="visitors"
+                nameKey="userType"
+                innerRadius="50%"
+              />
+            </PieChart>
+          </ChartContainer>
+          <div className="flex flex-col gap-3">
+            {transformedData.map((item) => (
+              <div key={item.userType} className="flex items-center gap-2">
+                <div
+                  className="w-3 h-3 rounded-full"
+                  style={{ backgroundColor: item.fill }}
+                />
+                <span className="text-[12px] text-muted-foreground">
+                  {
+                    chartConfig[item.userType as keyof typeof chartConfig]
+                      ?.label
+                  }
+                </span>
+              </div>
+            ))}
+          </div>
+        </CardContent>
+      )}
     </Card>
   );
 }

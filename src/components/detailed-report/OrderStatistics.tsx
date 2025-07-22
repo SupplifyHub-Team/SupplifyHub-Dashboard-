@@ -13,8 +13,7 @@ import {
 import SelectYear from "../SelectYear";
 import useGetOrdersStatistics from "@/hooks/statistics/useGetOrdersStatistics";
 import { OrderStatisticsLoading } from "./OrderStatisticsLoading";
-import { OrderStatisticsError } from "./OrderStatisticsError";
-import { OrderStatisticsEmpty } from "./OrderStatisticsEmpty";
+import { ErrorFetchingData } from "../ErrorFetchingData";
 
 export const description = "A bar chart";
 
@@ -43,7 +42,6 @@ const chartConfig = {
 
 export function OrderStatistics() {
   const { data, isPending, error, refetch } = useGetOrdersStatistics();
-  console.log(data);
   // Transform API data
   const transformedData =
     data?.data.map((item) => ({
@@ -53,14 +51,6 @@ export function OrderStatistics() {
 
   if (isPending) {
     return <OrderStatisticsLoading />;
-  }
-
-  if (error) {
-    return <OrderStatisticsError onRetry={() => refetch?.()} />;
-  }
-
-  if (!transformedData || transformedData.length === 0) {
-    return <OrderStatisticsEmpty />;
   }
 
   return (
@@ -76,29 +66,33 @@ export function OrderStatistics() {
         </div>
       </CardHeader>
       <CardContent>
-        <ChartContainer
-          className="flex-1! max-h-96 w-full"
-          config={chartConfig}>
-          <BarChart data={transformedData}>
-            <CartesianGrid vertical={false} />
-            <XAxis
-              dataKey="month"
-              tickLine={false}
-              tickMargin={10}
-              axisLine={false}
-              tickFormatter={(value) => value.slice(0, 3)}
-            />
-            <ChartTooltip
-              content={<ChartTooltipContent hideLabel />}
-              animationDuration={0}  
-            />
-            <Bar
-              dataKey="orders"
-              fill="var(--color-chart-clients)"
-              radius={10}
-            />
-          </BarChart>
-        </ChartContainer>
+        {error ? (
+          <ErrorFetchingData onRetry={() => refetch()} />
+        ) : (
+          <ChartContainer
+            className="flex-1! max-h-96 w-full"
+            config={chartConfig}>
+            <BarChart data={transformedData}>
+              <CartesianGrid vertical={false} />
+              <XAxis
+                dataKey="month"
+                tickLine={false}
+                tickMargin={10}
+                axisLine={false}
+                tickFormatter={(value) => value.slice(0, 3)}
+              />
+              <ChartTooltip
+                content={<ChartTooltipContent hideLabel />}
+                animationDuration={0}
+              />
+              <Bar
+                dataKey="orders"
+                fill="var(--color-chart-clients)"
+                radius={10}
+              />
+            </BarChart>
+          </ChartContainer>
+        )}
       </CardContent>
     </Card>
   );
