@@ -4,22 +4,22 @@ import { Trash } from "lucide-react";
 export default function ActiveCatTableRow({
   activeCat,
 }: {
-  activeCat: ActiveCatType;
+  activeCat: IActiveCategory;
 }) {
   return (
     <TableRow>
       <TableCell>
-        <span> {activeCat.name}</span>
+        <span> {activeCat.categoryName}</span>
       </TableCell>
       <TableCell>
-        <span> {activeCat.supplierNumber}</span>
+        <span> {activeCat.numberOfAssociatedSuppliers}</span>
       </TableCell>
       <TableCell>
-        <span> {activeCat.clientNumber}</span>
+        <span> {activeCat.numberOfAssociatedClients}</span>
       </TableCell>
       <TableCell>
-        <span> 
-        <Trash color="#f7021b" className="w-6 h-6 cursor-pointer" />
+        <span>
+          <Trash color="#f7021b" className="w-6 h-6 cursor-pointer" />
         </span>
       </TableCell>
     </TableRow>

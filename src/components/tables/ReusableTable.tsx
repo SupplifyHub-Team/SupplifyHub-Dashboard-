@@ -37,7 +37,7 @@ export default function ReusableTable<T>({
   paginationProps,
   height = 60.89,
 }: ReusableTableProps<T>) {
-  const emptyRows = Math.max(0, TABLE_ROWS - data.length);
+  const emptyRows = Math.max(0, TABLE_ROWS - data?.length);
   return (
     <Table>
       {caption && <TableCaption className="sr-only">{caption}</TableCaption>}
