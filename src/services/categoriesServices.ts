@@ -1,6 +1,5 @@
 import api from "@/lib/axios";
 import { isAxiosError } from "axios";
-import { categorySchema } from "@/schemas/categorySchema";
 export interface GetCategoriesParams {
   page?: string;
   pageSize?: string;
@@ -87,9 +86,8 @@ export async function getCategories(params: ICategoriesFilters) {
       {
         params,
       }
-
     );
-    return res?.data?.data;
+    return res.data;
   } catch (error) {
     if (isAxiosError(error)) {
       throw new Error(

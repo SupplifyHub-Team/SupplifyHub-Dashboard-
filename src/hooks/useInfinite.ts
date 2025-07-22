@@ -42,7 +42,6 @@ function useInfinite<T>({
     result.fetchNextPage,
     result,
   ]);
-
   return {
     ...result,
     ref,
