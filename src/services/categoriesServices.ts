@@ -1,9 +1,9 @@
 import api from "@/lib/axios";
 import { isAxiosError } from "axios";
 
-export async function getCategories(params) {
+export async function getCategories(params: ICategoriesFilters) {
   try {
-    const res = await api.get<IApiResponse<IActiveCategory[]>>(
+    const res = await api.get<IPaginatedResponse<IActiveCategory>>(
       "/api/categories",
       {
         params,

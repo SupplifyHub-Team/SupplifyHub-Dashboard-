@@ -5,6 +5,8 @@ import { useSyncFormToSearchParams } from "@/hooks/useSyncFormToSearchParams";
 import { Form } from "@/components/ui/form";
 import FormSelect from "@/components/forms-fields/FormSelect";
 import { Button } from "@/components/ui/button";
+import FormInfiniteSelect from "@/components/forms-fields/FormInfiniteSelect";
+import { getCategories } from "@/services/categoriesServices";
 // form schema
 const formSchema = z.object({
   status: z.string().optional(),
@@ -36,8 +38,7 @@ export default function OrdersFilters() {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="flex gap-4 items-center justify-between w-full flex-wrap"
-      >
+        className="flex gap-4 items-center justify-between w-full flex-wrap">
         <div className="flex items-center gap-3 flex-wrap">
           <FormSelect<FormSchemaType>
             control={form.control}
@@ -51,16 +52,14 @@ export default function OrdersFilters() {
             placeholder="اختر حالة الطلب "
             className="min-w-44"
           />
-          <FormSelect<FormSchemaType>
+          <FormInfiniteSelect<FormSchemaType, IActiveCategory>
             control={form.control}
             name="category"
-            options={[
-              { label: "Furniture", value: "Furniture" },
-              { label: "Electronics", value: "Electronics" },
-              { label: "Software", value: "Software" },
-            ]}
-            placeholder="اختر الفئة "
-            className="min-w-44"
+            fetchFn={(pageNumber) => getCategories({ page: pageNumber })}
+            queryKey={["active-categories"]}
+            getOptionLabel={(option) => option.categoryName}
+            getOptionValue={(option) => option.categoryName}
+            placeholder="اختر الفئة"
           />
         </div>
         <div className="flex items-center gap-3 flex-wrap">
@@ -80,8 +79,7 @@ export default function OrdersFilters() {
             className="h-10"
             onClick={() => {
               form.reset(defaultValues);
-            }}
-          >
+            }}>
             الغي الفلاتر
           </Button>
         </div>
