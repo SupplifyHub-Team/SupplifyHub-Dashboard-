@@ -9,14 +9,20 @@ import { useCategoryForm } from "@/store/categoryFormStore";
 import usePostCategory from "@/hooks/categories/usePostCategory";
 import { useEffect } from "react";
 
-export default function AddCategoryForm() {
+interface AddCategoryFormProps {
+  onCloseDialog: () => void;
+}
+
+export default function AddCategoryForm({
+  onCloseDialog,
+}: AddCategoryFormProps) {
   const { formData, setFormData, clearData } = useCategoryForm();
   const { mutate, isPending } = usePostCategory();
 
   const form = useForm<categorySchema>({
     resolver: zodResolver(categorySchema),
     defaultValues: {
-      name: formData?.name || "",
+      categoryName: formData?.categoryName || "",
     },
   });
 
@@ -29,11 +35,12 @@ export default function AddCategoryForm() {
     return () => subscription.unsubscribe();
   }, [form, setFormData]);
 
-  function onSubmit(values: categorySchema) {
-    mutate(values, {
+  function onSubmit(data: categorySchema) {
+    mutate(data, {
       onSuccess: () => {
         form.reset();
         clearData();
+        onCloseDialog();
       },
     });
   }
@@ -47,14 +54,14 @@ export default function AddCategoryForm() {
         <div className="flex items-center gap-3 flex-wrap">
           <FormInput<categorySchema>
             control={form.control}
-            name="name"
+            name="categoryName"
             type="text"
             placeholder="اسم الفئة"
             className="min-w-44"
           />
         </div>
         <Button type="submit" disabled={isPending}>
-          {isPending ? <Spinner /> : "اضافة"} 
+          {isPending ? <Spinner /> : "اضافة"}
         </Button>
       </form>
     </Form>

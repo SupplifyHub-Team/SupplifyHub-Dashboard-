@@ -1,8 +1,9 @@
 import * as React from "react";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
-import { XIcon } from "lucide-react";
 
 import { cn } from "@/lib/utils";
+import { Button } from "./button";
+import { PlusCircle } from "lucide-react";
 
 function Dialog({
   ...props
@@ -47,7 +48,6 @@ function DialogOverlay({
 function DialogContent({
   className,
   children,
-  showCloseButton = true,
   ...props
 }: React.ComponentProps<typeof DialogPrimitive.Content> & {
   showCloseButton?: boolean;
@@ -56,21 +56,16 @@ function DialogContent({
     <DialogPortal data-slot="dialog-portal">
       <DialogOverlay />
       <DialogPrimitive.Content
+        dir="rtl"
         data-slot="dialog-content"
         className={cn(
-          "bg-background data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 fixed top-[50%] left-[50%] z-50 grid w-full max-w-[calc(100%-2rem)] translate-x-[-50%] translate-y-[-50%] gap-4 rounded-lg border p-6 shadow-lg duration-200 sm:max-w-lg pt-12",
+          "data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 fixed top-[50%] left-[50%] z-50 grid w-full max-w-[calc(100%-2rem)] translate-x-[-50%] translate-y-[-50%] gap-4 rounded-lg border shadow-lg duration-200 bg-white",
+          "max-h-[80dvh] overflow-auto",
           className
         )}
-        {...props}>
+        {...props}
+      >
         {children}
-        {showCloseButton && (
-          <DialogPrimitive.Close
-            data-slot="dialog-close"
-            className="ring-offset-background focus:ring-ring data-[state=open]:bg-accent data-[state=open]:text-muted-foreground absolute top-4 right-4 rounded-xs opacity-70 transition-opacity hover:opacity-100 focus:ring-2 focus:ring-offset-2 focus:outline-hidden disabled:pointer-events-none [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4">
-            <XIcon />
-            <span className="sr-only">Close</span>
-          </DialogPrimitive.Close>
-        )}
       </DialogPrimitive.Content>
     </DialogPortal>
   );
@@ -80,7 +75,7 @@ function DialogHeader({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div
       data-slot="dialog-header"
-      className={cn("flex flex-col gap-4 text-center ", className)}
+      className={cn("flex flex-col gap-2 text-center sm:text-left", className)}
       {...props}
     />
   );
@@ -122,6 +117,44 @@ function DialogDescription({
       className={cn("text-muted-foreground text-sm", className)}
       {...props}
     />
+  );
+}
+
+export function DialogTitleWithCancel({
+  icon = <PlusCircle className="text-primary" />,
+  title,
+  className,
+  onCancel,
+}: {
+  icon?: React.ReactNode;
+  title: string;
+  className?: string;
+  onCancel?: () => void;
+}) {
+  return (
+    <DialogPrimitive.Title>
+      <div
+        className={cn(
+          "flex    items-center justify-between gap-4 border-b",
+          className
+        )}
+      >
+        <div className="text-start flex items-center gap-2">
+          {icon}
+          <h3 className="text-lg">{title}</h3>
+        </div>
+
+        <DialogClose asChild>
+          <Button
+            onClick={() => onCancel?.()}
+            variant="link"
+            className="p-2 text-sm transition"
+          >
+            إلغاء
+          </Button>
+        </DialogClose>
+      </div>
+    </DialogPrimitive.Title>
   );
 }
 

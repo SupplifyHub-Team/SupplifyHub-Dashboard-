@@ -7,16 +7,15 @@ declare interface IActiveCategory {
 
 
 declare interface IPendingCategory {
-  id: number;
+  id: number | string;
   categoryName?: string;
   email: string;
   submittedAt: string;
-
+}
 declare interface ICategoriesFilters {
   search?: string;
   page?: number;
   pageSize?: number;
   sortColumn?: string;
   sortColumnDirection?: "Asc" | "Desc";
-
 }
