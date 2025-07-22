@@ -1,4 +1,4 @@
-import useInfinite from "../usePaginatedData";
+import usePaginatedData from "../usePaginatedData";
 import getAllUsers from "@/services/userManagementService";
 import useTableQueries from "../useTableQueries";
 import { TABLE_ROWS } from "@/lib/constants";
@@ -6,7 +6,7 @@ import { TABLE_ROWS } from "@/lib/constants";
 export default function useGetAllUsers() {
   const queryParams = useTableQueries("users");
 
-  return useInfinite<IUser>({
+  return usePaginatedData<IUser>({
     queryKey: ["users", JSON.stringify(queryParams)],
 
     fetchFn: async () =>

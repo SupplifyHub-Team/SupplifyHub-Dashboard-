@@ -11,8 +11,7 @@ export type Palette =
 
 interface StatCardProps {
   title: string;
-  titleColor?: string;
-  value: string | number;
+  value:  number | string;
   change: string;
   changeDirection?: "up" | "down";
   icon: ReactNode;
