@@ -1,16 +1,14 @@
 import { deletePlan } from "@/services/plansServices";
-import { useMutation } from "@tanstack/react-query";
-import { toast } from "sonner";
+import useOptimisticDelete from "../useOptimisticDelete";
 
 export default function useDeletePlan() {
-  return useMutation({
-    mutationFn: deletePlan,
-    onError: (error: Error) => {
-      console.error("Error deleting plan:", error.message);
-      toast.error("حدث خطأ ما حاول مرة أخرى");
-    },
-    onSuccess: () => {
-      toast.success("تم حذف الخطة بنجاح");
+  return useOptimisticDelete<IPlan, string>({
+    deleteFn: deletePlan,
+    queryKey: ["plans"],
+    matcher: (item, id) => item.id === Number(id),
+    messages: {
+      success: "تم حذف الخطة بنجاح",
+      error: "حدث خطأ أثناء حذف الخطة",
     },
   });
 }

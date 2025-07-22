@@ -3,7 +3,7 @@ import api from "../lib/axios";
 import { isAxiosError } from "axios";
 export async function loginService(data:loginSchema) {
   try {
-    const response = await api.post<IAdmin>("api/Auth/login", data);
+    const response = await api.post<IAdmin>("api/auth/login", data);
     return response?.data;
   } catch (error) {
     if (isAxiosError(error)) {
@@ -18,7 +18,7 @@ export async function loginService(data:loginSchema) {
 
 export async function refreshToken() {
   try {
-    const response = await api.post<IRefreshResponse>("/api/Auth/refresh");
+    const response = await api.post<IRefreshResponse>("/api/auth/refresh");
     return response?.data;
   } catch (error) {
     if (isAxiosError(error)) {

@@ -5,12 +5,13 @@ export default function useTableQueries(name: string) {
 
   const result: Record<string, string> = {};
 
-  const pageParamNameInUrl = `page-${name.toLowerCase()}`; // page-{name};
+  const pageParamNameInUrl = `page-${name.toLowerCase()}`;
   result.page = searchParams.get(pageParamNameInUrl) || "1";
+
   for (const [key, value] of searchParams.entries()) {
     if (key.startsWith(`${name}-`)) {
-      const newQueryKey = key.replace(`${name}-`, "");
-      result[newQueryKey] = value;
+      const newKey = key.replace(`${name}-`, "");
+      result[newKey] = value;
     }
   }
 

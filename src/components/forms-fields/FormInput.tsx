@@ -21,6 +21,7 @@ interface FormInputProps<TFormValues extends FieldValues>
   labelClassName?: string;
   defaultValue?: string;
   isEditing?: boolean;
+  renderView?: (value: string) => React.ReactNode;
 }
 
 export default function FormInput<TFormValues extends FieldValues>({
@@ -31,7 +32,7 @@ export default function FormInput<TFormValues extends FieldValues>({
   description,
   className,
   labelClassName,
-  isEditing = true, 
+  isEditing = true,
   ...inputProps
 }: FormInputProps<TFormValues>) {
   return (
@@ -40,28 +41,30 @@ export default function FormInput<TFormValues extends FieldValues>({
       name={name}
       render={({ field }) => (
         <FormItem>
-          {label && (
-            <FormLabel htmlFor={name} className={cn("sr-only", labelClassName)}>
+          {label && isEditing && (
+            <FormLabel htmlFor={name.toString()} className={cn(labelClassName)}>
               {label}
             </FormLabel>
           )}
 
           <FormControl>
-            {isEditing ? (
-              <div className="relative h-fit">
-                {Icon && <div>{Icon}</div>}
-                <Input
-                  id={name}
-                  {...field}
-                  {...inputProps}
-                  className={cn("h-11 py-3 pr-4", Icon && "pl-10", className)}
-                />
-              </div>
-            ) : (
-              <p className="text-sm text-gray-800 py-2 px-1 min-h-[2.75rem] border rounded-md bg-gray-50">
-                {field.value || "-"}
-              </p>
-            )}
+            <div className="relative h-fit">
+              {Icon && (
+                <div className="absolute left-3 top-1/2 transform -translate-y-1/2">
+                  {Icon}
+                </div>
+              )}
+              <Input
+                onDoubleClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                }}
+                id={name.toString()}
+                {...field}
+                {...inputProps}
+                className={cn("py-3 pr-4", Icon && "pl-10", className)}
+              />
+            </div>
           </FormControl>
 
           {description && <FormDescription>{description}</FormDescription>}
