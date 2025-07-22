@@ -9,7 +9,6 @@ const TABLE_HEADERS: string[] = [
   "الفئة",
   "تاريخ الانضمام",
   "البريد الإلكتروني",
-  "الإجراءات",
 ];
 
 export default function UsersTable() {
@@ -27,9 +26,7 @@ export default function UsersTable() {
     <div className="flex flex-col gap-4 ">
       <UsersTableHeader />
       <hr />
-      {!isPending && users.length === 0 ? (
-        <div className="text-center text-gray-500">لا توجد بيانات لعرضها</div>
-      ) : (
+   
         <ReusableTable<IUser>
           headers={TABLE_HEADERS}
           paginationProps={{
@@ -41,7 +38,6 @@ export default function UsersTable() {
           isPending={isPending}
           renderRow={(user) => <UsersTableRow user={user} key={user.userId} />}
         />
-      )}
     </div>
   );
 }
