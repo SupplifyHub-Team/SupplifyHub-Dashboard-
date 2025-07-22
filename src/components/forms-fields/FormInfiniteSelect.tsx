@@ -83,21 +83,18 @@ export default function FormInfiniteSelect<
               value={field.value?.toString()}
               disabled={disabled}
               required={required}
-              {...props}
-            >
+              {...props}>
               <SelectTrigger
                 id={name}
                 dir="rtl"
-                className={cn("w-full", className)}
-              >
+                className={cn("w-full", className)}>
                 <SelectValue placeholder={placeholder} />
               </SelectTrigger>
               <SelectContent id={name} className="max-h-56" dir="rtl">
                 {options.map((item) => (
                   <SelectItem
                     key={getOptionValue(item).toString()}
-                    value={getOptionValue(item).toString()}
-                  >
+                    value={getOptionValue(item).toString()}>
                     {getOptionLabel(item)}
                   </SelectItem>
                 ))}

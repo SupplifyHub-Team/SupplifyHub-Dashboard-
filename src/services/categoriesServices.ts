@@ -80,14 +80,14 @@ export async function deletePendingCategory(categoryId: string) {
   }
 }
 
-// funcation to add categpry
-export async function postCategory(
-  data: categorySchema
-): Promise<IActiveCategory> {
+export async function getCategories(params: ICategoriesFilters) {
   try {
-    const res = await api.post<IApiResponse<IActiveCategory>>(
-      `/api/categories`,
-      data
+    const res = await api.get<IPaginatedResponse<IActiveCategory>>(
+      "/api/categories",
+      {
+        params,
+      }
+
     );
     return res?.data?.data;
   } catch (error) {
