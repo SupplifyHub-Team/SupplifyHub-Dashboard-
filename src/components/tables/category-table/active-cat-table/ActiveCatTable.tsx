@@ -1,8 +1,8 @@
 import SearchInput from "@/components/SearchInput";
 import ReusableTable from "../../ReusableTable";
 import ActiveCatTableRow from "./ActiveCatTableRow";
-import { Plus } from "lucide-react";
 import useGetActiveCategory from "@/hooks/categories/useGetActiveCategory";
+import AddCategories from "@/components/categories/AddCategories";
 
 const TABLE_HEADERS: string[] = [
   "اسم الفئة",
@@ -35,10 +35,7 @@ const ActiveCatTable = () => {
         />
 
         {/* button to add new category */}
-        <button className="flex items-center  justify-between w-full mt-2.5  md:gap-1.5 cursor-pointer  px-4 py-2 text-sm md:text-md md:w-auto rounded-full  bg-indigo-500 text-white hover:bg-indigo-600 transition-colors">
-          اضافة فئة جديدة
-          <Plus color="#ffffff" className="md:w-6 md:h-6 w-4 h-4 " />
-        </button>
+        <AddCategories />
       </div>
 
       {!isPending && categories.length === 0 ? (

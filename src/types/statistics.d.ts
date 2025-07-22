@@ -16,3 +16,9 @@ interface IOrderStatistic {
   month: number;
   orderCount: number;
 }
+
+interface IOrderStatusStatistic {
+  status: string
+  totalCount: number
+  newThisMonth: number
+}

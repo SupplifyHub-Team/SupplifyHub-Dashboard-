@@ -1,12 +1,17 @@
 import { ChartBarStacked, ShoppingCart, Users } from "lucide-react";
 import { StatCard } from "../cards/StatCard";
 
-import useGetGeneralStatistics from "@/hooks/statistics/useGetGeneralStatistics";
 import { ErrorFetchingData } from "../ErrorFetchingData";
 import StatCardSkeletons from "../cards/StatCardSkeleton";
+import useGetStats from "@/hooks/statistics/useGetGeneralStatistics";
 
 export default function OverviewStats() {
-  const { data, isPending, error, refetch } = useGetGeneralStatistics();
+  const { data, isPending, error, refetch } = useGetStats<IGeneralStatistics>(
+    "overview",
+    "general"
+  );
+
+
 
   if (isPending) {
     return (

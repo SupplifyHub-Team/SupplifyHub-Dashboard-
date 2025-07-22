@@ -18,12 +18,14 @@ export async function getUserStatistics() {
     throw error;
   }
 }
-export async function getGeneralStatistics() {
+
+// general statistics service
+export async function getStatsData<T>(
+  endpoint: string
+): Promise<IApiResponse<T[]>> {
   try {
-    const response = await api.get<IApiResponse<IGeneralStatistics[]>>(
-      `/api/Statistics/general`
-    );
-    return response.data;
+    const response = await api.get<IApiResponse<T[]>>(`/api/Statistics/${endpoint}`);
+    return response?.data;
   } catch (error) {
     console.error("Error fetching general statistics:", error);
 

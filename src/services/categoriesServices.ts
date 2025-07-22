@@ -97,3 +97,21 @@ export async function getCategories(params: ICategoriesFilters) {
     throw error;
   }
 }
+
+// funcation to post a new cat
+export async function postCategory(categoryData: { categoryName: string }) {
+  try {
+    const res = await api.post<IApiResponse<IActiveCategory>>(
+      "/api/category",
+      categoryData
+    );
+    return res?.data;
+  } catch (error) {
+    if (isAxiosError(error)) {
+      throw new Error(
+        error.response?.data.message || "حدث خطأ ما حاول مرة أخرى "
+      );
+    }
+    throw error;
+  }
+}

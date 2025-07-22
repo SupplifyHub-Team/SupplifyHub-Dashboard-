@@ -1,6 +1,5 @@
 import { TableCell, TableRow } from "@/components/ui/table";
 import { formattedData } from "@/lib/utils/formatDate";
-import { UserRoundX } from "lucide-react";
 export default function UsersTableRow({ user }: { user: IUser }) {
   return (
     <TableRow>

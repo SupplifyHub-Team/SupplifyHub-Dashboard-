@@ -9,8 +9,8 @@ export default function usePostCategory() {
 
   return useMutation({
     mutationFn: postCategory,
-    onSuccess: (_, variables) => {
-      toast.success(`تم إضافة الفئة "${variables.name}" بنجاح`);
+    onSuccess: () => {
+      toast.success(`تم إضافة الفئة بنجاح`);
       queryClient.invalidateQueries({
         queryKey: ["activeCategories", JSON.stringify(queryParams)],
       });
