@@ -21,7 +21,7 @@ export default function AppPagination({
   totalItems,
 }: AppPaginationProps) {
   const [searchParams, setSearchParams] = useSearchParams();
-  const pageParamNameInUrl = `page-${name.toLowerCase()}`;
+  const pageParamNameInUrl = `${name.toLowerCase()}-page`;
 
   const currentPage = Number(searchParams.get(pageParamNameInUrl)) || 1;
 
