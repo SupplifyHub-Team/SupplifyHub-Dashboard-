@@ -82,8 +82,9 @@ export function UserStatistics() {
           className="aspect-square max-h-80 w-full">
           <PieChart>
             <ChartTooltip
-              cursor={false}
               content={<ChartTooltipContent hideLabel />}
+              animationDuration={100}
+              cursor={true}
             />
             <Pie
               data={transformedData}

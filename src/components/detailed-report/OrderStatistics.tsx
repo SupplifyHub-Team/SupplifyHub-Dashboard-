@@ -86,13 +86,17 @@ export function OrderStatistics() {
               tickLine={false}
               tickMargin={10}
               axisLine={false}
-              tickFormatter={(value) => value.slice(0, 3)} // e.g. "ينا" for "يناير"
+              tickFormatter={(value) => value.slice(0, 3)}
             />
             <ChartTooltip
-              cursor={false}
               content={<ChartTooltipContent hideLabel />}
+              animationDuration={0}  
             />
-            <Bar dataKey="orders" fill="var(--chart-1)" radius={10} />
+            <Bar
+              dataKey="orders"
+              fill="var(--color-chart-clients)"
+              radius={10}
+            />
           </BarChart>
         </ChartContainer>
       </CardContent>
