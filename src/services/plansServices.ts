@@ -71,7 +71,7 @@ export async function updatePlan(
   id: string | number
 ) {
   try {
-    const response = await api.patch<IApiResponse<IPlan>>(
+    const response = await api.put<IApiResponse<IPlan>>(
       `/api/plans/${id}`,
       planData
     );

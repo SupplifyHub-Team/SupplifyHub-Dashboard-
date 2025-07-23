@@ -35,6 +35,7 @@ export default function PricingPlanForm({
   function onSubmit(values: pricingPlanSchema) {
     console.log(values);
     mutate({ ...values, id: plan.id });
+    if (setIsEditing) setIsEditing(false);
   }
 
   return (

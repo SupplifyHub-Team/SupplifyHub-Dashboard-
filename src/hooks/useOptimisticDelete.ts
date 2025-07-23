@@ -59,6 +59,7 @@ export default function useOptimisticDelete<TData, TId>({
     onSuccess: (_, id) => {
       toast.success(messages.success);
       queryClient.invalidateQueries({ queryKey });
+      queryClient.invalidateQueries({ queryKey: ["plansStatistics"] });
     },
 
     onError: (error, _, context) => {

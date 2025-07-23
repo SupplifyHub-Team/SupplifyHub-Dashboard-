@@ -43,7 +43,7 @@ export default function useOptimisticCreate<TData, TInput>({
               ...old.pages.slice(1),
             ],
           };
-        },
+        }
       );
 
       return { previousData };
@@ -59,6 +59,7 @@ export default function useOptimisticCreate<TData, TInput>({
     onSuccess: () => {
       toast.success(messages.success);
       queryClient.invalidateQueries({ queryKey });
+      queryClient.invalidateQueries({ queryKey: ["plansStatistics"] });
     },
   });
 }
