@@ -1,4 +1,5 @@
 import useAuth from "@/store/authStore";
+import Cookies from "js-cookie";
 import { useEffect } from "react";
 import { Outlet, useNavigate } from "react-router";
 
@@ -8,7 +9,7 @@ export default function ProtectedRoute() {
 
   useEffect(() => {
     if (user === undefined) return;
-    const token = localStorage.getItem("token");
+    const token = Cookies.get("token");
     if (!token) {
       navigate("/login");
     }

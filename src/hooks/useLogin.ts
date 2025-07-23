@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import useAuth from "@/store/authStore";
 import { loginService } from "@/services/authService";
+import Cookies from "js-cookie";
 export default function useLogin() {
   const navigate = useNavigate();
   const { login } = useAuth();
@@ -10,7 +11,11 @@ export default function useLogin() {
     mutationFn: loginService,
     onSuccess: (data) => {
       navigate("/");
-      localStorage.setItem("token", data.accessToken);
+      Cookies.set("token", data.accessToken, {
+        expires: 15 / (24 * 60),
+        sameSite: "Lax",
+        secure: import.meta.env.VITE_NODE_ENV === "production",
+      });
       login(data);
       toast.success("تم تسجيل الدخول بنجاح");
     },
