@@ -50,7 +50,7 @@ export async function getPendingCategories() {
 }
 
 // funcation to accept pending category
-export async function patchPendingCategory(categoryId: string) {
+export async function patchPendingCategory(categoryId: string | number) {
   try {
     const res = await api.patch(`/api/category/${categoryId}`);
     return res?.data;
@@ -65,7 +65,7 @@ export async function patchPendingCategory(categoryId: string) {
 }
 
 // funcation to delete category
-export async function deletePendingCategory(categoryId: string) {
+export async function deletePendingCategory(categoryId: string | number) {
   try {
     const res = await api.delete(`/api/category/${categoryId}`);
     return res?.data;

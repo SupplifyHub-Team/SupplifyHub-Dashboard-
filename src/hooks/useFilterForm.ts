@@ -1,12 +1,12 @@
 import { useEffect, useMemo } from "react";
 import { useSearchParams } from "react-router-dom";
-import { useForm, UseFormReturn } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { ZodType } from "zod";
+import { DefaultValues, useForm, UseFormReturn } from "react-hook-form";
+import { ZodSchema } from "zod";
 import { useDebounce } from "@/hooks/useDebounce";
+import { standardSchemaResolver } from "@hookform/resolvers/standard-schema";
 
 interface UseFilterFormOptions<T extends Record<string, any>> {
-  schema: ZodType<T>;
+  schema: ZodSchema<T>;
   defaultValues: T;
   namespace: string;
   debounceMs?: number;
@@ -23,7 +23,7 @@ export function useFilterForm<T extends Record<string, any>>({
 } {
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const parsedValues = useMemo(() => {
+  const parsedValues = useMemo<DefaultValues<T>>(() => {
     const data: Record<string, any> = {};
     for (const [key, value] of searchParams.entries()) {
       if (key.startsWith(`${namespace}-`)) {
@@ -32,11 +32,11 @@ export function useFilterForm<T extends Record<string, any>>({
     }
     const merged = { ...defaultValues, ...data };
     const parsed = schema.safeParse(merged);
-    return parsed.success ? parsed.data : defaultValues;
+    return (parsed.success ? parsed.data : defaultValues) as DefaultValues<T>;
   }, [searchParams]);
 
   const form = useForm<T>({
-    resolver: zodResolver(schema),
+    resolver: standardSchemaResolver(schema),
     defaultValues: parsedValues,
   });
 

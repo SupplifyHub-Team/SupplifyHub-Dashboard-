@@ -1,18 +1,23 @@
 import { Toaster } from "sonner";
+import { lazy, Suspense } from "react";
+
 import AppLayout from "./components/AppLayout";
 import ProtectedRoute from "./components/ProtectedRoute";
-import CategoriesManagementPage from "./pages/CategoriesManagementPage";
-import LoginPage from "./pages/LoginPage";
-import OrdersManagementPage from "./pages/OrdersManagementPage";
-import OverviewPage from "./pages/OverviewPage";
-import PricingPlanPage from "./pages/PricingPlanPage";
-import UsersManagementPage from "./pages/UsersManagementPage";
+import LoadingPage from "./components/LoadingPage";
+
 import MainProvider from "./providers/MainProvider";
 import { BrowserRouter, Route, Routes } from "react-router";
 
+const LoginPage = lazy(() => import("./pages/LoginPage"));
+const OverviewPage = lazy(() => import("./pages/OverviewPage"));
+const UsersManagementPage = lazy(() => import("./pages/UsersManagementPage"));
+const OrdersManagementPage = lazy(() => import("./pages/OrdersManagementPage"));
+const PricingPlanPage = lazy(() => import("./pages/PricingPlanPage"));
+const CategoriesManagementPage = lazy(
+  () => import("./pages/CategoriesManagementPage")
+);
+
 function App() {
-
-
   return (
     <MainProvider>
       <BrowserRouter>
@@ -27,30 +32,32 @@ function App() {
             } as React.CSSProperties
           }
         />
-        <Routes>
-          <Route path="/login" element={<LoginPage />} />
-          <Route element={<ProtectedRoute />}>
-            <Route element={<AppLayout />}>
-              <Route path="/" element={<OverviewPage />} />
-              <Route
-                path="/user-management"
-                element={<UsersManagementPage />}
-              />
+        <Suspense fallback={<LoadingPage />}>
+          <Routes>
+            <Route path="/login" element={<LoginPage />} />
+            <Route element={<ProtectedRoute />}>
+              <Route element={<AppLayout />}>
+                <Route path="/" element={<OverviewPage />} />
+                <Route
+                  path="/user-management"
+                  element={<UsersManagementPage />}
+                />
 
-              <Route path="/orders" element={<OrdersManagementPage />} />
-              <Route path="/pricing" element={<PricingPlanPage />} />
-              <Route
-                path="/categories"
-                element={<CategoriesManagementPage />}
-              />
+                <Route path="/orders" element={<OrdersManagementPage />} />
+                <Route path="/pricing" element={<PricingPlanPage />} />
+                <Route
+                  path="/categories"
+                  element={<CategoriesManagementPage />}
+                />
+              </Route>
             </Route>
-          </Route>
 
-          <Route
-            path="*"
-            element={<div className="min-h-screen">Page Not Found</div>}
-          />
-        </Routes>
+            <Route
+              path="*"
+              element={<div className="min-h-screen">Page Not Found</div>}
+            />
+          </Routes>
+        </Suspense>
       </BrowserRouter>
     </MainProvider>
   );
