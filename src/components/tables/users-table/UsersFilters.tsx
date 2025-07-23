@@ -1,46 +1,43 @@
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
 import { Form } from "@/components/ui/form";
 import FormSelect from "@/components/forms-fields/FormSelect";
 import { Button } from "@/components/ui/button";
-import { useSyncFormToSearchParams } from "@/hooks/useSyncFormToSearchParams";
 import FormInfiniteSelect from "@/components/forms-fields/FormInfiniteSelect";
 import { getCategories } from "@/services/categoriesServices";
+import { USERS_TABLE_NAME } from "@/lib/constants";
+import FormInput from "@/components/forms-fields/FormInput";
+import { Search } from "lucide-react";
+import { useFilterForm } from "@/hooks/useFilterForm";
+import { userFiltersSchema } from "@/schemas/filtersScehmas";
 
-const formSchema = z.object({
-  role: z.string().optional(),
-  category: z.string().optional(),
-  sortBy: z.string().optional(),
-});
-
-type formSchemaType = z.infer<typeof formSchema>;
-
-const defaultValues = {
-  role: "",
+const defaultFilters: userFiltersSchema = {
+  search: "",
+  sortBy: "Desc",
   category: "",
-  sortBy: "",
+  role: "",
 };
-
 export default function UsersFilters() {
-  const form = useForm<formSchemaType>({
-    resolver: zodResolver(formSchema),
-    defaultValues,
+  const { form, resetFilters } = useFilterForm<userFiltersSchema>({
+    schema: userFiltersSchema,
+    defaultValues: defaultFilters,
+    namespace: USERS_TABLE_NAME,
   });
-
-  useSyncFormToSearchParams<formSchemaType>(form, "users");
-
-  function onSubmit(values: formSchemaType) {
-    console.log("Form submitted with values:", values);
-  }
 
   return (
     <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className="flex gap-4 items-center justify-between w-full flex-wrap">
+      <form className="flex gap-4 items-center justify-between w-full flex-wrap">
+        <div className="flex gap-2 items-center">
+          <FormInput
+            control={form.control}
+            name="search"
+            placeholder="ابحث عن مستخدم..."
+            Icon={<Search className="size-4" />}
+            className="text-sm md:text-base placeholder:text-xs"
+          />
+          <div className="mx-2 h-6 w-0.5 bg-black/30 " />
+        </div>
+
         <div className="flex items-center gap-3 flex-wrap">
-          <FormSelect<formSchemaType>
+          <FormSelect<userFiltersSchema>
             control={form.control}
             name="role"
             options={[
@@ -51,37 +48,35 @@ export default function UsersFilters() {
             placeholder="اختر دورا ..."
             className="min-w-44"
           />
-          {/* <FormInfiniteSelect<formSchemaType, IActiveCategory>
+          <FormInfiniteSelect<userFiltersSchema, IActiveCategory>
             control={form.control}
             name="category"
             queryKey={["categories"]}
             fetchFn={(pageNumber) => getCategories({ page: pageNumber })}
-            getOptionLabel={(item) => item.name}
-            getOptionValue={(item) => item.id}
+            getOptionLabel={(item) => item.categoryName}
+            getOptionValue={(item) => item.categoryName}
             placeholder="اختر فئة..."
             className="min-w-44"
-          /> */}
-          <FormSelect<formSchemaType>
+          />
+          <FormSelect<userFiltersSchema>
             control={form.control}
             name="sortBy"
             options={[
-              { label: "الأحدث", value: "CreatedAt_Desc" },
-              { label: "الأقدم", value: "CreatedAt_Asc" },
+              { label: "الأحدث", value: "Desc" },
+              { label: "الأقدم", value: "Asc" },
             ]}
             placeholder="رتب حسب..."
             className="min-w-44"
           />
         </div>
-        <Button
-          variant="link"
-          type="button"
-          className="h-10"
-          onClick={() => {
-            form.reset(defaultValues);
-          }}>
-          ألغي الفلاتر
-        </Button>
       </form>
+      <Button
+        variant="link"
+        type="button"
+        className="h-10"
+        onClick={resetFilters}>
+        ألغي الفلاتر
+      </Button>
     </Form>
   );
 }

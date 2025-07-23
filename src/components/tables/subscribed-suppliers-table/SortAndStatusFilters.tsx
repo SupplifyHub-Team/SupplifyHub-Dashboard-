@@ -1,20 +1,15 @@
 import FormSelect from "@/components/forms-fields/FormSelect";
-import { Control } from "react-hook-form";
-import { FilterSchemaType } from "./SubscribedSuppliersFilters";
 import FormAsyncSelect from "@/components/forms-fields/FormAsyncSelect";
 import { getPlans } from "@/services/plansServices";
+import { useFormContext } from "react-hook-form";
+import { subscribedSuppliersFiltersSchema } from "@/schemas/filtersScehmas";
 
-interface SortAndStatusFiltersProps {
-  control: Control<FilterSchemaType>;
-}
-
-export default function SortAndStatusFilters({
-  control,
-}: SortAndStatusFiltersProps) {
+export default function SortAndStatusFilters() {
+  const form = useFormContext<subscribedSuppliersFiltersSchema>();
   return (
     <div className="flex gap-2 flex-wrap md:flex-nowrap md:gap-4">
-      <FormAsyncSelect<FilterSchemaType, IPlan>
-        control={control}
+      <FormAsyncSelect<subscribedSuppliersFiltersSchema, IPlan>
+        control={form.control}
         name="planName"
         queryKey={["plans"]}
         fetchFn={getPlans}
@@ -23,7 +18,7 @@ export default function SortAndStatusFilters({
         placeholder="اختر خطة"
       />
       <FormSelect
-        control={control}
+        control={form.control}
         name="status"
         options={[
           { value: "Pending", label: "قيد الانتظار" },
@@ -33,13 +28,13 @@ export default function SortAndStatusFilters({
         placeholder="حالة الاشتراك"
       />
       <FormSelect
-        control={control}
+        control={form.control}
         name="sortColumn"
         options={[{ value: "CreatedAt", label: "تاريخ الانضمام" }]}
         placeholder="ترتيب حسب"
       />
       <FormSelect
-        control={control}
+        control={form.control}
         name="sortColumnDirection"
         options={[
           { value: "Asc", label: "تصاعدي" },
