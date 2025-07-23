@@ -1,84 +1,82 @@
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-const formSchema = z.object({
-  username: z.string().optional(),
-  category: z.string().optional(),
-  sortBy: z.string().optional(),
-});
-type formSchema = z.infer<typeof formSchema>;
 import { Form } from "@/components/ui/form";
 import FormSelect from "@/components/forms-fields/FormSelect";
 import { Button } from "@/components/ui/button";
-import { useSyncFormToSearchParams } from "@/hooks/useSyncFormToSearchParams";
+import FormInfiniteSelect from "@/components/forms-fields/FormInfiniteSelect";
+import { getCategories } from "@/services/categoriesServices";
+import { USERS_TABLE_NAME } from "@/lib/constants";
+import FormInput from "@/components/forms-fields/FormInput";
+import { Search } from "lucide-react";
+import { useFilterForm } from "@/hooks/useFilterForm";
+import { userFiltersSchema } from "@/schemas/filtersScehmas";
 
-const defaultValues = {
-  username: "",
+const defaultFilters: userFiltersSchema = {
+  search: "",
+  sortBy: "Desc",
   category: "",
-  sortBy: "",
+  role: "",
 };
-
 export default function UsersFilters() {
-  const form = useForm<formSchema>({
-    resolver: zodResolver(formSchema),
+  const { form, resetFilters } = useFilterForm<userFiltersSchema>({
+    schema: userFiltersSchema,
+    defaultValues: defaultFilters,
+    namespace: USERS_TABLE_NAME,
   });
-
-  useSyncFormToSearchParams<formSchema>(form);
-
-  function onSubmit(values: formSchema) {
-    console.log(values);
-  }
 
   return (
     <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className="flex gap-4 items-center justify-between w-full flex-wrap">
-        <div className="flex items-center gap-3 flex-wrap">
-          <FormSelect<formSchema>
+      <form className="flex gap-4 items-center justify-between w-full flex-wrap">
+        <div className="flex gap-2 items-center">
+          <FormInput
             control={form.control}
-            name="username"
+            name="search"
+            placeholder="ابحث عن مستخدم..."
+            Icon={<Search className="size-4" />}
+            className="text-sm md:text-base placeholder:text-xs"
+          />
+          <div className="mx-2 h-6 w-0.5 bg-black/30 " />
+        </div>
+
+        <div className="flex items-center gap-3 flex-wrap">
+          <FormSelect<userFiltersSchema>
+            control={form.control}
+            name="role"
             options={[
-              { label: "المستخدم 1", value: "user1" },
-              { label: "المستخدم 2", value: "user2" },
-              { label: "المستخدم 3", value: "user3" },
+              { label: " الموردين", value: "Suppliers" },
+              { label: " العملاء", value: "Clients" },
+              { label: " الباحثون عن عمل", value: "JobSeeker" },
             ]}
             placeholder="اختر دورا ..."
             className="min-w-44"
           />
-          <FormSelect<formSchema>
+          <FormInfiniteSelect<userFiltersSchema, IActiveCategory>
             control={form.control}
             name="category"
-            options={[
-              { label: "المستخدمين", value: "users" },
-              { label: "المدراء", value: "admins" },
-              { label: "المشرفين", value: "supervisors" },
-            ]}
-            placeholder="اختر فئة ..."
+            queryKey={["categories"]}
+            fetchFn={(pageNumber) => getCategories({ page: pageNumber })}
+            getOptionLabel={(item) => item.categoryName}
+            getOptionValue={(item) => item.categoryName}
+            placeholder="اختر فئة..."
             className="min-w-44"
           />
-          <FormSelect<formSchema>
+          <FormSelect<userFiltersSchema>
             control={form.control}
             name="sortBy"
             options={[
-              { label: "الأحدث", value: "latest" },
-              { label: "الأقدم", value: "oldest" },
-              { label: "الأكثر نشاطا", value: "most_active" },
+              { label: "الأحدث", value: "Desc" },
+              { label: "الأقدم", value: "Asc" },
             ]}
-            placeholder="رتب حسب ..."
+            placeholder="رتب حسب..."
             className="min-w-44"
           />
         </div>
-        <Button
-          variant="link"
-          type="button"
-          className="h-10"
-          onClick={() => {
-            form.reset(defaultValues);
-          }}>
-          الغي الفلاتر
-        </Button>
       </form>
+      <Button
+        variant="link"
+        type="button"
+        className="h-10"
+        onClick={resetFilters}>
+        ألغي الفلاتر
+      </Button>
     </Form>
   );
 }

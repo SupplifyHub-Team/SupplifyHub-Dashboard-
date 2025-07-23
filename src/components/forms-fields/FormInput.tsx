@@ -20,6 +20,8 @@ interface FormInputProps<TFormValues extends FieldValues>
   Icon?: React.ReactNode;
   labelClassName?: string;
   defaultValue?: string;
+  isEditing?: boolean;
+  renderView?: (value: string) => React.ReactNode;
 }
 
 export default function FormInput<TFormValues extends FieldValues>({
@@ -30,6 +32,7 @@ export default function FormInput<TFormValues extends FieldValues>({
   description,
   className,
   labelClassName,
+  isEditing = true,
   ...inputProps
 }: FormInputProps<TFormValues>) {
   return (
@@ -38,29 +41,32 @@ export default function FormInput<TFormValues extends FieldValues>({
       name={name}
       render={({ field }) => (
         <FormItem>
-          {label && (
-            <FormLabel
-              htmlFor={name}
-              className={cn("sr-only", labelClassName)}
-            >
+          {label && isEditing && (
+            <FormLabel htmlFor={name.toString()} className={cn(labelClassName)}>
               {label}
             </FormLabel>
           )}
+
           <FormControl>
             <div className="relative h-fit">
               {Icon && (
-                <div >
+                <div className="absolute left-3 top-1/2 transform -translate-y-1/2">
                   {Icon}
                 </div>
               )}
               <Input
-                id={name}
+                onDoubleClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                }}
+                id={name.toString()}
                 {...field}
                 {...inputProps}
-                className={cn("h-11 py-3 pr-4 pl-10", Icon && "pl-10", className)}
+                className={cn("py-3 pr-4", Icon && "pl-10", className)}
               />
             </div>
           </FormControl>
+
           {description && <FormDescription>{description}</FormDescription>}
           <FormMessage />
         </FormItem>

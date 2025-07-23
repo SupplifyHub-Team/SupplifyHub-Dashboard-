@@ -1,4 +1,3 @@
-// components/shared/ReusableTable.tsx
 import {
   Table,
   TableBody,
@@ -38,7 +37,7 @@ export default function ReusableTable<T>({
   paginationProps,
   height = 60.89,
 }: ReusableTableProps<T>) {
-  const emptyRows = Math.max(0, TABLE_ROWS - data.length);
+  const emptyRows = Math.max(0, TABLE_ROWS - data?.length);
   return (
     <Table>
       {caption && <TableCaption className="sr-only">{caption}</TableCaption>}
@@ -62,7 +61,8 @@ export default function ReusableTable<T>({
           />
         ) : (
           <>
-            {data.map(renderRow)}
+            {data?.map(renderRow)
+            }
             {Array.from({ length: emptyRows }).map((_, index) => (
               <TableRow key={`empty-${index}`}>
                 {headers.map((_, cellIndex) => (

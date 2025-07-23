@@ -8,7 +8,7 @@ interface BoxProps extends React.HTMLAttributes<HTMLDivElement> {
 
 export default function Box({ className, children, ...props }: BoxProps) {
   return (
-    <div className={cn("bg-white p-6 md:p-0 shadow-lg rounded-lg", className)} {...props}>
+    <div className={cn("bg-white p-6  shadow-lg rounded-lg", className)} {...props}>
       {children}
     </div>
   );

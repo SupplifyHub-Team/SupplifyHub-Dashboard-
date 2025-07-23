@@ -1,8 +1,9 @@
 declare interface IUser {
-  id: string;
-  name: string;
+  userId: number;
+  companyName: string;
   email: string;
   role: "client" | "jobber" | "supplier";
   createdAt: string;
-  category: string;
+  categoryNames: string[];
+  joinDate: string;
 }

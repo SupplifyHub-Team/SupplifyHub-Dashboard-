@@ -13,6 +13,7 @@ interface FormPasswordProps<TFormValues extends FieldValues>
   name: Path<TFormValues>;
   label?: string;
   description?: string;
+  labelClassName?: string;
 }
 
 export default function FormPassword<TFormValues extends FieldValues>({
@@ -21,6 +22,7 @@ export default function FormPassword<TFormValues extends FieldValues>({
   label,
   description,
   className,
+  labelClassName,
   ...inputProps
 }: FormPasswordProps<TFormValues>) {
   const [showPassword, setShowPassword] = useState(false);
@@ -34,22 +36,20 @@ export default function FormPassword<TFormValues extends FieldValues>({
       type={showPassword ? "text" : "password"}
       className={className}
       {...inputProps}
+      labelClassName={labelClassName}
       Icon={
-        <div className="absolute inset-y-9 end-1 flex items-center justify-center">
-          <Button
-            variant="link"
-            className="text-gray-400 p-0 hover:text-white "
-            size="icon"
-            type="button"
-            onClick={() => setShowPassword(!showPassword)}
-          >
-            {showPassword ? (
-              <Eye className="w-4 h-4" />
-            ) : (
-              <EyeOff className="w-4 h-4" />
-            )}
-          </Button>
-        </div>
+        <Button
+          variant="link"
+          className="text-gray-400 p-0 w-fit hover:text-white "
+          size="icon"
+          type="button"
+          onClick={() => setShowPassword(!showPassword)}>
+          {showPassword ? (
+            <Eye className="w-4 h-4" />
+          ) : (
+            <EyeOff className="w-4 h-4" />
+          )}
+        </Button>
       }
     />
   );

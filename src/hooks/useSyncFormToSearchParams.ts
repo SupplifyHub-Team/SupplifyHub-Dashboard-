@@ -1,53 +1,54 @@
 import { useSearchParams } from "react-router";
 import { useEffect } from "react";
-import { FieldValues, UseFormReturn } from "react-hook-form";
+import { FieldValues, UseFormReturn, DefaultValues } from "react-hook-form";
 
 export function useSyncFormToSearchParams<T extends FieldValues>(
-  form: UseFormReturn<T>
+  form: UseFormReturn<T>,
+  tableName: string
 ) {
   const [searchParams, setSearchParams] = useSearchParams();
 
   useEffect(() => {
     let subscription: { unsubscribe: () => void };
 
-    // async function syncFormWithSearchParams() {
-    //   const keys = Object.keys(form.getValues());
-    //   const defaultValues = {};
+    const initializeFormFromSearchParams = () => {
+    
+      const initialFormValues: DefaultValues<T> = {} as DefaultValues<T>; 
+      
+      for (const [key, value] of searchParams.entries()) {
+        if (key.startsWith(`${tableName}-`)) {
+          const originalKey = key.replace(`${tableName}-`, "");
+          
+         
+          (initialFormValues as { [key: string]: unknown })[originalKey] = value;
+        }
+      }
+      form.reset(initialFormValues);
+    };
 
-    //   keys.forEach((key) => {
-    //     const value = searchParams.get(key);
-    //     if (value !== null) {
-    //       defaultValues[key] = value;
-    //     }
-    //     console.log(defaultValues);
-    //   });
-    //   form.reset({
-    //     ...defaultValues,
-    //   });
-    // }
-
-    async function syncFormValues() {
+    const syncFormValuesToSearchParams = () => {
       subscription = form.watch((vals) => {
         const newSearchParams = new URLSearchParams(searchParams.toString());
 
         for (const key in vals) {
           const value = vals[key];
-          if (value) {
-            newSearchParams.set(key, value);
+          const paramKey = `${tableName}-${key}`;
+
+         
+          if (value !== undefined && value !== null && value !== '') { 
+            newSearchParams.set(paramKey, value.toString());
           } else {
-            newSearchParams.delete(key);
+            newSearchParams.delete(paramKey);
           }
         }
 
         setSearchParams(newSearchParams, { replace: true });
       });
-    }
+    };
 
-    (async function () {
-      //   await syncFormWithSearchParams();
-      await syncFormValues();
-    })();
+    initializeFormFromSearchParams();
+    syncFormValuesToSearchParams();
 
-    return () => subscription?.unsubscribe(); // clean up on unmount
-  }, []);
+    return () => subscription?.unsubscribe();
+  }, [form, searchParams, setSearchParams, tableName]);
 }

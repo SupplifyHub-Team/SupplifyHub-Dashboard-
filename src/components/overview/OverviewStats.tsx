@@ -1,29 +1,56 @@
 import { ChartBarStacked, ShoppingCart, Users } from "lucide-react";
 import { StatCard } from "../cards/StatCard";
 
+import { ErrorFetchingData } from "../ErrorFetchingData";
+import StatCardSkeletons from "../cards/StatCardSkeleton";
+import useGetStats from "@/hooks/statistics/useGetGeneralStatistics";
+
 export default function OverviewStats() {
+  const { data, isPending, error, refetch } = useGetStats<IGeneralStatistics>(
+    "overview",
+    "general"
+  );
+
+
+
+  if (isPending) {
+    return (
+      <div className="grid lg:grid-cols-3 sm:grid-cols-2 flex-wrap gap-3 mt-3">
+        <StatCardSkeletons />
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="grid bg-white rounded-2xl shadow-lg  grid-cols-1 gap-3 mt-3">
+        <ErrorFetchingData onRetry={() => refetch?.()} />
+      </div>
+    );
+  }
+
   return (
     <div className="grid lg:grid-cols-3 sm:grid-cols-2  flex-wrap gap-3 mt-3">
       <StatCard
         color="indigo"
-        change="5.39% فترة تغيير"
-        value="92456"
+        change={`${data?.data[0].newUsersThisMonth} مستخدمين جدد هذا الشهر`}
+        value={`${data?.data[0].totalUsers}`}
         title="كل المستخدمين"
         icon={<Users />}
       />
       <StatCard
         color="pink"
-        change="5.39% فترة تغيير"
-        value="32,28"
+        change={`${data?.data[0].newOrdersThisMonth} طلبات جديدة هذا الشهر`}
+        value={`${data?.data[0].totalOrders}`}
         title="كل الطلبات"
         icon={<ShoppingCart />}
       />
       <StatCard
         color="green"
-        change="6.84% فترة تغيير"
-        value="298"
+        change={`${data?.data[0].newCategoriesThisMonth} فئات جديدة هذا الشهر`}
+        value={`${data?.data[0].totalCategories}`}
         title="فئات"
-        icon={<ChartBarStacked/>}
+        icon={<ChartBarStacked />}
       />
     </div>
   );

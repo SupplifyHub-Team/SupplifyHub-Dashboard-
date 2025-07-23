@@ -1,86 +1,76 @@
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-import { useSyncFormToSearchParams } from "@/hooks/useSyncFormToSearchParams";
 import { Form } from "@/components/ui/form";
 import FormSelect from "@/components/forms-fields/FormSelect";
 import { Button } from "@/components/ui/button";
-// form schema
-const formSchema = z.object({
-  username: z.string().optional(),
-  category: z.string().optional(),
-  sortBy: z.string().optional(),
-});
-
-type FormSchemaType = z.infer<typeof formSchema>;
+import FormInfiniteSelect from "@/components/forms-fields/FormInfiniteSelect";
+import { getCategories } from "@/services/categoriesServices";
+import { ORDERS_TABLE_NAME } from "@/lib/constants";
+import { useFilterForm } from "@/hooks/useFilterForm";
+import { ordersFiltersSchema } from "@/schemas/filtersScehmas";
+import FormInput from "@/components/forms-fields/FormInput";
+import { Search } from "lucide-react";
 
 const defaultValues = {
-  username: "",
+  status: "",
   category: "",
   sortBy: "",
+  search: "",
 };
 
 export default function OrdersFilters() {
-  const form = useForm<FormSchemaType>({
-    resolver: zodResolver(formSchema),
+  const { form, resetFilters } = useFilterForm<ordersFiltersSchema>({
+    schema: ordersFiltersSchema,
+    defaultValues,
+    namespace: ORDERS_TABLE_NAME,
   });
-
-  useSyncFormToSearchParams<FormSchemaType>(form);
-
-  function onSubmit(values: FormSchemaType) {
-    console.log(values);
-  }
 
   return (
     <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className="flex gap-4 items-center justify-between w-full flex-wrap"
-      >
-        <div className="flex items-center gap-3 flex-wrap">
-          <FormSelect<FormSchemaType>
+      <form className="flex gap-4 items-center justify-between w-full flex-wrap">
+        <div>
+          <FormInput
             control={form.control}
-            name="username"
+            name="search"
+            placeholder="ابحث عن الطلبات..."
+            Icon={<Search className="size-4" />}
+          />
+        </div>
+        <div className="flex items-center gap-3 flex-wrap">
+          <FormSelect<ordersFiltersSchema>
+            control={form.control}
+            name="status"
             options={[
-              { label: "نشط", value: "نشط" },
-              { label: "جاري التفاوض", value: " جاري التفاوض " },
-              { label: "مكتمل", value: "مكتمل" },
-              { label: "ملغي", value: "ملغي" },
+              { label: "نشط", value: "Active" },
+              { label: "جاري التفاوض", value: "InProgress" },
+              { label: "مكتمل", value: "Completed" },
+              { label: "ملغي", value: "Failed" },
             ]}
             placeholder="اختر حالة الطلب "
             className="min-w-44"
           />
-          <FormSelect<FormSchemaType>
+          <FormInfiniteSelect<ordersFiltersSchema, IActiveCategory>
             control={form.control}
             name="category"
-            options={[
-              { label: "التجارة", value: "category1" },
-              { label: "الزراعه", value: "category2" },
-              { label: "المستخدمات الطبية", value: "category3" },
-            ]}
-            placeholder="اختر الفئة "
-            className="min-w-44"
+            fetchFn={(pageNumber) => getCategories({ page: pageNumber })}
+            queryKey={["active-categories"]}
+            getOptionLabel={(option) => option.categoryName}
+            getOptionValue={(option) => option.categoryName}
+            placeholder="اختر الفئة"
           />
-        </div>
-        <div className="flex items-center gap-3 flex-wrap">
-          <FormSelect<FormSchemaType>
+          <FormSelect<ordersFiltersSchema>
             control={form.control}
             name="sortBy"
             options={[
-              { label: "حالة الطلب", value: "status" },
-              { label: "موعد التسليم", value: "deadline" },
+              { label: "الأحدث", value: "CreatedAt_Desc" },
+              { label: "الأقدم", value: "CreatedAt_Asc" },
             ]}
-            placeholder=" رتب حسب..."
+            placeholder="رتب حسب..."
             className="min-w-44"
           />
           <Button
             variant="link"
             type="button"
             className="h-10"
-            onClick={() => {
-              form.reset(defaultValues);
-            }}
-          >
+            onClick={resetFilters}>
             الغي الفلاتر
           </Button>
         </div>

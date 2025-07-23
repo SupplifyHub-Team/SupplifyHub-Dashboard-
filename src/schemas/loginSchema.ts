@@ -5,7 +5,7 @@ export const loginSchema = z.object({
         message: "ايميل غير صالح",
     }),
     
-    password: z.string().min(8, {
+    password: z.string().min(6, {
         message: "كلمة المرور يجب ان تكون علي الاقل 6 حروف",
     }),
 });

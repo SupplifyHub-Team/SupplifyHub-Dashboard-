@@ -3,11 +3,11 @@ import {
   PaginationContent,
   PaginationItem,
 } from "@/components/ui/pagination";
-import { useSearchParams } from "react-router";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { TABLE_ROWS } from "@/lib/constants";
+import { usePagination } from "@/hooks/usePagination";
 
 interface AppPaginationProps {
   name: string;
@@ -20,31 +20,19 @@ export default function AppPagination({
   totalPages,
   totalItems,
 }: AppPaginationProps) {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const currentPage = Number(searchParams.get(`Page-${name}`)) || 1;
-
-  const handlePageChange = (page: number) => {
-    if (page < 1 || page > totalPages) return;
-
-    if (page === 1) {
-      searchParams.delete(`Page-${name}`);
-    } else {
-      searchParams.set(`Page-${name}`, page.toString());
-    }
-    setSearchParams(searchParams);
-  };
+  const [page, setPage] = usePagination(name);
 
   const handlePageInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     const page = parseInt(value);
 
     if (!isNaN(page) && page >= 1 && page <= totalPages) {
-      handlePageChange(page);
+      setPage(page);
     }
   };
 
-  const startItem = (currentPage - 1) * TABLE_ROWS + 1;
-  const endItem = Math.min(currentPage * TABLE_ROWS, totalItems);
+  const startItem = (page - 1) * TABLE_ROWS + 1;
+  const endItem = Math.min(page * TABLE_ROWS, totalItems);
 
   return (
     <div className="flex  px-2 gap-3 items-center justify-between">
@@ -54,8 +42,8 @@ export default function AppPagination({
             <PaginationItem>
               <Button
                 size="icon"
-                onClick={() => handlePageChange(currentPage - 1)}
-                disabled={currentPage <= 1}
+                onClick={() => setPage(page - 1)}
+                disabled={page <= 1}
                 className="h-8 w-8 bg-primary">
                 <ChevronRight className="h-4 w-4 text-white" />
               </Button>
@@ -68,9 +56,9 @@ export default function AppPagination({
               <Input
                 min={1}
                 max={totalPages}
-                value={currentPage}
+                value={page}
                 onChange={handlePageInput}
-                className="w-[4ch] h-8 px-1 text-center"
+                className="w-[5ch] h-8 px-1 text-center"
                 id={`page-input-${name}`}
               />
             </PaginationItem>
@@ -78,17 +66,17 @@ export default function AppPagination({
             <PaginationItem>
               <Button
                 size="icon"
-                onClick={() => handlePageChange(currentPage + 1)}
-                disabled={currentPage >= totalPages}
+                onClick={() => setPage(page + 1)}
+                disabled={page >= totalPages}
                 className="h-8 w-8 ">
                 <ChevronLeft className="h-4 w-4 text-white" />
               </Button>
             </PaginationItem>
           </PaginationContent>
         </Pagination>
-        <p className="text-xs text-nowrap">اقصى عدد : {totalPages}</p>
+        <p className="text-xs text-nowrap">اقصى صفحة : {totalPages}</p>
       </div>
-      <div className="text-xs     text-muted-foreground">
+      <div className="text-xs text-muted-foreground">
         عرض {startItem} الى {endItem}
       </div>
     </div>

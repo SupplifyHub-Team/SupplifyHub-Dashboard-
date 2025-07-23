@@ -1,12 +1,17 @@
 import { FC, ReactNode } from "react";
 import clsx from "clsx";
 
-type Palette = "pink" | "blue" | "green" | "purple" | "yellow" | "indigo";
+export type Palette =
+  | "pink"
+  | "blue"
+  | "green"
+  | "purple"
+  | "yellow"
+  | "indigo";
 
 interface StatCardProps {
   title: string;
-  titleColor?: string;
-  value: string | number;
+  value:  number | string;
   change: string;
   changeDirection?: "up" | "down";
   icon: ReactNode;

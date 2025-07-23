@@ -1,4 +1,6 @@
+import useGetOrders from "@/hooks/orders/useGetOrders";
 import ReusableTable from "../ReusableTable";
+import OrdersTableHeader from "./OrdersTableHeader";
 import OrderTableRow from "./OrderTableRow";
 const TABLE_HEADERS: string[] = [
   "اسم المستورد",
@@ -11,36 +13,39 @@ const TABLE_HEADERS: string[] = [
   "موعد التسليم",
 ];
 
-
-
-
 const OrderTable = () => {
+  const { data, isPending, error } = useGetOrders();
+
+const orders = data?.data || []; 
+const totalPages = data?.meta?.totalPages || 0; 
+const totalItems = data?.meta?.totalItems || 0;
+
+  if (error) {
+    return (
+      <div className="text-center text-red-500">{error.message}</div>
+    );
+  }
+
   return (
     <div className="  flex flex-col gap-4 ">
+      <OrdersTableHeader />
+
       <hr />
-      <ReusableTable<IOrder>
-        headers={TABLE_HEADERS}
-        paginationProps={{
-          totalItems: 100,
-          name: "orders",
-          totalPages: 10,
-        }}
-        data={[
-          {
-            id: "1",
-            name: "محمد علي",
-            email: "mohamed@example.com",
-            category: "التجارة",
-            desciption: "تفاصيل الطلب للمستورد محمد علي ",
-            offersNumber: 5,
-            createdAt: "2023-01-01",
-            deadline: "2023-01-01",
-            state: "active",
-          },
-        ]}
-        isPending={false}
-        renderRow={(order) => <OrderTableRow order={order} key={order.id} />}
-      />
+      {!isPending && orders.length === 0 ? (
+        <div className="text-center text-gray-500">لا توجد بيانات لعرضها</div>
+      ) : (
+        <ReusableTable<IOrder>
+          headers={TABLE_HEADERS}
+          paginationProps={{
+            totalItems,
+            name: "orders",
+            totalPages,
+          }}
+          data={orders}
+          isPending={isPending}
+          renderRow={(order) => <OrderTableRow order={order} key={order.OrderId} />}
+        />
+      )}
     </div>
   );
 };
