@@ -1,9 +1,14 @@
 import useGetAllPlans from "@/hooks/plans/useGetAllPlans";
 import PricingPlanCard from "./pricing-plan-card/PricingPlanCard";
 import PricingPlanSkeletonList from "./PricingPlanSkeleton";
+import { ErrorFetchingData } from "../ErrorFetchingData";
 
 export default function PricingPlansList() {
-  const { data, isPending } = useGetAllPlans();
+  const { data, isPending, error, refetch } = useGetAllPlans();
+
+  if (error) {
+    return <ErrorFetchingData onRetry={refetch} />;
+  }
 
   if (isPending || !data) {
     return <PricingPlanSkeletonList />;
