@@ -12,12 +12,10 @@ const TABLE_HEADERS: string[] = [
 export default function PendingCatTable() {
   const { data, isPending, error } = useGetPendingCategory();
 
-
-
   const pendingCategories = data?.data || [];
 
   if (error) {
-    return <div className="text-center text-red-500">{error.message}</div>;
+    return <div className="text-center text-red-500">{error.data.message}</div>;
   }
 
   return (

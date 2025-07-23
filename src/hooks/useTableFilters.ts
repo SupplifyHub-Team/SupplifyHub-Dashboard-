@@ -26,7 +26,6 @@ export function useTableFilters({
     resolver: zodResolver(schema),
     defaultValues: { ...defaultValues, ...initialFilters },
   });
-  const { filters } = useTableQueriesV2(tableName);
 
   const watchedValues = form.watch();
   const debouncedFilters = useDebounce(watchedValues, debounceMs);
