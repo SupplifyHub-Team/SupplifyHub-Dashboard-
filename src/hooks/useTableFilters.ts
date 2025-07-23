@@ -3,12 +3,14 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useSearchParams } from "react-router-dom";
 import { useDebounce } from "@/hooks/useDebounce";
+import useTableQueriesV2 from "./useTableQueriesV2";
 
 interface UseTableFiltersProps {
   schema: any;
   defaultValues: any;
   tableName: string;
   debounceMs?: number;
+  initialFilters?: Record<string, any>;
 }
 
 export function useTableFilters({
@@ -16,13 +18,15 @@ export function useTableFilters({
   defaultValues,
   tableName,
   debounceMs = 500,
+  initialFilters = {},
 }: UseTableFiltersProps) {
   const [, setSearchParams] = useSearchParams();
 
   const form = useForm({
     resolver: zodResolver(schema),
-    defaultValues,
+    defaultValues: { ...defaultValues, ...initialFilters },
   });
+  const { filters } = useTableQueriesV2(tableName);
 
   const watchedValues = form.watch();
   const debouncedFilters = useDebounce(watchedValues, debounceMs);
@@ -37,8 +41,8 @@ export function useTableFilters({
         params.delete(`${tableName}-${key}`);
       }
     }
-
     params.set(`page-${tableName}`, "1");
+
     setSearchParams(params, { replace: true });
   }, [debouncedFilters, tableName, setSearchParams]);
 
