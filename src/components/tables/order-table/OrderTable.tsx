@@ -3,7 +3,7 @@ import ReusableTable from "../ReusableTable";
 import OrdersTableHeader from "./OrdersTableHeader";
 import OrderTableRow from "./OrderTableRow";
 const TABLE_HEADERS: string[] = [
-  "اسم المستورد",
+  "اسم المورد",
   "أيميل  المستورد",
   "الفئة",
   "وصف الطلب",
