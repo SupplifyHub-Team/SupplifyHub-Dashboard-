@@ -62,7 +62,7 @@ export default function PricingPlanDisplay({
                 key={index}
                 className="flex items-center gap-3 text-sm text-gray-600"
               >
-              <span className="grid place-content-center rounded-full bg-gray-500 text-white">
+              <span className="grid place-content-center rounded-full bg-red-500 text-white">
                   <CircleX className="inline text-white " />
                 </span>
                 {con}

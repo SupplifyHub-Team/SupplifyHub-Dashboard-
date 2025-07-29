@@ -5,6 +5,7 @@ import useGetActiveCategory from "@/hooks/categories/useGetActiveCategory";
 import AddCategories from "@/components/categories/AddCategories";
 
 const TABLE_HEADERS: string[] = [
+  "صوره الفئة",
   "اسم الفئة",
   "الموردين المرتبطين",
   "المستوردين المرتبطين",

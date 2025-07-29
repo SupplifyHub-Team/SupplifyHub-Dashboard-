@@ -57,7 +57,7 @@ export async function patchPendingCategory(categoryId: string | number) {
   } catch (error) {
     if (isAxiosError(error)) {
       throw new Error(
-        error.response?.data.message || "Failed to fetch categories"
+        error.response?.data.message || "Failed to accept categories"
       );
     }
     throw error;
@@ -72,7 +72,7 @@ export async function deletePendingCategory(categoryId: string | number) {
   } catch (error) {
     if (isAxiosError(error)) {
       throw new Error(
-        error.response?.data.message || "Failed to fetch categories"
+        error.response?.data.message || "Failed to delete categories"
       );
     }
     throw error;
@@ -99,17 +99,23 @@ export async function getCategories(params: ICategoriesFilters) {
 }
 
 // funcation to post a new cat
-export async function postCategory(categoryData: { categoryName: string }) {
+
+export async function postCategory(data: FormData) {
   try {
     const res = await api.post<IApiResponse<IActiveCategory>>(
       "/api/category",
-      categoryData
+      data,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }
     );
     return res?.data;
   } catch (error) {
     if (isAxiosError(error)) {
       throw new Error(
-        error.response?.data.message || "حدث خطأ ما حاول مرة أخرى "
+        error.response?.data?.message || "حدث خطأ أثناء اضافة فئة جديدة"
       );
     }
     throw error;

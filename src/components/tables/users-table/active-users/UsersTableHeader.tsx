@@ -1,4 +1,4 @@
-import UsersFilters from "./UsersFilters";
+import UsersFilters from "../active-users/UsersFilters";
 
 export default function UsersTableHeader() {
   return (

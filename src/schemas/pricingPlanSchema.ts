@@ -1,7 +1,7 @@
 import z from "zod";
 
 export const pricingPlanSchema = z.object({
-  planName: z.string(),
+  planName: z.string() ,
   description: z.string(),
   price: z.string(),
   duration: z.string(),

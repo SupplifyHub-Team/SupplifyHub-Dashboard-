@@ -9,6 +9,19 @@ export default function ActiveCatTableRow({
   return (
     <TableRow>
       <TableCell>
+        <span className="flex items-center">
+          {activeCat.imageURL ? (
+            <img
+              src={activeCat.imageURL}
+              alt={activeCat.imageURL + " Logo"}
+              className="w-16 h-16 object-contain rounded-full"
+            />
+          ) : (
+            <span>لا يوجد لوجو</span>
+          )}
+        </span>
+      </TableCell>
+      <TableCell>
         <span> {activeCat.categoryName}</span>
       </TableCell>
       <TableCell>

@@ -1,10 +1,11 @@
 import { StatCard } from "@/components/cards/StatCard";
-import UsersTable from "@/components/tables/users-table/UsersTable";
+import UsersTable from "@/components/tables/users-table/active-users/UsersTable";
 import Box from "@/components/ui/box";
 import { BriefcaseBusiness, Container, Handshake } from "lucide-react";
 import StatCardSkeletons from "@/components/cards/StatCardSkeleton";
 import { ErrorFetchingData } from "@/components/ErrorFetchingData";
 import useGetStats from "@/hooks/statistics/useGetGeneralStatistics";
+import PendingUserTable from "@/components/tables/users-table/pending-users/PendingUserTable";
 
 export default function UsersManagementPage() {
   const { data, isPending, error, refetch } = useGetStats<IUserStatistics>(
@@ -58,7 +59,12 @@ export default function UsersManagementPage() {
           icon={<BriefcaseBusiness className="w-6 h-6 cursor-pointer" />}
         />
       </div>
-      <UsersTable />
+
+      <Box className="w-full flex flex-col gap-6 md:gap-15 ">
+        <UsersTable />
+
+        <PendingUserTable />
+      </Box>
     </Box>
   );
 }

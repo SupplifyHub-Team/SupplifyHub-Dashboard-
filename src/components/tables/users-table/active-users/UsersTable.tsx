@@ -1,6 +1,6 @@
-import ReusableTable from "../ReusableTable";
-import UsersTableHeader from "./UsersTableHeader";
-import UsersTableRow from "./UsersTableRow";
+import ReusableTable from "../../ReusableTable";
+import UsersTableHeader from "../active-users/UsersTableHeader";
+import UsersTableRow from "../active-users/UsersTableRow";
 import useGetAllUsers from "@/hooks/users/useGetAllUsers";
 
 const TABLE_HEADERS: string[] = [
@@ -26,18 +26,18 @@ export default function UsersTable() {
     <div className="flex flex-col gap-4 ">
       <UsersTableHeader />
       <hr />
-   
-        <ReusableTable<IUser>
-          headers={TABLE_HEADERS}
-          paginationProps={{
-            totalItems,
-            name: "users",
-            totalPages,
-          }}
-          data={users}
-          isPending={isPending}
-          renderRow={(user) => <UsersTableRow user={user} key={user.userId} />}
-        />
+
+      <ReusableTable<IUser>
+        headers={TABLE_HEADERS}
+        paginationProps={{
+          totalItems,
+          name: "users",
+          totalPages,
+        }}
+        data={users}
+        isPending={isPending}
+        renderRow={(user) => <UsersTableRow user={user} key={user.userId} />}
+      />
     </div>
   );
 }

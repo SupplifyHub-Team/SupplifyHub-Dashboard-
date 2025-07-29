@@ -1,6 +1,7 @@
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogHeader,
   DialogTitleWithCancel,
   DialogTrigger,
@@ -32,6 +33,9 @@ export default function AddCategories() {
         <div>
           <AddCategoryForm onCloseDialog={handleCloseDialog} />
         </div>
+        <DialogDescription className="sr-only">
+          يمكنك اضافة فئات جديدة من هنا
+        </DialogDescription>
       </DialogContent>
     </Dialog>
   );
