@@ -11,11 +11,7 @@ export default function useLogin() {
     mutationFn: loginService,
     onSuccess: (data) => {
       navigate("/");
-      Cookies.set("token", data.accessToken, {
-        expires: 15 / (24 * 60),
-        sameSite: "Lax",
-        secure: import.meta.env.VITE_NODE_ENV === "production",
-      });
+      Cookies.set("token", data.accessToken);
       login(data);
       toast.success("تم تسجيل الدخول بنجاح");
     },
