@@ -1,7 +1,7 @@
 declare interface IAdmin {
-  accessToken: string;
+  token: string;
 }
 
 declare interface IRefreshResponse {
-  accessToken: string;
+  token: string;
 }

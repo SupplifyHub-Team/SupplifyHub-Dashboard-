@@ -26,11 +26,11 @@ api.interceptors.response.use(
       originalRequest._retry = true;
       try {
         const response = await refreshToken();
-        console.log("yay new access token", response.accessToken);
-        const accessToken = response.accessToken;
-        Cookies.set("token", accessToken);
+        console.log("yay new access token", response.token);
+        const token = response.token;
+        Cookies.set("token", token);
 
-        api.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
+        api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
         return api(originalRequest);
       } catch (refreshError) {
         console.error("Token refresh failed:", refreshError);

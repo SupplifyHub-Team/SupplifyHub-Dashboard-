@@ -11,7 +11,7 @@ export default function useLogin() {
     mutationFn: loginService,
     onSuccess: (data) => {
       navigate("/");
-      Cookies.set("token", data.accessToken);
+      Cookies.set("token", data.token);
       login(data);
       toast.success("تم تسجيل الدخول بنجاح");
     },
