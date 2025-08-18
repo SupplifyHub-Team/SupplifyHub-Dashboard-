@@ -3,7 +3,9 @@ import api from "../lib/axios";
 import { isAxiosError } from "axios";
 export async function loginService(data:loginSchema) {
   try {
-    const response = await api.post<IAdmin>("api/login", data);
+
+    const response = await api.post<IAdmin>("/api/login", data);
+
     return response?.data;
   } catch (error) {
     if (isAxiosError(error)) {
