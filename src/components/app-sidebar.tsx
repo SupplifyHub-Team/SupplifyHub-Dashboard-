@@ -45,11 +45,18 @@ const data = {
       url: "/pricing",
       icon: CircleDollarSign,
     },
+     {
+      title: "إدارة الإعلانات",
+      url: "/advs",
+      icon: Boxes,
+    },
     {
       title: "إدارة الفئات",
       url: "/categories",
       icon: Boxes,
     },
+
+
   ],
 
 };

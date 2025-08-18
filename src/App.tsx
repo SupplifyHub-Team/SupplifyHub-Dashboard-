@@ -7,6 +7,7 @@ import LoadingPage from "./components/LoadingPage";
 
 import MainProvider from "./providers/MainProvider";
 import { BrowserRouter, Route, Routes } from "react-router";
+import AdvsManagementPage from "./pages/AdvsManagementPage";
 
 const LoginPage = lazy(() => import("./pages/LoginPage"));
 const OverviewPage = lazy(() => import("./pages/OverviewPage"));
@@ -45,6 +46,8 @@ function App() {
 
                 <Route path="/orders" element={<OrdersManagementPage />} />
                 <Route path="/pricing" element={<PricingPlanPage />} />
+                <Route path="/advs" element={<AdvsManagementPage />} />
+
                 <Route
                   path="/categories"
                   element={<CategoriesManagementPage />}
