@@ -42,9 +42,12 @@ export default function ReusableTable<T>({
     <Table>
       {caption && <TableCaption className="sr-only">{caption}</TableCaption>}
       <TableHeader>
-        <TableRow dir="rtl">
+        <TableRow dir="rtl" className="bg-gray-100">
           {headers.map((header) => (
-            <TableHead key={header} className="text-right text-xs sm:text-sm">
+            <TableHead
+              key={header}
+              className="text-right text-sm font-semibold text-gray-700 px-4 py-3"
+            >
               {header}
             </TableHead>
           ))}
@@ -61,8 +64,7 @@ export default function ReusableTable<T>({
           />
         ) : (
           <>
-            {data?.map(renderRow)
-            }
+            {data?.map(renderRow)}
             {/* {Array.from({ length: emptyRows }).map((_, index) => (
               <TableRow key={`empty-${index}`}>
                 {headers.map((_, cellIndex) => (

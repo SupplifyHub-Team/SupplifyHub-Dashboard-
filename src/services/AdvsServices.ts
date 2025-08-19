@@ -48,3 +48,18 @@ export async function patchAcceptAdv(id: string | number) {
     throw error;
   }
 }
+
+// funcation to reject an advertisement
+export async function deletePendingAdv(id: string | number) {
+  try {
+    const response = await api.delete(`api/advertisment/${id}`);
+    return response?.data;
+  } catch (error) {
+    if (isAxiosError(error)) {
+      throw new Error(
+        error.response?.data.message || "حدث خطأ ما حاول مرة أخرى "
+      );
+    }
+    throw error;
+  }
+}
