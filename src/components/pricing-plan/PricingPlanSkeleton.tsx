@@ -2,9 +2,9 @@ import { Skeleton } from "../ui/skeleton";
 
 const PricingPlanCardSkeleton = () => (
   <div className="w-full h-full mx-auto">
-    <div className="rounded-2xl border border-gray-200 bg-white p-6 h-full min-h-[500px] flex flex-col">
+    <div className="rounded-2xl border  bg-card p-6 h-full min-h-[500px] flex flex-col">
       {/* Plan name skeleton */}
-      <div className="flex flex-col items-center border-b border-gray-300 pb-6">
+      <div className="flex flex-col items-center pb-6">
         <Skeleton className="h-6 w-32 mb-2" />
         <Skeleton className="h-8 w-40 mb-2" />
         <Skeleton className="h-4 w-48 mt-3" />

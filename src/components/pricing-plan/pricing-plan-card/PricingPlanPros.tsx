@@ -17,7 +17,7 @@ export default function PricingPlanPros() {
 
   return (
     <div className="space-y-2">
-      <label className="block font-medium mb-1">مميزات الخطة</label>
+      <label className="block text-white font-medium mb-1">مميزات الخطة</label>
 
       {prosFields.map((field, index) => (
         <div key={field.id} className="flex items-center gap-2">
@@ -37,7 +37,7 @@ export default function PricingPlanPros() {
 
       <Button
         type="button"
-        variant="outline"
+        variant="default"
         onClick={() => {
           console.log("click");
           appendPros("ميزة جديدة");

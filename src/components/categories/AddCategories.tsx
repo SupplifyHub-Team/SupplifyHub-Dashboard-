@@ -1,42 +1,92 @@
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogHeader,
   DialogTitleWithCancel,
   DialogTrigger,
 } from "@/components/ui/dialog";
 
+import { useEffect, useState } from "react";
+import { Button } from "../ui/button";
+import EditCategoryForm from "../forms/EditCategoryForm";
 import AddCategoryForm from "../forms/AddCategoryForm";
-import { Plus } from "lucide-react";
-import { useState } from "react";
 
-export default function AddCategories() {
-  const [open, setOpen] = useState(false);
+import { Dispatch, SetStateAction } from "react";
 
-  const handleCloseDialog = () => {
-    setOpen(false);
+interface AddCategoriesProps {
+  editingCategory: IActiveCategory | null;
+  setEditingCategory: Dispatch<SetStateAction<IActiveCategory | null>>;
+}
+
+export default function AddCategories({
+  editingCategory,
+  setEditingCategory,
+}: AddCategoriesProps) {
+  const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
+
+  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
+
+  useEffect(() => {
+    if (editingCategory) {
+      setIsEditDialogOpen(true);
+    } else {
+      setIsEditDialogOpen(false);
+    }
+  }, [editingCategory]);
+
+  const handleCloseAddDialog = () => {
+    setIsAddDialogOpen(false);
+  };
+
+  const handleCloseEditDialog = () => {
+    setEditingCategory(null);
   };
 
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild>
-        <button className="flex items-center  justify-between w-full mt-2.5  md:gap-1.5 cursor-pointer  px-4 py-2 text-sm md:text-md md:w-auto rounded-full  bg-indigo-500 text-white hover:bg-indigo-600 transition-colors">
-          اضافة فئة جديدة
-          <Plus color="#ffffff" className="md:w-6 md:h-6 w-4 h-4 " />
-        </button>
-      </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px] md:max-w-[600px] p-6 ">
-        <DialogHeader>
-          <DialogTitleWithCancel title="إضافة فئة جديد" icon={<Plus />} />
-        </DialogHeader>
-        <div>
-          <AddCategoryForm onCloseDialog={handleCloseDialog} />
-        </div>
-        <DialogDescription className="sr-only">
-          يمكنك اضافة فئات جديدة من هنا
-        </DialogDescription>
-      </DialogContent>
-    </Dialog>
+    <div className="flex gap-4">
+      {/* Add Dialog */}
+      <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
+        <DialogTrigger asChild>
+          <Button variant="default" className="text-white border-primary">
+            اضافة فئة جديدة
+          </Button>
+        </DialogTrigger>
+        <DialogContent className="sm:max-w-[425px] md:max-w-[600px] p-6">
+          <DialogHeader>
+            <DialogTitleWithCancel
+              title="إضافة فئة جديدة"
+              className="text-white"
+              onCancel={handleCloseAddDialog}
+            />
+          </DialogHeader>
+          <div>
+            <AddCategoryForm onCloseDialog={handleCloseAddDialog} />
+          </div>
+        </DialogContent>
+      </Dialog>
+
+      {editingCategory && (
+        <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
+          <DialogContent className="sm:max-w-[425px] md:max-w-[600px] p-6">
+            <DialogHeader>
+              <DialogTitleWithCancel
+                title="تعديل الفئة"
+                className="text-white"
+                onCancel={handleCloseEditDialog}
+              />
+            </DialogHeader>
+            <div>
+              <EditCategoryForm
+                onCloseDialog={handleCloseEditDialog}
+                defaultValues={{
+                  id: editingCategory.categoryId,
+                  categoryName: editingCategory.categoryName,
+                }}
+              />
+            </div>
+          </DialogContent>
+        </Dialog>
+      )}
+    </div>
   );
 }

@@ -8,6 +8,8 @@ import LoadingPage from "./components/LoadingPage";
 import MainProvider from "./providers/MainProvider";
 import { BrowserRouter, Route, Routes } from "react-router";
 import AdvsManagementPage from "./pages/AdvsManagementPage";
+import ProductsManagementPage from "./pages/ProductsManagementPage";
+import DealsManagementPage from "./pages/DealsManagementPage";
 
 const LoginPage = lazy(() => import("./pages/LoginPage"));
 const OverviewPage = lazy(() => import("./pages/OverviewPage"));
@@ -47,6 +49,9 @@ function App() {
                 <Route path="/orders" element={<OrdersManagementPage />} />
                 <Route path="/pricing" element={<PricingPlanPage />} />
                 <Route path="/advs" element={<AdvsManagementPage />} />
+                <Route path="/deals" element={<DealsManagementPage />} />
+
+                <Route path="/products" element={<ProductsManagementPage />} />
 
                 <Route
                   path="/categories"

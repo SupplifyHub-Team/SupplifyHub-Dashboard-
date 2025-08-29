@@ -19,3 +19,14 @@ interface ISubscribedSuppliers {
   joinDate: string;
   ordersCompleted: number | string;
 }
+
+interface IPendingSubscriptions {
+  planId: number;
+  supplierId: number;
+  planName: string;
+  supplierName: string;
+  email: string;
+  createdAt: string;
+  joinDate: string;
+  duration: number;
+}

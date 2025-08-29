@@ -1,4 +1,4 @@
-declare interface IActiveCategory {
+interface IActiveCategory {
   categoryId: number | string;
   categoryName: string;
   imageURL: string | null;
@@ -6,14 +6,13 @@ declare interface IActiveCategory {
   numberOfAssociatedClients: number;
 }
 
-
-declare interface IPendingCategory {
-  id: number | string;
-  categoryName?: string;
-  email: string;
-  submittedAt: string;
+interface IPendingCategory {
+  categoryId: number | string;
+  categoryName: string;
+  userName: string;
+  userEmail: string;
 }
-declare interface ICategoriesFilters {
+interface ICategoriesFilters {
   search?: string;
   page?: number;
   pageSize?: number;

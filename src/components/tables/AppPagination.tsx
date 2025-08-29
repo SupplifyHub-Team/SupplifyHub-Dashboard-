@@ -44,7 +44,8 @@ export default function AppPagination({
                 size="icon"
                 onClick={() => setPage(page - 1)}
                 disabled={page <= 1}
-                className="h-8 w-8 bg-primary">
+                className="h-8 w-8 bg-primary"
+              >
                 <ChevronRight className="h-4 w-4 text-white" />
               </Button>
             </PaginationItem>
@@ -68,7 +69,8 @@ export default function AppPagination({
                 size="icon"
                 onClick={() => setPage(page + 1)}
                 disabled={page >= totalPages}
-                className="h-8 w-8 ">
+                className="h-8 w-8 "
+              >
                 <ChevronLeft className="h-4 w-4 text-white" />
               </Button>
             </PaginationItem>
@@ -76,7 +78,7 @@ export default function AppPagination({
         </Pagination>
         <p className="text-xs text-nowrap">اقصى صفحة : {totalPages}</p>
       </div>
-      <div className="text-xs text-muted-foreground">
+      <div className="text-xs text-white">
         عرض {startItem} الى {endItem}
       </div>
     </div>

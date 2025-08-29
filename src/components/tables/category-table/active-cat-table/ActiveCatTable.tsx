@@ -3,6 +3,8 @@ import ReusableTable from "../../ReusableTable";
 import ActiveCatTableRow from "./ActiveCatTableRow";
 import useGetActiveCategory from "@/hooks/categories/useGetActiveCategory";
 import AddCategories from "@/components/categories/AddCategories";
+import { useState } from "react";
+import { AlertCircle } from "lucide-react";
 
 const TABLE_HEADERS: string[] = [
   "صوره الفئة",
@@ -14,6 +16,8 @@ const TABLE_HEADERS: string[] = [
 
 const ActiveCatTable = () => {
   const { data, isPending, error } = useGetActiveCategory();
+  const [editingCategory, setEditingCategory] =
+    useState<IActiveCategory | null>(null);
 
   if (error) {
     return <div className="text-center text-red-500">{error.message}</div>;
@@ -25,22 +29,27 @@ const ActiveCatTable = () => {
 
   return (
     <div className="flex flex-col gap-4">
-      <h2 className="text-xl font-semibold text-gray-600 text-right md:text-2xl ">
+      <h2 className="text-xl font-semibold text-white text-right md:text-2xl ">
         الفئات النشطة
       </h2>
-      <div className="md:flex  items-center justify-between my-2 ">
+      <div className="flex gap-2  items-center justify-between my-2 ">
         <SearchInput
-          className="w-full  "
+          className="w-full text-white "
           searchKey="activeCategories-search"
           placeholder="ابحث عن فئة..."
         />
 
-        {/* button to add new category */}
-        <AddCategories />
+        <AddCategories
+          editingCategory={editingCategory}
+          setEditingCategory={setEditingCategory}
+        />
       </div>
 
       {!isPending && categories.length === 0 ? (
-        <div className="text-center text-gray-500">لا توجد بيانات لعرضها</div>
+        <div className="flex flex-col items-center justify-center py-10 text-gray-500 gap-2">
+          <AlertCircle className="w-8 h-8 text-red-400" />
+          لا توجد بيانات لعرضها
+        </div>
       ) : (
         <ReusableTable<IActiveCategory>
           headers={TABLE_HEADERS}
@@ -55,6 +64,7 @@ const ActiveCatTable = () => {
             <ActiveCatTableRow
               activeCat={activeCat}
               key={activeCat.categoryId}
+              setEditingCategory={setEditingCategory}
             />
           )}
         />

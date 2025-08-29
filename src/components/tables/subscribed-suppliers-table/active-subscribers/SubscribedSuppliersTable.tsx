@@ -1,25 +1,24 @@
 import useGetAllSubscribers from "@/hooks/subscribers/useGetAllSubscribers";
-import ReusableTable from "../ReusableTable";
+import ReusableTable from "../../ReusableTable";
 import SubscribedTableRow from "./SubscribedSuppliersTableRow";
 import { SUBSCRIBED_SUPPLIERS_TABLE_NAME } from "@/lib/constants";
 import SubscribedSuppliersTableHeader from "./SubscribedSuppliersTableHeader";
 
 const TABLE_HEADERS: string[] = [
-  "اسم المستورد",
+  "اسم المورد",
   "البريد الإلكتروني",
   "نوع الاشتراك",
   "تاريخ بدء الاشتراك",
   "تاريخ نهاية الاشتراك",
   "تاريخ الانضمام",
-  "عدد الطلبات المكتملة",
-  "حالة الاشتراك",
+  "الطلبات المكتملة",
 ];
 
 export default function SubscribedSuppliersTable() {
   const { data, isPending } = useGetAllSubscribers();
 
   return (
-    <div className="flex flex-col gap-4 bg-white p-4 rounded-lg shadow-lg ">
+    <div className="flex flex-col gap-4 bg-card p-4 rounded-lg shadow-lg ">
       <SubscribedSuppliersTableHeader />
       <ReusableTable
         headers={TABLE_HEADERS}

@@ -1,6 +1,7 @@
 import { StatCard } from "@/components/cards/StatCard";
 import StatCardSkeletons from "@/components/cards/StatCardSkeleton";
 import { ErrorFetchingData } from "@/components/ErrorFetchingData";
+import AdditionalOrdersTable from "@/components/tables/additional-tables/additional-orders/AdditionalOrdersTable";
 import OrderTable from "@/components/tables/order-table/OrderTable";
 import Box from "@/components/ui/box";
 import useGetStats from "@/hooks/statistics/useGetGeneralStatistics";
@@ -20,7 +21,7 @@ const OrdersManagementPage = () => {
 
   if (error) {
     return (
-      <div className="grid bg-white rounded-2xl shadow-lg  grid-cols-1 gap-3 mt-3">
+      <div className="grid bg-background rounded-2xl shadow-lg  grid-cols-1 gap-3 mt-3">
         <ErrorFetchingData onRetry={() => refetch?.()} />
       </div>
     );
@@ -46,7 +47,7 @@ const OrdersManagementPage = () => {
           color="yellow"
         />
         <StatCard
-           title={`${data?.data[2].status}`}
+          title={`${data?.data[2].status}`}
           value={`${data?.data[2].totalCount}`}
           change={`${data?.data[2].newThisMonth} طلبات  مكتملة جدد هذا الشهر`}
           changeDirection="up"
@@ -54,7 +55,7 @@ const OrdersManagementPage = () => {
           color="green"
         />
         <StatCard
-              title={`${data?.data[3].status}`}
+          title={`${data?.data[3].status}`}
           value={`${data?.data[3].totalCount}`}
           change={`${data?.data[3].newThisMonth} طلبات  فاشله جدد هذا الشهر`}
           changeDirection="up"
@@ -63,6 +64,8 @@ const OrdersManagementPage = () => {
         />
       </div>
       <OrderTable />
+    
+      <AdditionalOrdersTable />
     </Box>
   );
 };

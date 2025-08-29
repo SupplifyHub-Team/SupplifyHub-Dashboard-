@@ -1,7 +1,7 @@
-declare interface IAdmin {
+interface IAdmin {
   token: string;
 }
 
-declare interface IRefreshResponse {
+interface IRefreshResponse {
   token: string;
 }

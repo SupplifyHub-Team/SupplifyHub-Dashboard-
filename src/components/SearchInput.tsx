@@ -31,14 +31,14 @@ export default function SearchInput({
             setInputValue(e.target.value);
             onChange?.(e.target.value);
           }}
-          className={`w-full ps-9! max-w-sm bg-background border-none placeholder:text-xs ${
+          className={`w-full text-white ps-9! max-w-sm bg-background border-none placeholder:text-xs ${
             className || ""
           }`}
           id={`search-input-${searchKey}`}
           placeholder={placeholder}
         />
         <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-          <Search className="w-4 h-4 " />
+          <Search className="w-4 h-4 " color="#ffff" />
         </div>
       </div>
     </>

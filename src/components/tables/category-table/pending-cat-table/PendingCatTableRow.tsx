@@ -1,6 +1,5 @@
 import { TableCell, TableRow } from "@/components/ui/table";
 import { CircleCheck, CircleX } from "lucide-react";
-import { formattedData } from "@/lib/utils/formatDate";
 import useAcceptPendingCategory from "@/hooks/categories/useAcceptPendingCategory";
 import useRejectPendingCategory from "@/hooks/categories/useRejectPendingCategory";
 
@@ -13,11 +12,11 @@ const PendingCatTableRow = ({
   const { mutate: reject } = useRejectPendingCategory();
 
   const handleAccept = () => {
-    mutate(pendingCat.id);
+    mutate(pendingCat.categoryId);
   };
 
   const handleReject = () => {
-    reject(pendingCat.id);
+    reject(pendingCat.categoryId);
   };
 
   return (
@@ -26,11 +25,12 @@ const PendingCatTableRow = ({
         <span> {pendingCat.categoryName}</span>
       </TableCell>
       <TableCell>
-        <span> {pendingCat.email}</span>
+        <span> {pendingCat.userName}</span>
       </TableCell>
       <TableCell>
-        <span> {formattedData(pendingCat.submittedAt)}</span>
+        <span> {pendingCat.userEmail}</span>
       </TableCell>
+
       <TableCell>
         <span>
           <div className="flex items-center gap-2">

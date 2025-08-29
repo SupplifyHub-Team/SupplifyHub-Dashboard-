@@ -4,7 +4,7 @@ import { isAxiosError } from "axios";
 export async function getUserStatistics() {
   try {
     const response = await api.get<IApiResponse<IUserStatistics[]>>(
-      `/api/Statistics/users`
+      `/admin/Statistics/users`
     );
     return response.data;
   } catch (error) {
@@ -24,7 +24,7 @@ export async function getStatsData<T>(
   endpoint: string
 ): Promise<IApiResponse<T[]>> {
   try {
-    const response = await api.get<IApiResponse<T[]>>(`/api/Statistics/${endpoint}`);
+    const response = await api.get<IApiResponse<T[]>>(`/admin/statistics/${endpoint}`);
     return response?.data;
   } catch (error) {
     console.error("Error fetching general statistics:", error);
@@ -40,7 +40,7 @@ export async function getStatsData<T>(
 export async function getOrdersStatistics(year: number | string) {
   try {
     const response = await api.get<IApiResponse<IOrderStatistic[]>>(
-      `/api/Statistics/orders/${year}`
+      `/admin/Statistics/orders/${year}`
     );
     return response.data;
   } catch (error) {

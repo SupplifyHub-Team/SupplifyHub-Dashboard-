@@ -14,7 +14,9 @@ const defaultFilters: userFiltersSchema = {
   sortBy: "Desc",
   category: "",
   role: "",
+  isActive: "",
 };
+
 export default function UsersFilters() {
   const { form, resetFilters } = useFilterForm<userFiltersSchema>({
     schema: userFiltersSchema,
@@ -30,10 +32,9 @@ export default function UsersFilters() {
             control={form.control}
             name="search"
             placeholder="ابحث عن مستخدم..."
-            Icon={<Search className="size-4" />}
+            Icon={<Search className="size-4 text-white" color="#ffff" />}
             className="text-sm md:text-base placeholder:text-xs"
           />
-          <div className="mx-2 h-6 w-0.5 bg-black/30 " />
         </div>
 
         <div className="flex items-center gap-3 flex-wrap">
@@ -65,7 +66,7 @@ export default function UsersFilters() {
               { label: "الأحدث", value: "Desc" },
               { label: "الأقدم", value: "Asc" },
             ]}
-            placeholder="رتب حسب..."
+            placeholder="رتب حسب"
             className="min-w-44"
           />
         </div>
@@ -74,7 +75,8 @@ export default function UsersFilters() {
         variant="link"
         type="button"
         className="h-10"
-        onClick={resetFilters}>
+        onClick={resetFilters}
+      >
         ألغي الفلاتر
       </Button>
     </Form>

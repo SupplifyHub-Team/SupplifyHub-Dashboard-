@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { categorySchema } from "@/schemas/categorySchema";
+import { AddCategorySchema, addCategorySchema } from "@/schemas/categorySchema";
 import {
   Form,
   FormControl,
@@ -11,7 +11,6 @@ import {
 import { Button } from "../ui/button";
 import Spinner from "../ui/Spinner";
 import FormInput from "../forms-fields/FormInput";
-import { useCategoryForm } from "@/store/categoryFormStore";
 import usePostCategory from "@/hooks/categories/usePostCategory";
 import { Input } from "../ui/input";
 
@@ -22,26 +21,31 @@ interface AddCategoryFormProps {
 export default function AddCategoryForm({
   onCloseDialog,
 }: AddCategoryFormProps) {
-  const { formData, clearData } = useCategoryForm();
-  const { mutate, isPending } = usePostCategory();
+  const { mutate: addCategory, isPending: isAdding } = usePostCategory();
 
-  const form = useForm<categorySchema>({
-    resolver: zodResolver(categorySchema),
+  const form = useForm<AddCategorySchema>({
+    resolver: zodResolver(addCategorySchema), 
     defaultValues: {
-      categoryName: formData?.categoryName || "",
+      categoryName: "",
+      categoryImage: undefined,
     },
   });
 
-  function onSubmit(data: categorySchema) {
+  function onSubmit(data: AddCategorySchema) {
+    if (!form.formState.isDirty) {
+      onCloseDialog();
+      return;
+    }
+
     const formData = new FormData();
+    formData.append("CategoryName", data.categoryName);
+    if (data.categoryImage) {
+      formData.append("Photo", data.categoryImage);
+    }
 
-    formData.append("categoryName", data.categoryName);
-    formData.append("Photo", data.categoryImage);
-
-    mutate(formData, {
+    addCategory(formData, {
       onSuccess: () => {
         form.reset();
-        clearData();
         onCloseDialog();
       },
     });
@@ -54,7 +58,7 @@ export default function AddCategoryForm({
         className="flex gap-4 items-center justify-between w-full flex-wrap"
       >
         <div className="flex items-center gap-3 flex-wrap">
-          <FormInput<categorySchema>
+          <FormInput
             control={form.control}
             name="categoryName"
             type="text"
@@ -64,20 +68,16 @@ export default function AddCategoryForm({
           <FormField
             control={form.control}
             name="categoryImage"
-            render={({ field: { onChange, value, ...field } }) => (
+            render={({ field }) => (
               <FormItem>
                 <FormControl>
                   <Input
-                    {...field}
                     type="file"
                     accept="image/*"
                     onChange={(e) => {
                       const file = e.target.files?.[0];
-                      if (file) {
-                        onChange(file);
-                      }
+                      field.onChange(file);
                     }}
-                    className="h-10 py-1 "
                   />
                 </FormControl>
                 <FormMessage />
@@ -85,9 +85,8 @@ export default function AddCategoryForm({
             )}
           />
         </div>
-
-        <Button type="submit" disabled={isPending}>
-          {isPending ? <Spinner /> : "اضافة"}
+        <Button type="submit" disabled={!form.formState.isDirty || isAdding}>
+          {isAdding ? <Spinner /> : "إضافة"}
         </Button>
       </form>
     </Form>

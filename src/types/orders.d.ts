@@ -1,4 +1,4 @@
-declare interface IOrder {
+interface IOrder {
   OrderId: string;
   companyName: string;
   email: string;
@@ -10,3 +10,10 @@ declare interface IOrder {
   createdAt: string;
 }
 
+interface IAdditionalOrders {
+  requestId: string;
+  name: string;
+  email: string;
+  phone: string;
+  amount: number;
+}

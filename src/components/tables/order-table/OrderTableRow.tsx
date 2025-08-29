@@ -14,7 +14,7 @@ const stateToColor: Record<string, statusColor> = {
   Active: "blue",
   InProgress: "yellow",
   Completed: "green",
-  Failed: "red",
+  Canceled: "red",
 };
 
 export default function OrderTableRow({ order }: { order: IOrder }) {

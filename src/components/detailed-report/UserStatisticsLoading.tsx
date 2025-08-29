@@ -3,7 +3,7 @@ import { Loader2 } from "lucide-react";
 
 export function UserStatisticsLoading() {
   return (
-    <Card className="flex flex-col gap-0 pb-0! bg-white max-w-sm h-fit min-h-64">
+    <Card className="flex flex-col gap-0 pb-0! bg-card max-w-sm h-fit min-h-64">
       <CardHeader className="items-center pb-0">
         <CardTitle>احصائيات المستخدمين</CardTitle>
       </CardHeader>

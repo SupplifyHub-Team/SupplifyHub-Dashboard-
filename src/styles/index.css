@@ -3,11 +3,11 @@
 
 @custom-variant dark (&:is(.dark *));
 
+
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
-
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
   font-synthesis: none;
@@ -15,21 +15,24 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   --radius: 0.625rem;
-  --background: oklch(1 0 0);
+  --background: #444444;
   --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-
-  --primary: #636ae8;
+  --card: oklch(20.5% 0 0);
+  --card-foreground: oklch(98.5% 0 0);
+  --popover: oklch(26.9% 0 0);
+  --popover-foreground: oklch(98.5% 0 0);
+  --primary: #1662F0;
+  --button-bg: #774bfb;
+  --button-hover: ##9d7dfc;
+  --bg-gray-hover: #E0F1FF;
+  --bg-gray: #edf0f3;
   --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
+  --secondary: #162128;
   --secondary-foreground: oklch(0.205 0 0);
   --muted: oklch(0.97 0 0);
   --muted-foreground: oklch(0.556 0 0);
   --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
+  --accent-foreground: \oklch(34.17% 0.00138 15.677);
   --destructive: oklch(0.577 0.245 27.325);
   --border: oklch(0.922 0 0);
   --input: oklch(0.922 0 0);
@@ -41,7 +44,7 @@
   --chart-5: oklch(0.769 0.188 70.08);
   --chart-clients: #379ae6;
   --chart-suppliers: #c3e1f8;
-  --chart-job-seekers: #50bfff;
+  --chart-active-users: #69f867;
   --sidebar: oklch(0.269 0 0);
   --sidebar-foreground: oklch(0.145 0 0);
   --sidebar-primary: oklch(0.205 0 0);
@@ -83,7 +86,8 @@
   --color-chart-5: var(--chart-5);
   --color-chart-clients: var(--chart-clients);
   --color-chart-suppliers: var(--chart-suppliers);
-  --color-chart-job-seekers: var(--chart-job-seekers);
+  --color-chart-active-users: var(--chart-active-users);
+  --color-chart-inactive-users: var(--destructive)
   --color-sidebar: var(--sidebar);
   --color-sidebar-foreground: var(--sidebar-foreground);
   --color-sidebar-primary: var(--sidebar-primary);
@@ -136,8 +140,13 @@
     @apply bg-background text-foreground;
   }
 }
+@layer utilities {
+  .bg-gradient {
+    background-image: linear-gradient(to right, #1356EF, #2DBDFA);
+  }
+}
 
 body {
   font-family: "Cairo", sans-serif !important;
-  background-color: #f3f4f6;
+  background-color: black;
 }

@@ -1,7 +1,7 @@
 import { StatCard } from "@/components/cards/StatCard";
 import UsersTable from "@/components/tables/users-table/active-users/UsersTable";
 import Box from "@/components/ui/box";
-import { BriefcaseBusiness, Container, Handshake } from "lucide-react";
+import { Container, Handshake, UserCheck, UserX } from "lucide-react";
 import StatCardSkeletons from "@/components/cards/StatCardSkeleton";
 import { ErrorFetchingData } from "@/components/ErrorFetchingData";
 import useGetStats from "@/hooks/statistics/useGetGeneralStatistics";
@@ -31,13 +31,13 @@ export default function UsersManagementPage() {
 
   return (
     <Box className="w-full">
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 mb-6 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 mb-6 gap-6">
         <StatCard
           title={`${data?.data[0].category}`}
           change={`${data?.data[0].newThisMonth} طلبات مكتملة جدد هذا الشهر`}
           value={`${data?.data[0].totalCount}`}
           changeDirection="up"
-          color="pink"
+          color="yellow"
           icon={<Handshake className="w-6 h-6 cursor-pointer" />}
         />
 
@@ -46,21 +46,29 @@ export default function UsersManagementPage() {
           change={`${data?.data[1].newThisMonth} طلبات مكتملة جدد هذا الشهر`}
           value={`${data?.data[1].totalCount}`}
           changeDirection="up"
-          color="green"
+          color="indigo"
           icon={<Container className="w-6 h-6 cursor-pointer" />}
         />
 
         <StatCard
-          title={`${data?.data[2].category}`}
-          change={`${data?.data[2].newThisMonth} طلبات مكتملة جدد هذا الشهر`}
-          value={`${data?.data[2].totalCount}`}
-          changeDirection="up"
-          color="yellow"
-          icon={<BriefcaseBusiness className="w-6 h-6 cursor-pointer" />}
+          title={`${data?.data[3].category}`}
+          change={`${data?.data[3].newThisMonth}   مستخدمين نشطين هذا الشهر`}
+          value={`${data?.data[3].totalCount}`}
+          color="green"
+          icon={<UserCheck className="w-6 h-6 cursor-pointer" />}
+        />
+
+        {/* inactive users card */}
+        <StatCard
+          title={`${data?.data[4].category}`}
+          change={`${data?.data[4].newThisMonth}   مستخدمين غير نشطين هذا الشهر`}
+          value={`${data?.data[4].totalCount}`}
+          color="pink"
+          icon={<UserX className="w-6 h-6 cursor-pointer" />}
         />
       </div>
 
-      <Box className="w-full flex flex-col gap-6 md:gap-15 ">
+      <Box className="w-full flex flex-col  md:gap-15 ">
         <UsersTable />
 
         <PendingUserTable />

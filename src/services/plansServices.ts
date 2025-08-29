@@ -5,7 +5,7 @@ import { isAxiosError } from "axios";
 export async function getPlansStatistics() {
   try {
     const response = await api.get<IApiResponse<IPlanStatistics[]>>(
-      "/api/Statistics/plans"
+      "/admin/Statistics/plans"
     );
     return response.data;
   } catch (error) {
@@ -19,7 +19,7 @@ export async function getPlansStatistics() {
 }
 export async function getPlans() {
   try {
-    const response = await api.get<IApiResponse<IPlan[]>>("/api/plans");
+    const response = await api.get<IApiResponse<IPlan[]>>("/plans");
     return response.data;
   } catch (error) {
     if (isAxiosError(error)) {
@@ -32,7 +32,7 @@ export async function getPlans() {
 }
 export async function deletePlan(planId: string | number) {
   try {
-    const response = await api.delete(`/api/plans/${planId}`);
+    const response = await api.delete(`/admin/plans/${planId}`);
     return response.data;
   } catch (error) {
     if (isAxiosError(error)) {
@@ -52,7 +52,7 @@ export async function postPlan(planData: {
 }) {
   try {
     const response = await api.post<IApiResponse<IPlan>>(
-      "/api/Plans/create-plan",
+      "/admin/Plans/create-plan",
       planData
     );
     return response.data;
@@ -72,7 +72,7 @@ export async function updatePlan(
 ) {
   try {
     const response = await api.put<IApiResponse<IPlan>>(
-      `/api/plans/${id}`,
+      `/admin/plans/${id}`,
       planData
     );
     return response.data;
@@ -85,3 +85,4 @@ export async function updatePlan(
     throw error;
   }
 }
+

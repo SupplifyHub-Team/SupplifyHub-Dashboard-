@@ -11,7 +11,7 @@ export function ErrorFetchingData({ onRetry }: ErrorFetchingDataProps) {
       <div className="text-red-500 mb-4">
         <AlertCircle className="w-16 h-16" />
       </div>
-      <h3 className="text-lg font-medium text-gray-900 mb-2 text-center">
+      <h3 className="text-lg font-medium text-gray-100 mb-2 text-center">
         فشل في تحميل البيانات
       </h3>
       <p className="text-sm text-muted-foreground text-center mb-6 max-w-md">

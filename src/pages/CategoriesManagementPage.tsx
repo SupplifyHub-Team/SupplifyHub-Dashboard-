@@ -4,7 +4,7 @@ import Box from "@/components/ui/box";
 
 const CategoriesManagementPage = () => {
   return (
-    <Box className="w-full flex flex-col gap-6 md:gap-15 ">
+    <Box className="w-full flex flex-col gap-6  ">
       <ActiveCatTable />
 
       <PendingCatTable />

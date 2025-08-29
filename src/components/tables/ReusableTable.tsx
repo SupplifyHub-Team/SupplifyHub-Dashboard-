@@ -42,11 +42,11 @@ export default function ReusableTable<T>({
     <Table>
       {caption && <TableCaption className="sr-only">{caption}</TableCaption>}
       <TableHeader>
-        <TableRow dir="rtl" className="bg-gray-100">
+        <TableRow dir="rtl" className="bg-[#7E8299]">
           {headers.map((header) => (
             <TableHead
               key={header}
-              className="text-right text-sm font-semibold text-gray-700 px-4 py-3"
+              className="text-right text-sm font-semibold text-white px-4 py-3"
             >
               {header}
             </TableHead>

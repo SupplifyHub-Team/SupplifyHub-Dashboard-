@@ -62,7 +62,7 @@ export default function FormSelect<TFormValues extends FieldValues>({
               {...props}>
               <SelectTrigger
                 dir="rtl"
-                className={cn("w-full h-full bg-background", className)}>
+                className={cn("w-full h-full ", className)}>
                 <SelectValue placeholder={placeholder} />
               </SelectTrigger>
               <SelectContent dir="rtl">

@@ -1,14 +1,16 @@
-declare interface IUser {
+interface IUser {
   userId: number;
   companyName: string;
-  email: string;
-  role: "client" | "jobber" | "supplier";
-  createdAt: string;
+  userName: string;
+  isActive: boolean;
+  role: string;
   categoryNames: string[];
   joinDate: string;
+  locations: string[];
+  email: string;
+  phoneNumber: string;
 }
-
-declare interface IPendingUser {
+interface IPendingUser {
   id: number;
   name: string;
   email: string;

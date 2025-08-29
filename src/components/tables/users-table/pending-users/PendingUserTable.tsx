@@ -1,6 +1,7 @@
 import useGetPendingUsers from "@/hooks/users/useGetPendingUsers";
 import PendingUserTableRow from "./PendingUserTableRow";
 import ReusableTable from "../../ReusableTable";
+import { AlertCircle } from "lucide-react";
 
 const TABLE_HEADERS: string[] = [
   "لوجو الشركة",
@@ -23,11 +24,14 @@ export default function PendingUserTable() {
 
   return (
     <div className="flex flex-col gap-4 ">
-      <h2 className="text-xl mb-4 font-semibold text-gray-600 text-right md:text-2xl">
+      <h2 className="text-xl mb-4 font-semibold text-white text-right md:text-2xl">
         الشركات المقترحه
       </h2>
       {!isPending && pendingUsers.length === 0 ? (
-        <div className="text-center text-gray-500">لا توجد بيانات لعرضها</div>
+        <div className="flex flex-col items-center justify-center py-10 text-gray-500 gap-2">
+          <AlertCircle className="w-8 h-8 text-red-400" />
+          لا توجد بيانات لعرضها
+        </div>
       ) : (
         <ReusableTable<IPendingUser>
           headers={TABLE_HEADERS}

@@ -11,7 +11,7 @@ export type Palette =
 
 interface StatCardProps {
   title: string;
-  value:  number | string;
+  value: number | string;
   change: string;
   changeDirection?: "up" | "down";
   icon: ReactNode;
@@ -24,7 +24,7 @@ const palette: Record<Palette, { bg: string; border: string; accent: string }> =
     indigo: {
       bg: "bg-indigo-50",
       border: "border-indigo-100",
-      accent: "text-indigo-500",
+      accent: "text-primary",
     },
     pink: {
       bg: "bg-pink-50",
@@ -51,6 +51,7 @@ const palette: Record<Palette, { bg: string; border: string; accent: string }> =
       border: "border-yellow-100",
       accent: "text-yellow-500",
     },
+    
   };
 
 export const StatCard: FC<StatCardProps> = ({
@@ -74,7 +75,8 @@ export const StatCard: FC<StatCardProps> = ({
         bg,
         border,
         className
-      )}>
+      )}
+    >
       {/* النصوص */}
       <div className="flex flex-col min-h-25 justify-between">
         <p className="text-sm font-medium text-gray-500">{title}</p>
