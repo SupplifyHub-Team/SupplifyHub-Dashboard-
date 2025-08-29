@@ -55,7 +55,7 @@ export default function FormDatePicker<TFormValues extends FieldValues>({
               <PopoverTrigger asChild>
                 <Button
                   variant={"outline"}
-                  className="group border-input w-full justify-between border-2 bg-white px-3 font-normal outline-offset-0 outline-none focus-visible:outline-[3px]"
+                  className="group border-input text-white! w-full justify-between border-2 bg-card px-3 font-normal outline-offset-0 outline-none focus-visible:outline-[3px]"
                 >
                   <span
                     className={cn(
@@ -68,13 +68,14 @@ export default function FormDatePicker<TFormValues extends FieldValues>({
                       : placeholder}
                   </span>
                   <CalendarIcon
+                    color="white"
                     size={16}
-                    className="text-muted-foreground/80 group-hover:text-foreground shrink-0 transition-colors"
+                    className="text-white! group-hover:text-foreground shrink-0 transition-colors"
                     aria-hidden="true"
                   />
                 </Button>
               </PopoverTrigger>
-              <PopoverContent className="w-auto p-2" align="start">
+              <PopoverContent className="w-auto text-white p-2" align="start">
                 <Calendar
                   mode="single"
                   selected={field.value}

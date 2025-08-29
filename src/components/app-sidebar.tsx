@@ -5,16 +5,15 @@ import {
   Layers,
   CircleDollarSign,
   Boxes,
-  
-
+  Megaphone,
+  ShoppingCart,
+  Handshake,
 } from "lucide-react";
 
 import { NavMain } from "@/components/nav-main";
- 
-
 import { NavUser } from "@/components/nav-user";
 
-  import {
+import {
   Sidebar,
   SidebarContent,
   SidebarFooter,
@@ -22,51 +21,28 @@ import { NavUser } from "@/components/nav-user";
   SidebarRail,
 } from "@/components/ui/sidebar";
 
-// This is sample data.
 const data = {
   navMain: [
-    {
-      title: "لوحة التحكم",
-      url: "/", 
-      icon: LayoutDashboard,
-    },
-    {
-      title: "إدارة المستخدمين",
-      url: "/user-management",
-      icon: UserCog,
-    },
-    {
-      title: "إدارة الطلبات",
-      url: "/orders",
-      icon: Layers,
-    },
-    {
-      title: "خطط التسعير",
-      url: "/pricing",
-      icon: CircleDollarSign,
-    },
-     {
-      title: "إدارة الإعلانات",
-      url: "/advs",
-      icon: Boxes,
-    },
-    {
-      title: "إدارة الفئات",
-      url: "/categories",
-      icon: Boxes,
-    },
-
-
+    { title: "لوحة التحكم", url: "/", icon: LayoutDashboard },
+    { title: "إدارة المستخدمين", url: "/user-management", icon: UserCog },
+    { title: "إدارة الطلبات", url: "/orders", icon: Layers },
+    { title: "خطط التسعير", url: "/pricing", icon: CircleDollarSign },
+    { title: "إدارة الإعلانات", url: "/advs", icon: Megaphone },
+    { title: "إدارة الفئات", url: "/categories", icon: Boxes },
+    { title: "إدارة المنتجات", url: "/products", icon: ShoppingCart },
+    { title: "إدارة الصفقات", url: "/deals", icon: Handshake },
   ],
-
 };
-
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
-    <Sidebar collapsible="icon"  {...props}>
+    <Sidebar collapsible="icon" {...props}>
       <SidebarHeader>
-        <img src="/logo.svg" className="w-12 h-12 object-contain rounded-full" alt="logo" />
+        <img
+          src="/Logo.webp"
+          className="w-12 h-12 object-contain rounded-full"
+          alt="logo"
+        />
       </SidebarHeader>
       <SidebarContent>
         <NavMain items={data.navMain} />

@@ -9,8 +9,8 @@ export default function useAcceptPendingUsers() {
     onSuccess: () => {
       toast.success("تم قبول الستخدم بنجاح");
       queryClient.invalidateQueries({ queryKey: ["pendingUsers"] });
-
       queryClient.invalidateQueries({ queryKey: ["users"] });
+      queryClient.invalidateQueries({ queryKey: ["userStatistics"] });
     },
 
     onError: (error: Error) => {

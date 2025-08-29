@@ -8,9 +8,8 @@ interface GetAllUsersParams {
   search?: string;
   role?: string;
   category?: string;
-  sortColumn?: string;
-  sortColumnDirection?: string;
-  sortBy?: string;
+  sortBy?: "Asc" | "Desc";
+  isActive?: string;
 }
 
 export default async function getAllUsers(params: GetAllUsersParams) {
@@ -31,18 +30,18 @@ export default async function getAllUsers(params: GetAllUsersParams) {
     apiParams.category = params.category;
   }
 
+  if (params.isActive && params.isActive !== "") {
+    apiParams.status = params.isActive;
+  }
+
   if (params.sortBy) {
-    const [column, direction] = params.sortBy.split("_");
-    if (column && direction) {
-      apiParams.sortColumn = column;
-      apiParams.sortColumnDirection = direction;
-    }
+    apiParams.sortColumn = "CreatedAt";
+    apiParams.sortColumnDirection = params.sortBy;
   }
 
   try {
     const queryParams = new URLSearchParams(apiParams);
-    const response = await api.get(`/api/users?${queryParams.toString()}`);
-
+    const response = await api.get(`/admin/users?${queryParams.toString()}`);
     return response.data;
   } catch (error) {
     if (isAxiosError(error)) {
@@ -57,7 +56,7 @@ export default async function getAllUsers(params: GetAllUsersParams) {
 // get pending users
 export async function getPendingUsers() {
   try {
-    const response = await api.get(`/api/suppliers-to-accept`);
+    const response = await api.get(`/admin/suppliers-to-accept`);
     return response.data;
   } catch (error) {
     if (isAxiosError(error)) {
@@ -69,12 +68,11 @@ export async function getPendingUsers() {
   }
 }
 
-
 // accept pending users
-  
+
 export async function patchPendingUsers(userId: string | number) {
   try {
-    const res = await api.patch(`/api/suppliers/${userId}`);
+    const res = await api.patch(`/admin/suppliers/${userId}`);
     return res?.data;
   } catch (error) {
     if (isAxiosError(error)) {
@@ -86,15 +84,45 @@ export async function patchPendingUsers(userId: string | number) {
   }
 }
 
-// reject pending users 
+// reject pending users
 export async function deletePendingUsers(userId: string | number) {
   try {
-    const res = await api.delete(`/api/suppliers/${userId}`);
+    const res = await api.delete(`/admin/suppliers/${userId}`);
     return res?.data;
   } catch (error) {
     if (isAxiosError(error)) {
       throw new Error(
         error.response?.data.message || "Failed to delete this user"
+      );
+    }
+    throw error;
+  }
+}
+
+// funcation to make ban for user
+export async function banUser(userId: number) {
+  try {
+    const res = await api.patch(`/admin/ban?userId=${userId}`);
+    return res?.data;
+  } catch (error) {
+    if (isAxiosError(error)) {
+      throw new Error(
+        error.response?.data.message || "Failed to ban this user"
+      );
+    }
+    throw error;
+  }
+}
+
+// funcation to make the user active
+export async function activeUser(userId: number) {
+  try {
+    const res = await api.patch(`/admin/active?userId=${userId}`);
+    return res?.data;
+  } catch (error) {
+    if (isAxiosError(error)) {
+      throw new Error(
+        error.response?.data.message || "Failed to unban this user"
       );
     }
     throw error;

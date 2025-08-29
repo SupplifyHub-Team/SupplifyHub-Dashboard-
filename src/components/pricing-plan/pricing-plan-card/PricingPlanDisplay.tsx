@@ -1,7 +1,7 @@
 import { CircleCheck, CircleX } from "lucide-react";
-import ConfirmDeletion from "@/components/ConfirmDeletion";
+// import ConfirmDeletion from "@/components/ConfirmDeletion";
 import { Button } from "@/components/ui/button";
-import useDeletePlan from "@/hooks/plans/useDeletePlan";
+// import useDeletePlan from "@/hooks/plans/useDeletePlan";
 
 export default function PricingPlanDisplay({
   plan,
@@ -10,27 +10,27 @@ export default function PricingPlanDisplay({
   plan: IPlan;
   setIsEditing: (editing: boolean) => void;
 }) {
-  const { mutate } = useDeletePlan();
+  // const { mutate } = useDeletePlan();
 
   const hasPros = Array.isArray(plan.pros) && plan.pros.length > 0;
   const hasCons = Array.isArray(plan.cons) && plan.cons.length > 0;
 
   return (
-    <div className="rounded-2xl border border-gray-200 bg-gradient-to-br from-gray-50 to-gray-100 p-6 w-full flex flex-col justify-between">
+    <div className="rounded-2xl bg-gradient-to-br from-background  p-6 w-full flex flex-col justify-between">
       {/* عنوان الخطة */}
-      <div className="flex flex-col items-center border-b border-gray-300 pb-6">
-        <span className="mb-2 text-gray-800 text-lg font-semibold">
+      <div className="flex flex-col items-center  pb-6">
+        <span className="mb-2 text-white text-3xl font-semibold">
           {plan.planName}
         </span>
-        <span className="mb-2 text-3xl font-bold text-indigo-600">
+        <span className="mb-2 text-3xl font-bold text-primary">
           $ {plan.price} /{" "}
-          <span className="text-gray-500 text-sm">
+          <span className="text-gray-200 text-sm">
             {plan.duration + " شهر"}
           </span>
         </span>
 
         {plan.description && (
-          <span className="mt-3 text-sm text-gray-400">{plan.description}</span>
+          <span className="mt-3 text-sm text-gray-300">{plan.description}</span>
         )}
       </div>
 
@@ -41,7 +41,7 @@ export default function PricingPlanDisplay({
             {plan.pros!.map((pro, index) => (
               <li
                 key={index}
-                className="flex items-center gap-3 text-sm text-gray-600"
+                className="flex items-center gap-3 text-sm text-white"
               >
                 <span className="grid  place-content-center rounded-full bg-indigo-500 text-white">
                   <CircleCheck className="inline  text-white" />
@@ -60,10 +60,10 @@ export default function PricingPlanDisplay({
             {plan.cons!.map((con, index) => (
               <li
                 key={index}
-                className="flex items-center gap-3 text-sm text-gray-600"
+                className="flex items-center gap-3 text-sm text-white"
               >
-              <span className="grid place-content-center rounded-full bg-red-500 text-white">
-                  <CircleX className="inline text-white " />
+                <span className="grid place-content-center rounded-full bg-red-500 text-white">
+                  <CircleX className="inline  text-white " />
                 </span>
                 {con}
               </li>
@@ -80,10 +80,10 @@ export default function PricingPlanDisplay({
           تعديل الخطة
         </Button>
 
-        <ConfirmDeletion
+        {/* <ConfirmDeletion
           label="حذف الخطة"
           onApprove={() => mutate(plan.id.toString())}
-        />
+        /> */}
       </div>
     </div>
   );

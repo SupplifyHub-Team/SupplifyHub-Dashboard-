@@ -1,16 +1,20 @@
-import SubscribedTable from "@/components/tables/subscribed-suppliers-table/SubscribedSuppliersTable";
+import SubscribedTable from "@/components/tables/subscribed-suppliers-table/active-subscribers/SubscribedSuppliersTable";
 
 import PricingPlansList from "@/components/pricing-plan/PricingPlansList";
-import PricingPlansStats from "@/components/pricing-plan/stats/PricingPlansStats";
+
+import PendingSubscriptionsTable from "@/components/tables/subscribed-suppliers-table/pending-subscribers/PendingSubscriptionsTable";
+//
 
 const PricingPlanPage = () => {
   return (
     <div className="flex flex-col gap-1 ">
-      <PricingPlansStats />
+      {/* <PricingPlansStats /> */}
 
       <PricingPlansList />
 
       <SubscribedTable />
+
+      <PendingSubscriptionsTable />
     </div>
   );
 };

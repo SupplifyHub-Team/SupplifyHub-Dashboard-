@@ -98,7 +98,7 @@ export default function FormAsyncSelect<
                   <div className="flex flex-col items-center justify-center py-6 px-4">
                     <div className="text-red-500 mb-2">
                       <svg
-                        className="h-6 w-6"
+                        className="h-6 w-6 "
                         fill="none"
                         viewBox="0 0 24 24"
                         stroke="currentColor">
@@ -110,7 +110,7 @@ export default function FormAsyncSelect<
                         />
                       </svg>
                     </div>
-                    <p className="text-sm text-muted-foreground text-center mb-3">
+                    <p className="text-sm text-gray-100 text-center mb-3">
                       فشل في تحميل البيانات
                     </p>
                     <button

@@ -2,16 +2,18 @@ import { getOrders } from "@/services/ordersManagementService";
 import usePaginatedData from "../usePaginatedData";
 import useTableQueries from "../useTableQueries";
 import { TABLE_ROWS } from "@/lib/constants";
+import { IGetOrdersFilters } from "@/services/ordersManagementService";
+
 export default function useGetOrders() {
   const queryParams = useTableQueries("orders");
 
-  return usePaginatedData<IOrder>({
-    queryKey: ["orders", JSON.stringify(queryParams)],
+  const apiFilters: IGetOrdersFilters = {
+    ...queryParams,
+    pageSize: TABLE_ROWS,
+  };
 
-    fetchFn: async () =>
-      getOrders({
-        ...queryParams,
-        pageSize: TABLE_ROWS.toString(),
-      }),
+  return usePaginatedData<IOrder>({
+    queryKey: ["orders", JSON.stringify(apiFilters)],
+    fetchFn: async () => getOrders(apiFilters),
   });
 }

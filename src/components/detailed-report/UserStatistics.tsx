@@ -1,6 +1,6 @@
 "use client";
 
-import { Pie, PieChart } from "recharts";
+import { Cell, Pie, PieChart } from "recharts";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
@@ -15,7 +15,7 @@ import { ErrorFetchingData } from "../ErrorFetchingData";
 
 export const description = "A simple pie chart";
 
-// Define the chart config with Arabic labels and custom colors
+/// Define the chart config with Arabic labels and custom colors
 const chartConfig = {
   visitors: {
     label: "عدد المستخدمين",
@@ -28,9 +28,13 @@ const chartConfig = {
     label: "الموردين",
     color: "var(--color-chart-suppliers)",
   },
-  jobseekers: {
-    label: "الباحثين عن عمل",
-    color: "var(--color-chart-job-seekers)",
+  "active-users": {
+    label: "المستخدمين النشطين",
+    color: "var(--color-chart-active-users)",
+  },
+  "inactive-users": {
+    label: "المستخدمين غير النشطين",
+    color: "var(--color-chart-inactive-users)",
   },
 } satisfies ChartConfig;
 
@@ -41,8 +45,10 @@ const getFillColor = (category: string) => {
       return "var(--color-chart-clients)";
     case "suppliers":
       return "var(--color-chart-suppliers)";
-    case "jobseekers":
-      return "var(--color-chart-job-seekers)";
+    case "active-users":
+      return "var(--color-chart-active-users)";
+    case "inactive-users":
+      return "var(--destructive)";
     default:
       return "#ccc";
   }
@@ -51,19 +57,27 @@ const getFillColor = (category: string) => {
 export function UserStatistics() {
   const { data, isPending, error, refetch } = useGetUserStatistics();
 
+  // Ensure the transformed data has correct userType keys that match chartConfig
   const transformedData =
-    data?.data.map((item) => ({
-      userType: item.category.toLowerCase(),
-      visitors: item.totalCount,
-      fill: getFillColor(item.category),
-    })) || [];
+    data?.data
+      .map((item) => {
+        const key = item.category.toLowerCase().trim().replace(/\s/g, "-");
+        return {
+          userType: key,
+          visitors: item.totalCount,
+          fill: getFillColor(key),
+        };
+      })
+      .filter(
+        (item) => chartConfig[item.userType as keyof typeof chartConfig]
+      ) || [];
 
   if (isPending) {
     return <UserStatisticsLoading />;
   }
 
   return (
-    <Card className="flex flex-col gap-0 pb-0! bg-white max-w-sm h-fit min-h-64">
+    <Card className="flex flex-col gap-0  bg-card max-w-sm h-fit min-h-64">
       <CardHeader className="items-center pb-0">
         <CardTitle>احصائيات المستخدمين</CardTitle>
       </CardHeader>
@@ -72,10 +86,11 @@ export function UserStatistics() {
           <ErrorFetchingData onRetry={() => refetch()} />
         </CardContent>
       ) : (
-        <CardContent className="flex-1 grid grid-cols-[60%_auto] items-center px-4">
+        <CardContent className="flex-1 grid items-center ">
           <ChartContainer
             config={chartConfig}
-            className="aspect-square max-h-80 w-full">
+            className="aspect-square max-h-80 w-full"
+          >
             <PieChart>
               <ChartTooltip
                 content={<ChartTooltipContent hideLabel />}
@@ -87,7 +102,11 @@ export function UserStatistics() {
                 dataKey="visitors"
                 nameKey="userType"
                 innerRadius="50%"
-              />
+              >
+                {transformedData.map((entry, index) => (
+                  <Cell key={`cell-${index}`} fill={entry.fill} />
+                ))}
+              </Pie>
             </PieChart>
           </ChartContainer>
           <div className="flex flex-col gap-3">
@@ -97,7 +116,7 @@ export function UserStatistics() {
                   className="w-3 h-3 rounded-full"
                   style={{ backgroundColor: item.fill }}
                 />
-                <span className="text-[12px] text-muted-foreground">
+                <span className="text-sm text-white">
                   {
                     chartConfig[item.userType as keyof typeof chartConfig]
                       ?.label

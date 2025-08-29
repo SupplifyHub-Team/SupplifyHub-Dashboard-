@@ -27,7 +27,7 @@ export default function PendingUserTableRow({
             <img
               src={pendingUser.logoURL}
               alt={pendingUser.name + " Logo"}
-              className="w-16 h-16 object-contain rounded-full"
+              className="h-15 w-15 object-cover rounded-full text-white shadow-sm ring-0.5 ring-gray-900/10"
             />
           ) : (
             <span>لا يوجد لوجو</span>

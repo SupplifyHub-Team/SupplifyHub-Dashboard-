@@ -12,7 +12,8 @@ import { Search } from "lucide-react";
 const defaultValues = {
   status: "",
   category: "",
-  sortBy: "",
+  sortColumn: "",
+  sortColumnDirection: "",
   search: "",
 };
 
@@ -31,7 +32,7 @@ export default function OrdersFilters() {
             control={form.control}
             name="search"
             placeholder="ابحث عن الطلبات..."
-            Icon={<Search className="size-4" />}
+            Icon={<Search className="size-4 text-white" />}
           />
         </div>
         <div className="flex items-center gap-3 flex-wrap">
@@ -42,7 +43,7 @@ export default function OrdersFilters() {
               { label: "نشط", value: "Active" },
               { label: "جاري التفاوض", value: "InProgress" },
               { label: "مكتمل", value: "Completed" },
-              { label: "ملغي", value: "Failed" },
+              { label: "ملغي", value: "Canceled" },
             ]}
             placeholder="اختر حالة الطلب "
             className="min-w-44"
@@ -53,25 +54,37 @@ export default function OrdersFilters() {
             fetchFn={(pageNumber) => getCategories({ page: pageNumber })}
             queryKey={["active-categories"]}
             getOptionLabel={(option) => option.categoryName}
-            getOptionValue={(option) => option.categoryName}
-            placeholder="اختر الفئة"
+            getOptionValue={(option) => option.categoryId}
+            placeholder="اختر الفئة"
           />
           <FormSelect<ordersFiltersSchema>
             control={form.control}
-            name="sortBy"
+            name="sortColumn"
             options={[
-              { label: "الأحدث", value: "CreatedAt_Desc" },
-              { label: "الأقدم", value: "CreatedAt_Asc" },
+              { label: "تاريخ الإنشاء", value: "CreatedAt" },
+              { label: "موعد التسليم", value: "Deadline" },
             ]}
-            placeholder="رتب حسب..."
+            placeholder="رتب حسب"
             className="min-w-44"
           />
+          <FormSelect<ordersFiltersSchema>
+            control={form.control}
+            name="sortColumnDirection"
+            options={[
+              { label: "الأحدث", value: "Desc" },
+              { label: "الأقدم", value: "Asc" },
+            ]}
+            placeholder="الترتيب"
+            className="min-w-44"
+          />
+
           <Button
             variant="link"
             type="button"
             className="h-10"
-            onClick={resetFilters}>
-            الغي الفلاتر
+            onClick={resetFilters}
+          >
+            الغى الفلاتر
           </Button>
         </div>
       </form>

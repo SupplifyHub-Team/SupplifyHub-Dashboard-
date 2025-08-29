@@ -2,7 +2,7 @@ import { Loader2 } from "lucide-react";
 
 export default function LoadingPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-50 to-indigo-200 flex items-center justify-center">
+    <div className="min-h-screen bg-gradient-to-br from-card-50 to-background-200 flex items-center justify-center">
       <div className="text-center">
         {/* Main loading animation */}
         <div className="relative mb-8">
@@ -14,10 +14,10 @@ export default function LoadingPage() {
 
         {/* Brand/Logo area */}
         <div className="mb-6">
-          <h1 className="text-3xl font-bold text-gray-800 mb-2">
+          <h1 className="text-3xl font-bold text-gray-200 mb-2">
             لوحة التحكم الإدارية
           </h1>
-          <p className="text-gray-600">جاري تحميل التطبيق...</p>
+          <p className="text-white">جاري تحميل التطبيق...</p>
         </div>
 
         {/* Loading dots */}
@@ -25,10 +25,12 @@ export default function LoadingPage() {
           <div className="w-2 h-2 bg-primary rounded-full animate-bounce"></div>
           <div
             className="w-2 h-2 bg-primary rounded-full animate-bounce"
-            style={{ animationDelay: "0.1s" }}></div>
+            style={{ animationDelay: "0.1s" }}
+          ></div>
           <div
             className="w-2 h-2 bg-primary rounded-full animate-bounce"
-            style={{ animationDelay: "0.2s" }}></div>
+            style={{ animationDelay: "0.2s" }}
+          ></div>
         </div>
 
         {/* Optional progress bar */}
@@ -36,7 +38,8 @@ export default function LoadingPage() {
           <div className="w-full bg-gray-200 rounded-full h-1">
             <div
               className="bg-primary h-1 rounded-full animate-pulse"
-              style={{ width: "60%" }}></div>
+              style={{ width: "60%" }}
+            ></div>
           </div>
         </div>
       </div>

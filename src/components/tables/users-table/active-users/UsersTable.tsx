@@ -5,10 +5,12 @@ import useGetAllUsers from "@/hooks/users/useGetAllUsers";
 
 const TABLE_HEADERS: string[] = [
   "الاسم",
+  "البريد الإلكتروني",
   "الدور",
   "الفئة",
   "تاريخ الانضمام",
-  "البريد الإلكتروني",
+  "الحالة",
+  "الإجراءات",
 ];
 
 export default function UsersTable() {
@@ -25,7 +27,6 @@ export default function UsersTable() {
   return (
     <div className="flex flex-col gap-4 ">
       <UsersTableHeader />
-      <hr />
 
       <ReusableTable<IUser>
         headers={TABLE_HEADERS}

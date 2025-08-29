@@ -11,7 +11,7 @@ export default function SearchFilters() {
         control={form.control}
         name="search"
         placeholder="ابحث عن مستورد..."
-        Icon={<Search className="size-4" />}
+        Icon={<Search className="size-4 text-white" />}
         className="text-sm md:text-base"
       />
     </div>

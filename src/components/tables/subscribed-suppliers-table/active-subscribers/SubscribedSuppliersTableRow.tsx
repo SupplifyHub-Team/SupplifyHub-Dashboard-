@@ -29,9 +29,6 @@ export default function SubscribedSuppliersTableRow({
       <TableCell>
         <span>{subscriber.ordersCompleted}</span>
       </TableCell>
-      <TableCell>
-        <span>{subscriber.paymentStatus}</span>
-      </TableCell>
     </TableRow>
   );
 }

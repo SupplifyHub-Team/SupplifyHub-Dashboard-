@@ -1,6 +1,7 @@
 import PendingAdvsRow from "./PendingAdvsRow";
 import ReusableTable from "../../ReusableTable";
 import useGetPendingAdvs from "@/hooks/advs/useGetPendingAdvs";
+import { AlertCircle } from "lucide-react";
 
 const TABLE_HEADERS = [
   "اسم الإعلان",
@@ -23,12 +24,15 @@ export default function PendingAdvsTable() {
   }
 
   return (
-    <div className="flex flex-col gap-4  ">
-      <h2 className="text-xl mb-4 font-semibold text-gray-600 text-right md:text-2xl">
+    <div className="flex flex-col   ">
+      <h2 className="text-xl mt-4 font-semibold text-white text-right md:text-2xl">
         الإعلانات المقترحة
       </h2>
       {!isPending && pendingAdvs.length === 0 ? (
-        <div className="text-center text-gray-500">لا توجد بيانات لعرضها</div>
+        <div className="flex flex-col items-center justify-center py-10 text-gray-500 gap-2">
+          <AlertCircle className="w-8 h-8 text-red-400" />
+          لا توجد بيانات لعرضها
+        </div>
       ) : (
         <ReusableTable<IPendingAdv>
           headers={TABLE_HEADERS}

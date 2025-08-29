@@ -1,13 +1,13 @@
 import usePaginatedData from "../usePaginatedData";
 import getAllUsers from "@/services/userManagementService";
 import useTableQueries from "../useTableQueries";
-import { TABLE_ROWS } from "@/lib/constants";
+import { TABLE_ROWS, USERS_TABLE_NAME } from "@/lib/constants";
 
 export default function useGetAllUsers() {
-  const queryParams = useTableQueries("users");
+  const queryParams = useTableQueries(USERS_TABLE_NAME);
 
   return usePaginatedData<IUser>({
-    queryKey: ["users", JSON.stringify(queryParams)],
+    queryKey: [USERS_TABLE_NAME, JSON.stringify(queryParams)],
 
     fetchFn: async () =>
       getAllUsers({

@@ -19,11 +19,12 @@ export function usePaginatedQuery<
   queryFn: QueryFn<T, F>;
 }) {
   const queryClient = useQueryClient();
-  const { page, filters } = useTableQueries(tableName);
+  const { page, pageSize, filters } = useTableQueries(tableName);
 
   const mergedFilters = {
     ...filters,
     page,
+    pageSize,
   } as F & { page: number; pageSize: number };
 
   const query = useQuery({

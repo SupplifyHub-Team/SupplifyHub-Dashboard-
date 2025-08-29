@@ -23,7 +23,7 @@ export default function OverviewStats() {
 
   if (error) {
     return (
-      <div className="grid bg-white rounded-2xl shadow-lg  grid-cols-1 gap-3 mt-3">
+      <div className="grid bg-card rounded-2xl shadow-lg  grid-cols-1 gap-3 mt-3">
         <ErrorFetchingData onRetry={() => refetch?.()} />
       </div>
     );

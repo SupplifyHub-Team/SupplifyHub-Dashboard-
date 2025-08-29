@@ -15,8 +15,8 @@ export default function LoginPage() {
   const form = useForm<loginSchema>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
-      email: "omar@gmail.com",
-      password: "omar12",
+      email: "",
+      password: "",
     },
   });
 
@@ -25,16 +25,17 @@ export default function LoginPage() {
     mutate(values);
   }
   return (
-    <div className="flex items-center justify-center min-h-screen bg-accent-foreground">
+    <div className="flex items-center justify-center min-h-screen bg-black">
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className=" max-w-md bg-[#1d1f2b]  border border-gray-700 rounded-xl px-6 py-10 text-center shadow-lg space-y-6">
+          className=" md:w-1/3 bg-card  shadow-2xl border-gray-700 rounded-xl px-6 py-10 text-center  space-y-6"
+        >
           <div className="flex flex-col justify-center items-center gap-4 mb-6">
-            <img src="/logo.svg" alt="Logo" className="size-20 rounded-full" />
+            <img src="/Logo.webp" alt="Logo" className="size-20 rounded-full" />
             <h2 className="text-white text-2xl font-semibold">مرحبًا بعودتك</h2>
             <p className="text-gray-400 text-sm ">
-              قم بتسجيل الدخول إلى حساب لوحة إدارة B2B الخاصة بك.
+              قم بتسجيل الدخول إلى حساب لوحة إدارة SuppliFy الخاصة بك.
             </p>
           </div>
 
@@ -61,7 +62,8 @@ export default function LoginPage() {
             disabled={isPending}
             size="lg"
             type="submit"
-            className={`w-full mt-6 h-11 rounded-full bg-indigo-500 text-white hover:bg-indigo-600 transition-colors`}>
+            className={`w-full mt-6 h-11 rounded-full bg-indigo-500 text-white hover:bg-indigo-600 transition-colors`}
+          >
             {isPending ? <Spinner /> : "تسجيل الدخول"}
           </Button>
         </form>

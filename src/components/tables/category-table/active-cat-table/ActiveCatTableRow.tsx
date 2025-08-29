@@ -1,10 +1,13 @@
+import { Button } from "@/components/ui/button";
 import { TableCell, TableRow } from "@/components/ui/table";
-import { Trash } from "lucide-react";
+import { SquarePen } from "lucide-react";
 
 export default function ActiveCatTableRow({
   activeCat,
+  setEditingCategory,
 }: {
   activeCat: IActiveCategory;
+  setEditingCategory: (cat: IActiveCategory) => void;
 }) {
   return (
     <TableRow>
@@ -14,7 +17,7 @@ export default function ActiveCatTableRow({
             <img
               src={activeCat.imageURL}
               alt={activeCat.imageURL + " Logo"}
-              className="w-16 h-16 object-contain rounded-full"
+              className="h-15 w-15 object-cover rounded-full text-white shadow-sm ring-0.5 ring-gray-900/10"
             />
           ) : (
             <span>لا يوجد لوجو</span>
@@ -31,9 +34,14 @@ export default function ActiveCatTableRow({
         <span> {activeCat.numberOfAssociatedClients}</span>
       </TableCell>
       <TableCell>
-        <span>
-          <Trash color="#f7021b" className="w-6 h-6 cursor-pointer" />
-        </span>
+        <Button
+          onClick={() => setEditingCategory(activeCat)}
+          variant="default"
+          size={"icon"}
+          className="flex items-center rounded-b-full"
+        >
+          <SquarePen className="w-4 h-4" />
+        </Button>
       </TableCell>
     </TableRow>
   );

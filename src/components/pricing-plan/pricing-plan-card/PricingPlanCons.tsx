@@ -17,7 +17,7 @@ export default function PricingPlanCons() {
 
   return (
     <div className="space-y-2">
-      <label className="block font-medium mb-1">عيوب الخطة الخطة</label>
+      <label className="block font-medium mb-1 text-white">عيوب الخطة الخطة</label>
 
       {ponsFields.map((field, index) => (
         <div key={field.id} className="flex items-center gap-2">
@@ -37,7 +37,7 @@ export default function PricingPlanCons() {
 
       <Button
         type="button"
-        variant="outline"
+        variant="default"
         onClick={() => {
           console.log("click");
           appendPons("عيب جديد");
