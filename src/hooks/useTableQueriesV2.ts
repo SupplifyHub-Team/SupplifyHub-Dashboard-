@@ -16,6 +16,7 @@ export default function useTableQueriesV2(tableName: string) {
 
   return {
     page,
+    pageSize: 10,
     filters,
   };
 }

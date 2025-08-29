@@ -1,6 +1,6 @@
+import { AddCategorySchema } from "@/schemas/categorySchema";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import { categorySchema } from "@/schemas/categorySchema";
 type PersistedCategoryFormDataType = {
   categoryName?: string;
 };
@@ -10,7 +10,7 @@ interface CategoryFormState {
 }
 
 interface CategoryFormActions {
-  setFormData: (data: Partial<categorySchema>) => void;
+  setFormData: (data: Partial<AddCategorySchema>) => void;
   clearData: () => void;
 }
 
