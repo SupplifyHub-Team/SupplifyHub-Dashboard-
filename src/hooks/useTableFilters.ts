@@ -2,8 +2,7 @@ import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useSearchParams } from "react-router-dom";
-import { useDebounce } from "@/hooks/useDebounce";
-import useTableQueriesV2 from "./useTableQueriesV2";
+import useDebounce from "@/hooks/useDebounce";
 
 interface UseTableFiltersProps {
   schema: any;

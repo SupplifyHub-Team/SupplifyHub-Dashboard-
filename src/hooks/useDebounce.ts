@@ -1,9 +1,26 @@
 import { useState, useEffect } from "react";
-export function useDebounce<T>(value: T, delay: number): T {
-  const [debounced, setDebounced] = useState<T>(value);
+
+/**
+ * A custom hook that debounces a value.
+ * @param value The value to debounce.
+ * @param delay The debounce delay in milliseconds.
+ * @returns The debounced value.
+ */
+
+function useDebounce<T>(initialValue: T, delay: number) {
+  const [debouncedValue, setDebouncedValue] = useState<T>(initialValue);
+
   useEffect(() => {
-    const timer = setTimeout(() => setDebounced(value), delay);
-    return () => clearTimeout(timer);
-  }, [value, delay]);
-  return debounced;
+    const handler = setTimeout(() => {
+      setDebouncedValue(initialValue);
+    }, delay);
+
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [initialValue, delay]);
+
+  return debouncedValue;
 }
+
+export default useDebounce;

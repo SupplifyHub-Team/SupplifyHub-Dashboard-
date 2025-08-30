@@ -1,5 +1,7 @@
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
+import { queryClient } from "./react-query/queryClient";
+import useAuth from "@/store/authStore";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -38,4 +40,9 @@ export function getCookie(name: string) {
     if (key === name) return decodeURIComponent(value);
   }
   return null;
+}
+
+export function clearState() {
+  queryClient.clear();
+  useAuth.getState().logout();
 }

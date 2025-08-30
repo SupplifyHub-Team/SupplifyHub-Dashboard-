@@ -8,6 +8,7 @@ import { useFilterForm } from "@/hooks/useFilterForm";
 import { ordersFiltersSchema } from "@/schemas/filtersScehmas";
 import FormInput from "@/components/forms-fields/FormInput";
 import { Search } from "lucide-react";
+import FormInfiniteCombobox from "@/components/forms-fields/FormInfiniteCombobox";
 
 const defaultValues = {
   status: "",
@@ -35,7 +36,7 @@ export default function OrdersFilters() {
             Icon={<Search className="size-4 text-white" />}
           />
         </div>
-        <div className="flex items-center gap-3 flex-wrap">
+        <div className="flex items-center gap-3 flex-wrap lg:flex-nowrap">
           <FormSelect<ordersFiltersSchema>
             control={form.control}
             name="status"
@@ -48,8 +49,8 @@ export default function OrdersFilters() {
             placeholder="اختر حالة الطلب "
             className="min-w-44"
           />
-          <FormInfiniteSelect<ordersFiltersSchema, IActiveCategory>
-            control={form.control}
+
+          <FormInfiniteCombobox<ordersFiltersSchema, IActiveCategory>
             name="category"
             fetchFn={(pageNumber) => getCategories({ page: pageNumber })}
             queryKey={["active-categories"]}
@@ -82,8 +83,7 @@ export default function OrdersFilters() {
             variant="link"
             type="button"
             className="h-10"
-            onClick={resetFilters}
-          >
+            onClick={resetFilters}>
             الغى الفلاتر
           </Button>
         </div>

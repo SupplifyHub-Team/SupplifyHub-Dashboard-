@@ -15,7 +15,7 @@ export function usePaginatedQuery<
   queryFn,
 }: {
   tableName: string;
-  queryKey: string;
+  queryKey: string[];
   queryFn: QueryFn<T, F>;
 }) {
   const queryClient = useQueryClient();
@@ -28,7 +28,7 @@ export function usePaginatedQuery<
   } as F & { page: number; pageSize: number };
 
   const query = useQuery({
-    queryKey: [queryKey, page, filters],
+    queryKey: [...queryKey, page, filters],
     queryFn: () => queryFn(mergedFilters),
   });
 
@@ -40,14 +40,14 @@ export function usePaginatedQuery<
     if (hasNextPage) {
       const nextFilters = { ...mergedFilters, page: page + 1 };
       queryClient.prefetchQuery({
-        queryKey: [queryKey, page + 1, filters],
+        queryKey: [...queryKey, page + 1, filters],
         queryFn: () => queryFn(nextFilters),
       });
     }
     if (hasPrevPage) {
       const prevFilters = { ...mergedFilters, page: page - 1 };
       queryClient.prefetchQuery({
-        queryKey: [queryKey, page - 1, filters],
+        queryKey: [...queryKey, page - 1, filters],
         queryFn: () => queryFn(prevFilters),
       });
     }

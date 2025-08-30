@@ -8,6 +8,7 @@ import FormInput from "@/components/forms-fields/FormInput";
 import { Search } from "lucide-react";
 import { useFilterForm } from "@/hooks/useFilterForm";
 import { userFiltersSchema } from "@/schemas/filtersScehmas";
+import FormInfiniteCombobox from "@/components/forms-fields/FormInfiniteCombobox";
 
 const defaultFilters: userFiltersSchema = {
   search: "",
@@ -37,27 +38,25 @@ export default function UsersFilters() {
           />
         </div>
 
-        <div className="flex items-center gap-3 flex-wrap">
+        <div className="flex items-center gap-3 flex-wrap md:flex-nowrap">
           <FormSelect<userFiltersSchema>
             control={form.control}
             name="role"
             options={[
               { label: " الموردين", value: "Suppliers" },
               { label: " العملاء", value: "Clients" },
-              { label: " الباحثون عن عمل", value: "JobSeeker" },
             ]}
             placeholder="اختر دورا ..."
             className="min-w-44"
           />
-          <FormInfiniteSelect<userFiltersSchema, IActiveCategory>
-            control={form.control}
+          <FormInfiniteCombobox<userFiltersSchema, IActiveCategory>
             name="category"
             queryKey={["categories"]}
             fetchFn={(pageNumber) => getCategories({ page: pageNumber })}
             getOptionLabel={(item) => item.categoryName}
-            getOptionValue={(item) => item.categoryName}
+            getOptionValue={(item) => item.categoryId}
             placeholder="اختر فئة..."
-            className="min-w-44"
+            className="min-w-44 text-white"
           />
           <FormSelect<userFiltersSchema>
             control={form.control}
@@ -75,8 +74,7 @@ export default function UsersFilters() {
         variant="link"
         type="button"
         className="h-10"
-        onClick={resetFilters}
-      >
+        onClick={resetFilters}>
         ألغي الفلاتر
       </Button>
     </Form>

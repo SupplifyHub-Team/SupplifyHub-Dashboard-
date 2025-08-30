@@ -1,3 +1,5 @@
+import { queryClient } from "@/lib/react-query/queryClient";
+import Cookies from "js-cookie";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
@@ -15,7 +17,11 @@ const useAuth = create<AuthState & AuthActions>()(
     (set) => ({
       user: null,
       login: (user) => set({ user }),
-      logout: () => set({ user: null }),
+      logout: () => {
+        Cookies.remove("token");
+        queryClient.clear();
+        set({ user: null });
+      },
     }),
     {
       name: "auth-storage",
