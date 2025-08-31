@@ -42,8 +42,10 @@ api.interceptors.response.use(
       !originalRequest._retry
     ) {
       originalRequest._retry = true;
+
       try {
         const accessToken = await refreshToken();
+        console.log(originalRequest, "debug here");
 
         Cookies.set("token", accessToken.token);
 

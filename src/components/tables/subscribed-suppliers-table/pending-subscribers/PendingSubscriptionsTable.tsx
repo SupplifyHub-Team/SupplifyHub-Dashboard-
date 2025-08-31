@@ -18,9 +18,7 @@ export default function PendingSubscriptionsTable() {
   const { data, isPending, error } = useGetPendingSubscriptions();
   const subscriptions = data?.data || [];
 
-  if (error) {
-    return <div className="text-center text-red-500">{error.data.message}</div>;
-  }
+
 
   return (
     <div className="flex flex-col gap-4  ">
