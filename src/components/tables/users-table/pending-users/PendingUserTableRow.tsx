@@ -3,6 +3,9 @@ import { CircleCheck, CircleX } from "lucide-react";
 import { formattedData } from "@/lib/utils/formatDate";
 import useAcceptPendingUsers from "@/hooks/users/useAcceptPendingUsers";
 import useRejectPendingUsers from "@/hooks/users/useRejectPendingUsers";
+import { handleDownload } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 
 export default function PendingUserTableRow({
   pendingUser,
@@ -41,23 +44,25 @@ export default function PendingUserTableRow({
         <span> {pendingUser.email} </span>
       </TableCell>
       <TableCell>
-        <span> {pendingUser.categories} </span>
+        <div className="flex flex-wrap gap-2">
+          {pendingUser.categories.map((category) => (
+            <Badge
+              key={category}
+              variant="default"
+              className="rounded-full px-2 font-meduim! text-nowrap py-1 text-sm bg-primary/40 shadow-2xl text-white dark:bg-card-700">
+              {category}
+            </Badge>
+          ))}
+        </div>
       </TableCell>
       <TableCell>
-        <span className="flex items-center">
-          {pendingUser.pdfURL ? (
-            <a
-              href={pendingUser.pdfURL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-blue-600 hover:underline"
-            >
-              عرض التوثيق
-            </a>
-          ) : (
-            <span>لا يوجد توثيق</span>
-          )}
-        </span>
+        <Button
+          onClick={() => handleDownload(pendingUser.name)}
+          rel="noopener noreferrer"
+          variant="link"
+          className="text-blue-600 hover:underline">
+          عرض التوثيق
+        </Button>
       </TableCell>
       <TableCell>
         <span> {formattedData(pendingUser.createdAt)}</span>

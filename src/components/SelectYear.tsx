@@ -7,15 +7,19 @@ import {
 } from "@/components/ui/select";
 import { useSearchParams } from "react-router";
 export default function SelectYear() {
-  const currentYear = new Date().getFullYear();
-  const years = Array.from({ length: 6 }, (_, i) => currentYear - i);
-  const [_, setSearchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const selectedYear =
+    Number(searchParams.get("orders-per-month-year")) || 2025;
+  const years = Array.from(
+    { length: 6 },
+    (_, i) => new Date().getFullYear() - i
+  );
   return (
     <Select
       onValueChange={(value) =>
         setSearchParams({ "orders-per-month-year": value })
       }
-      defaultValue={currentYear.toString()}>
+      defaultValue={selectedYear.toString()}>
       <SelectTrigger>
         <SelectValue placeholder="اختر السنة" />
       </SelectTrigger>
