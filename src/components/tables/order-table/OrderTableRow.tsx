@@ -1,9 +1,10 @@
 import { TableCell, TableRow } from "@/components/ui/table";
 import { formattedData } from "@/lib/utils/formatDate";
+import OrderDescDetails from "./OrderDescDetails";
 // handle color status in table
 type statusColor = "red" | "green" | "yellow" | "blue";
 
-const statusColors: Record<statusColor, { bg: string ; accent: string }> = {
+const statusColors: Record<statusColor, { bg: string; accent: string }> = {
   red: { bg: "bg-red-100", accent: "text-red-800" },
   green: { bg: "bg-green-100", accent: "text-green-800" },
   yellow: { bg: "bg-yellow-100", accent: "text-yellow-800" },
@@ -26,13 +27,15 @@ export default function OrderTableRow({ order }: { order: IOrder }) {
         <span>{order.companyName}</span>
       </TableCell>
       <TableCell>
-        <span className="block max-w-[200px] truncate text-ellipsis overflow-hidden whitespace-nowrap">{order.email}</span>
+        <span className="block max-w-[200px] truncate text-ellipsis overflow-hidden whitespace-nowrap">
+          {order.email}
+        </span>
       </TableCell>
       <TableCell>
         <span>{order.category}</span>
       </TableCell>
       <TableCell>
-        <span className="block max-w-[200px] truncate text-ellipsis overflow-hidden whitespace-nowrap">{order.orderDisc}</span>
+        <OrderDescDetails products={order.products}  />
       </TableCell>
       <TableCell>
         <span>{order.offerNumbers}</span>
