@@ -19,9 +19,6 @@ export default function PendingAdvsTable() {
 
   const pendingAdvs = data?.data || [];
 
-  if (error) {
-    return <div className="text-center text-red-500">{error.data.message}</div>;
-  }
 
   return (
     <div className="flex flex-col   ">

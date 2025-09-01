@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useSearchParams } from "react-router";
-import { useDebounce } from "./useDebounce";
+import useDebounce from "@/hooks/useDebounce";
 
 export function useSyncedSearchInput(searchKey: string, delay = 500) {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -22,7 +22,10 @@ export function useSyncedSearchInput(searchKey: string, delay = 500) {
       const historyKey = `${searchKey}-history`;
       const raw = localStorage.getItem(historyKey);
       const old = raw ? JSON.parse(raw) : [];
-      const updated = [debouncedValue, ...old.filter((t: string) => t !== debouncedValue)];
+      const updated = [
+        debouncedValue,
+        ...old.filter((t: string) => t !== debouncedValue),
+      ];
       localStorage.setItem(historyKey, JSON.stringify(updated.slice(0, 10)));
     } else {
       params.delete(searchKey);

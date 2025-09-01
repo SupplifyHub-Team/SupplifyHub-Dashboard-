@@ -1,45 +1,63 @@
-import { refreshToken } from "@/services/authService";
-import useAuth from "@/store/authStore";
-import axios from "axios";
+import axios, { AxiosError, InternalAxiosRequestConfig } from "axios";
 import Cookies from "js-cookie";
-import { toast } from "sonner";
+import useAuth from "@/store/authStore";
+import { refreshToken } from "@/services/authService";
+
+interface ICustomAxiosInternalConfig extends InternalAxiosRequestConfig {
+  _retry?: boolean;
+}
 
 const api = axios.create({
   baseURL: import.meta.env.VITE_API_URL,
+  withCredentials: true,
 });
 
 api.interceptors.request.use((config) => {
-  const token = Cookies.get("token");
-  if (token) {
-    config.headers["Authorization"] = `Bearer ${token}`;
+  if (typeof window !== "undefined") {
+    const token = Cookies.get("token");
+    if (token) {
+      config.headers["Authorization"] = `Bearer ${token}`;
+    }
   }
+
   return config;
 });
 
 api.interceptors.response.use(
   (response) => response,
-  async (error) => {
-    const originalRequest = error.config;
-    if (error.response.status === 401 && !originalRequest._retry) {
-      window.location.href = "/login";
-      toast.error("يرجى تسجيل الدخول مرة أخرى");
-      originalRequest._retry = true;
-      try {
-        const response = await refreshToken();
-        console.log("yay new access token", response.token);
-        const token = response.token;
-        Cookies.set("token", token);
+  async (error: AxiosError) => {
+    const originalRequest: ICustomAxiosInternalConfig | undefined =
+      error.config;
 
-        api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+    if (
+      originalRequest?.url?.includes("/login") ||
+      originalRequest?.url?.includes("/refresh")
+    ) {
+      return Promise.reject(error);
+    }
+
+    if (
+      error.response?.status === 401 &&
+      originalRequest &&
+      !originalRequest._retry
+    ) {
+      originalRequest._retry = true;
+
+      try {
+        const accessToken = await refreshToken();
+        console.log(originalRequest, "debug here");
+
+        Cookies.set("token", accessToken.token);
+
+        originalRequest.headers[
+          "Authorization"
+        ] = `Bearer ${accessToken.token}`;
+
         return api(originalRequest);
       } catch (refreshError) {
         console.error("Token refresh failed:", refreshError);
-        Cookies.remove("token");
-        const logout = useAuth.getState().logout;
-
-        logout();
+        useAuth.getState().logout();
         window.location.href = "/login";
-
         return Promise.reject(refreshError);
       }
     }

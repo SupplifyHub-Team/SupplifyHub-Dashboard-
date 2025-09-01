@@ -72,9 +72,7 @@ export function OrderStatistics() {
           <ChartContainer
             className="flex-1! max-h-96 w-full"
             config={chartConfig}>
-            <BarChart 
-            
-            data={transformedData}>
+            <BarChart data={transformedData}>
               <CartesianGrid vertical={false} />
               <XAxis
                 dataKey="month"
@@ -84,6 +82,7 @@ export function OrderStatistics() {
                 tickFormatter={(value) => value.slice(0, 3)}
               />
               <ChartTooltip
+                cursor={false}
                 content={<ChartTooltipContent hideLabel />}
                 animationDuration={0}
               />

@@ -3,22 +3,20 @@ import { CircleCheck, CircleX } from "lucide-react";
 import { formattedData } from "@/lib/utils/formatDate";
 import useAcceptPendingUsers from "@/hooks/users/useAcceptPendingUsers";
 import useRejectPendingUsers from "@/hooks/users/useRejectPendingUsers";
+import { handleDownload } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { AreYouSure } from "@/components/AreYouSure";
+import { AreYouSureDeleteing } from "@/components/AreYouSureDeleteing";
 
 export default function PendingUserTableRow({
   pendingUser,
 }: {
   pendingUser: IPendingUser;
 }) {
-  const { mutate } = useAcceptPendingUsers();
+  const { mutate: accept } = useAcceptPendingUsers();
   const { mutate: reject } = useRejectPendingUsers();
 
-  const handleAccept = () => {
-    mutate(pendingUser.id);
-  };
-
-  const handleReject = () => {
-    reject(pendingUser.id);
-  };
   return (
     <TableRow>
       <TableCell>
@@ -41,23 +39,25 @@ export default function PendingUserTableRow({
         <span> {pendingUser.email} </span>
       </TableCell>
       <TableCell>
-        <span> {pendingUser.categories} </span>
+        <div className="flex flex-wrap gap-2">
+          {pendingUser.categories.map((category) => (
+            <Badge
+              key={category}
+              variant="default"
+              className="rounded-full px-2 font-meduim! text-nowrap py-1 text-sm bg-primary/40 shadow-2xl text-white dark:bg-card-700">
+              {category}
+            </Badge>
+          ))}
+        </div>
       </TableCell>
       <TableCell>
-        <span className="flex items-center">
-          {pendingUser.pdfURL ? (
-            <a
-              href={pendingUser.pdfURL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-blue-600 hover:underline"
-            >
-              عرض التوثيق
-            </a>
-          ) : (
-            <span>لا يوجد توثيق</span>
-          )}
-        </span>
+        <Button
+          onClick={() => handleDownload(pendingUser.name)}
+          rel="noopener noreferrer"
+          variant="link"
+          className="text-blue-600 hover:underline">
+          عرض التوثيق
+        </Button>
       </TableCell>
       <TableCell>
         <span> {formattedData(pendingUser.createdAt)}</span>
@@ -65,15 +65,24 @@ export default function PendingUserTableRow({
       <TableCell>
         <span>
           <div className="flex items-center gap-2">
-            <CircleCheck
-              onClick={handleAccept}
-              color="#02f71f"
-              className="w-6 h-6 cursor-pointer"
+            <AreYouSure
+              onAccept={() => accept(pendingUser.id)}
+              TriggerButton={
+                <Button size="icon" variant="link" className="hover:scale-105">
+                  <CircleCheck
+                    color="#02f71f"
+                    className="w-6 h-6 cursor-pointer"
+                  />
+                </Button>
+              }
             />
-            <CircleX
-              onClick={handleReject}
-              color="#f7021b"
-              className="w-6 h-6 cursor-pointer"
+            <AreYouSureDeleteing
+              onAccept={() => reject(pendingUser.id)}
+              TriggerButton={
+                <Button size="icon" variant="link" className="hover:scale-105">
+                  <CircleX color="#f7021b" className="w-6 h-6 cursor-pointer" />
+                </Button>
+              }
             />
           </div>
         </span>

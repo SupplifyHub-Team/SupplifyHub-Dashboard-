@@ -5,6 +5,9 @@ import { format } from "date-fns";
 import { CircleCheck, CircleX } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import useRejectPendingAdvs from "@/hooks/advs/useRejectPendingAdvs";
+import { AreYouSureDeleteing } from "@/components/AreYouSureDeleteing";
+import { Button } from "@/components/ui/button";
+import { AreYouSure } from "@/components/AreYouSure";
 
 const PendingAdvsRow = ({ pendingAdv }: { pendingAdv: IPendingAdv }) => {
   const { mutate } = useAcceptPendingAdvs();
@@ -60,15 +63,29 @@ const PendingAdvsRow = ({ pendingAdv }: { pendingAdv: IPendingAdv }) => {
       <TableCell>
         <span>
           <div className="flex items-center gap-2">
-            <CircleCheck
-              onClick={handleAccept}
-              color="#02f71f"
-              className="w-6 h-6 cursor-pointer"
+            <AreYouSure
+              onAccept={handleAccept}
+              TriggerButton={
+                <Button size="icon" variant="link" className="hover:scale-105">
+                  <CircleCheck
+                    onClick={handleAccept}
+                    color="#16a34a"
+                    className="w-6 h-6 cursor-pointer hover:scale-110 transition-transform"
+                  />
+                </Button>
+              }
             />
-            <CircleX
-              onClick={handleReject}
-              color="#f7021b"
-              className="w-6 h-6 cursor-pointer"
+            <AreYouSureDeleteing
+              onAccept={handleReject}
+              TriggerButton={
+                <Button size="icon" variant="link" className="hover:scale-105">
+                  <CircleX
+                    onClick={handleReject}
+                    color="#dc2626"
+                    className="w-6 h-6 cursor-pointer hover:scale-110 transition-transform"
+                  />
+                </Button>
+              }
             />
           </div>
         </span>

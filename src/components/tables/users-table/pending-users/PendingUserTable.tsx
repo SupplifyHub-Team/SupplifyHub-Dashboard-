@@ -18,10 +18,6 @@ export default function PendingUserTable() {
 
   const pendingUsers = data?.data || [];
 
-  if (error) {
-    return <div className="text-center text-red-500">{error.data.message}</div>;
-  }
-
   return (
     <div className="flex flex-col gap-4 ">
       <h2 className="text-xl mb-4 font-semibold text-white text-right md:text-2xl">

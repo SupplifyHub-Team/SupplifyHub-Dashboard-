@@ -1,5 +1,7 @@
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
+import { queryClient } from "./react-query/queryClient";
+import useAuth from "@/store/authStore";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -39,3 +41,23 @@ export function getCookie(name: string) {
   }
   return null;
 }
+
+export function clearState() {
+  queryClient.clear();
+  useAuth.getState().logout();
+}
+
+export const handleDownload = async (name: string) => {
+  const response = await fetch(
+    "https://res.cloudinary.com/dqvrzrpyc/raw/upload/v1756646545/tax_docs/b1a5fc77-4aaf-4c48-8a22-306d0fb35b4c.pdf"
+  );
+  const blob = await response.blob();
+  const url = window.URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = `${name}-document.pdf`;
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+  window.URL.revokeObjectURL(url);
+};

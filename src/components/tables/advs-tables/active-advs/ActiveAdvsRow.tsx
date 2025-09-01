@@ -2,8 +2,9 @@ import { TableCell, TableRow } from "@/components/ui/table";
 import { format } from "date-fns";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Trash } from "lucide-react";
+import { Trash2 } from "lucide-react";
 import useDeleteActiveAdvs from "@/hooks/advs/useDeleteActiveAdvs";
+import { AreYouSureDeleteing } from "@/components/AreYouSureDeleteing";
 
 export default function ActiveAdvsRow({
   activeAdv,
@@ -11,8 +12,6 @@ export default function ActiveAdvsRow({
   activeAdv: IActiveAdv;
 }) {
   const { mutate: reject } = useDeleteActiveAdvs();
-
-  const handleDelete = () => reject(activeAdv.id);
 
   return (
     <TableRow className=" transition-colors duration-200">
@@ -58,13 +57,17 @@ export default function ActiveAdvsRow({
         </Badge>
       </TableCell>
       <TableCell>
-        <Button
-          variant="destructive"
-          className="w-10 h-10 p-0"
-          onClick={handleDelete}
-        >
-          <Trash className="w-4 h-4 font-bold" color="white" />
-        </Button>
+        <AreYouSureDeleteing
+          onAccept={() => reject(activeAdv.id)}
+          TriggerButton={
+            <Button
+              size="icon"
+              variant="destructive"
+              className="hover:scale-105">
+              <Trash2 className="w-6 h-6 cursor-pointer  transition-transform" />
+            </Button>
+          }
+        />
       </TableCell>
     </TableRow>
   );
