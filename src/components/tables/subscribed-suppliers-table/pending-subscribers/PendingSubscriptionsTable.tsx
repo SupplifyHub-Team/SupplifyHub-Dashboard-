@@ -15,7 +15,7 @@ const TABLE_HEADERS: string[] = [
 ];
 
 export default function PendingSubscriptionsTable() {
-  const { data, isPending, error } = useGetPendingSubscriptions();
+  const { data, isPending } = useGetPendingSubscriptions();
   const subscriptions = data?.data || [];
 
 

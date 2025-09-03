@@ -11,7 +11,7 @@ const TABLE_HEADERS: string[] = [
 ];
 
 export default function PendingCatTable() {
-  const { data, isPending, error } = useGetPendingCategory();
+  const { data, isPending } = useGetPendingCategory();
 
   const pendingCategories = data?.data || [];
 

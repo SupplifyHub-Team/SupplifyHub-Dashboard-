@@ -64,7 +64,7 @@ export default function PendingUserTableRow({
       </TableCell>
       <TableCell>
         <span>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center">
             <AreYouSure
               onAccept={() => accept(pendingUser.id)}
               TriggerButton={

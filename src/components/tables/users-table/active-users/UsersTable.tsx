@@ -14,16 +14,13 @@ const TABLE_HEADERS: string[] = [
 ];
 
 export default function UsersTable() {
-  const { data, isPending, error } = useGetAllUsers();
+  const { data, isPending } = useGetAllUsers();
 
   const users = data?.data || [];
   const totalPages = data?.meta?.totalPages || 0;
   const totalItems = data?.meta?.totalItems || 0;
 
-  if (error) {
-    return <div className="text-center text-red-500">{error.message}</div>;
-  }
-
+  
   return (
     <div className="flex flex-col gap-4 ">
       <UsersTableHeader />

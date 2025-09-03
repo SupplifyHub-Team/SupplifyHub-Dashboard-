@@ -62,7 +62,7 @@ const PendingAdvsRow = ({ pendingAdv }: { pendingAdv: IPendingAdv }) => {
 
       <TableCell>
         <span>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center">
             <AreYouSure
               onAccept={handleAccept}
               TriggerButton={

@@ -4,7 +4,7 @@ import { Info } from "lucide-react";
 import OrderDescDetailsTable from "./OrderDescDetailsTable";
 
 export default function OrderDescDetails(   
-    { products }: { products: IOrderProduct[] }) {
+    { orderItems }: { orderItems: IOrderItems[] }) {
   return (
     <ResponsiveModal
       trigger={
@@ -16,7 +16,7 @@ export default function OrderDescDetails(
       height="90vh"
       scrollable={true}
     >
-      <OrderDescDetailsTable products={products} />
+      <OrderDescDetailsTable orderItems={orderItems} />
     </ResponsiveModal>
   );
 }

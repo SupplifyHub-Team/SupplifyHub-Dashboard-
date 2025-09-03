@@ -28,7 +28,7 @@ export default function AdditionalProductTableRow({
       <TableCell>{product.phone}</TableCell>
       <TableCell>{product.amount}</TableCell>
       <TableCell>
-        <div className="flex items-center gap-3">
+        <div className="flex items-center">
           <AreYouSure
             onAccept={handleAccept}
             TriggerButton={

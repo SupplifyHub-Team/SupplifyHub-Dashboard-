@@ -14,7 +14,7 @@ const TABLE_HEADERS: string[] = [
 ];
 
 export default function PendingUserTable() {
-  const { data, isPending, error } = useGetPendingUsers();
+  const { data, isPending } = useGetPendingUsers();
 
   const pendingUsers = data?.data || [];
 

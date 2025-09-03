@@ -15,7 +15,7 @@ const TABLE_HEADERS = [
 ];
 
 export default function PendingAdvsTable() {
-  const { data, isPending, error } = useGetPendingAdvs();
+  const { data, isPending } = useGetPendingAdvs();
 
   const pendingAdvs = data?.data || [];
 

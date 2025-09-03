@@ -1,21 +1,20 @@
-import React from "react";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Card } from "@/components/ui/card";
 
 
 
 interface OrderDescDetailsTableProps {
-  products?: IOrderProduct[];
+  orderItems?: IOrderItems[];
 }
 
-export default function OrderDescDetailsTable({ products = [] }: OrderDescDetailsTableProps) {
-  if (products.length === 0) {
+export default function OrderDescDetailsTable({ orderItems = [] }: OrderDescDetailsTableProps) {
+  if (orderItems.length === 0) {
     return <div className="text-center text-gray-500">لا توجد تفاصيل للطلب</div>;
   }
 
   return (
     <div className="flex flex-col gap-6">
-      <h2 className="text-xl font-semibold text-gray-800 text-center">تفاصيل الطلب</h2>
+      <h2 className="text-xl font-semibold text-white text-center">تفاصيل الطلب</h2>
       <Card className="p-4 shadow-md border rounded-2xl">
         <Table>
           <TableHeader>
@@ -26,9 +25,9 @@ export default function OrderDescDetailsTable({ products = [] }: OrderDescDetail
             </TableRow>
           </TableHeader>
           <TableBody>
-            {products.map((item, index) => (
+            {orderItems.map((item, index) => (
               <TableRow key={index}>
-                <TableCell className="font-medium">{item.productName}</TableCell>
+                <TableCell className="font-medium">{item.name}</TableCell>
                 <TableCell>{item.quantity}</TableCell>
                 <TableCell>
                   {item.notes ? (

@@ -35,7 +35,7 @@ export default function OrderTableRow({ order }: { order: IOrder }) {
         <span>{order.category}</span>
       </TableCell>
       <TableCell>
-        <OrderDescDetails products={order.products}  />
+        <OrderDescDetails orderItems={order.orderItems}  />
       </TableCell>
       <TableCell>
         <span>{order.offerNumbers}</span>

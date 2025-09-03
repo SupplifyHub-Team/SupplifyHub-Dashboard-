@@ -1,14 +1,20 @@
 interface IOrder {
-  OrderId: string;
+  OrderId: number;
   companyName: string;
   email: string;
   category: string;
   orderStatus: "Active" | "InProgress" | "Completed" | "Failed";
   offerNumbers: number;
-  // orderDisc: string;
+  orderItems: IOrderItems[];
   deadline: string;
   createdAt: string;
-  products: IOrderProduct[];
+}
+
+interface IOrderItems {
+  id: number;
+  name: string;
+  quantity: number;
+  notes: string;
 }
 
 interface IAdditionalOrders {
@@ -17,10 +23,4 @@ interface IAdditionalOrders {
   email: string;
   phone: string;
   amount: number;
-}
-
-interface IOrderProduct {
-  productName: string;
-  quantity: number;
-  notes?: string;
 }
