@@ -1,6 +1,6 @@
 import api from "@/lib/axios";
 import { TABLE_ROWS } from "@/lib/constants";
-import { isAxiosError } from "axios";
+import { handleApiError } from "@/utils/handleApiError";
 
 interface GetAllUsersParams {
   page?: string;
@@ -44,12 +44,7 @@ export default async function getAllUsers(params: GetAllUsersParams) {
     const response = await api.get(`/admin/users?${queryParams.toString()}`);
     return response.data;
   } catch (error) {
-    if (isAxiosError(error)) {
-      throw new Error(
-        error.response?.data.message || "حدث خطأ ما, حاول مرة أخرى"
-      );
-    }
-    throw error;
+    throw handleApiError(error);
   }
 }
 
@@ -59,12 +54,7 @@ export async function getPendingUsers() {
     const response = await api.get(`/admin/suppliers-to-accept`);
     return response.data;
   } catch (error) {
-    if (isAxiosError(error)) {
-      throw new Error(
-        error.response?.data.message || "حدث خطأ ما, حاول مرة أخرى"
-      );
-    }
-    throw error;
+    throw handleApiError(error);
   }
 }
 
@@ -75,12 +65,7 @@ export async function patchPendingUsers(userId: string | number) {
     const res = await api.patch(`/admin/suppliers/${userId}`);
     return res?.data;
   } catch (error) {
-    if (isAxiosError(error)) {
-      throw new Error(
-        error.response?.data.message || "Failed to accept this user"
-      );
-    }
-    throw error;
+    throw handleApiError(error);
   }
 }
 
@@ -90,12 +75,7 @@ export async function deletePendingUsers(userId: string | number) {
     const res = await api.delete(`/admin/suppliers/${userId}`);
     return res?.data;
   } catch (error) {
-    if (isAxiosError(error)) {
-      throw new Error(
-        error.response?.data.message || "Failed to delete this user"
-      );
-    }
-    throw error;
+    throw handleApiError(error);
   }
 }
 
@@ -105,12 +85,7 @@ export async function banUser(userId: number) {
     const res = await api.patch(`/admin/ban?userId=${userId}`);
     return res?.data;
   } catch (error) {
-    if (isAxiosError(error)) {
-      throw new Error(
-        error.response?.data.message || "Failed to ban this user"
-      );
-    }
-    throw error;
+    throw handleApiError(error);
   }
 }
 
@@ -120,11 +95,6 @@ export async function activeUser(userId: number) {
     const res = await api.patch(`/admin/active?userId=${userId}`);
     return res?.data;
   } catch (error) {
-    if (isAxiosError(error)) {
-      throw new Error(
-        error.response?.data.message || "Failed to unban this user"
-      );
-    }
-    throw error;
+    throw handleApiError(error);
   }
 }

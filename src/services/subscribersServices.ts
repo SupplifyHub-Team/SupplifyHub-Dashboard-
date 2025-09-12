@@ -1,4 +1,5 @@
 import api from "@/lib/axios";
+import { handleApiError } from "@/utils/handleApiError";
 import { isAxiosError } from "axios";
 
 export async function getAllSubscribedSuppliers(
@@ -13,12 +14,7 @@ export async function getAllSubscribedSuppliers(
     );
     return response.data;
   } catch (error) {
-    if (isAxiosError(error)) {
-      const errorResponse: IErrorResponse = error.response?.data;
-      throw new Error(errorResponse.data.message);
-    }
-    console.error("An unexpected error occurred:", error);
-    throw error;
+    throw handleApiError(error);
   }
 }
 
@@ -28,12 +24,7 @@ export async function getPendingsubscriptions() {
     const response = await api.get(`/admin/subscriptions-to-accept`);
     return response.data;
   } catch (error) {
-    if (isAxiosError(error)) {
-      const errorResponse: IErrorResponse = error.response?.data;
-      throw new Error(errorResponse.data.message);
-    }
-    console.error("An unexpected error occurred:", error);
-    throw error;
+    throw handleApiError(error);
   }
 }
 

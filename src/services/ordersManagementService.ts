@@ -1,5 +1,5 @@
 import api from "@/lib/axios";
-import { isAxiosError } from "axios";
+import { handleApiError } from "@/utils/handleApiError";
 
 export interface IGetOrdersFilters {
   page?: number;
@@ -22,12 +22,7 @@ export async function getOrders(filters: IGetOrdersFilters) {
     );
     return response.data;
   } catch (error) {
-    if (isAxiosError(error)) {
-      const errorResponse: IErrorResponse = error.response?.data;
-      throw new Error(errorResponse.data.message);
-    }
-    console.error("An unexpected error occurred:", error);
-    throw error;
+    throw handleApiError(error);
   }
 }
 
@@ -45,12 +40,7 @@ export async function getAdditionalOrders(filters: IAdditionalOrdersParams) {
     );
     return response.data;
   } catch (error) {
-    if (isAxiosError(error)) {
-      const errorResponse: IErrorResponse = error.response?.data;
-      throw new Error(errorResponse.data.message);
-    }
-    console.error("An unexpected error occurred:", error);
-    throw error;
+    throw handleApiError(error);
   }
 }
 
@@ -64,11 +54,6 @@ export async function patchAdditionalOrders(
     );
     return res?.data;
   } catch (error) {
-    if (isAxiosError(error)) {
-      throw new Error(
-        error.response?.data.message || "Failed to accept order"
-      );
-    }
-    throw error;
+    throw handleApiError(error);
   }
 }

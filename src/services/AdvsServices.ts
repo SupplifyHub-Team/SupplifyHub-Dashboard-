@@ -1,5 +1,5 @@
 import api from "@/lib/axios";
-import { isAxiosError } from "axios";
+import { handleApiError } from "@/utils/handleApiError";
 
 // function to get active advs
 export async function getActiveAdvs(filters: IActiveAdvsFilters) {
@@ -12,12 +12,7 @@ export async function getActiveAdvs(filters: IActiveAdvsFilters) {
     );
     return response.data;
   } catch (error) {
-    if (isAxiosError(error)) {
-      const errorResponse: IErrorResponse = error.response?.data;
-      throw new Error(errorResponse.data.message);
-    }
-    console.error("An unexpected error occurred:", error);
-    throw error;
+    throw handleApiError(error);
   }
 }
 
@@ -28,12 +23,7 @@ export async function getPendingAdvs() {
     );
     return response.data;
   } catch (error) {
-    if (isAxiosError(error)) {
-      throw new Error(
-        error.response?.data.message || "حدث خطأ ما حاول مرة أخرى "
-      );
-    }
-    throw error;
+    throw handleApiError(error);
   }
 }
 
@@ -43,12 +33,7 @@ export async function patchAcceptAdv(id: string | number) {
     const response = await api.patch(`/admin/advertisment/${id}`);
     return response?.data;
   } catch (error) {
-    if (isAxiosError(error)) {
-      throw new Error(
-        error.response?.data.message || "حدث خطأ ما حاول مرة أخرى "
-      );
-    }
-    throw error;
+    throw handleApiError(error);
   }
 }
 
@@ -58,12 +43,7 @@ export async function deletePendingAdv(id: string | number) {
     const response = await api.delete(`/admin/advertisment/${id}`);
     return response?.data;
   } catch (error) {
-    if (isAxiosError(error)) {
-      throw new Error(
-        error.response?.data.message || "حدث خطأ ما حاول مرة أخرى "
-      );
-    }
-    throw error;
+    throw handleApiError(error);
   }
 }
 
@@ -81,12 +61,7 @@ export async function getAdditionalAdvs(filters: IAdditionalAdvsParams) {
     );
     return response.data;
   } catch (error) {
-    if (isAxiosError(error)) {
-      const errorResponse: IErrorResponse = error.response?.data;
-      throw new Error(errorResponse.data.message);
-    }
-    console.error("An unexpected error occurred:", error);
-    throw error;
+    throw handleApiError(error);
   }
 }
 
@@ -100,10 +75,7 @@ export async function patchAdditionalAdvs(
     );
     return res?.data;
   } catch (error) {
-    if (isAxiosError(error)) {
-      throw new Error(error.response?.data.message || "Failed to accept adv");
-    }
-    throw error;
+    throw handleApiError(error);
   }
 }
 
@@ -117,10 +89,7 @@ export async function postEvent(formData: FormData) {
 
     return res.data;
   } catch (error) {
-    if (isAxiosError(error)) {
-      throw new Error(error.response?.data.message || "Failed to add event");
-    }
-    throw error;
+    throw handleApiError(error);
   }
 }
 
@@ -130,11 +99,6 @@ export async function deleteActiveAdv(id: string | number) {
     const response = await api.delete(`/admin/active-advertisement/${id}`);
     return response?.data;
   } catch (error) {
-    if (isAxiosError(error)) {
-      throw new Error(
-        error.response?.data.message || "حدث خطأ ما حاول مرة أخرى "
-      );
-    }
-    throw error;
+    throw handleApiError(error);
   }
 }

@@ -1,5 +1,5 @@
 import api from "@/lib/axios";
-import { isAxiosError } from "axios";
+import { handleApiError } from "@/utils/handleApiError";
 
 export async function getUserStatistics() {
   try {
@@ -8,14 +8,7 @@ export async function getUserStatistics() {
     );
     return response.data;
   } catch (error) {
-    console.error("Error fetching user statistics:", error);
-
-    if (isAxiosError(error)) {
-      throw new Error(
-        error.response?.data.message || "حدث خطأ ما حاول مرة أخرى "
-      );
-    }
-    throw error;
+    throw handleApiError(error);
   }
 }
 
@@ -24,17 +17,12 @@ export async function getStatsData<T>(
   endpoint: string
 ): Promise<IApiResponse<T[]>> {
   try {
-    const response = await api.get<IApiResponse<T[]>>(`/admin/statistics/${endpoint}`);
+    const response = await api.get<IApiResponse<T[]>>(
+      `/admin/statistics/${endpoint}`
+    );
     return response?.data;
   } catch (error) {
-    console.error("Error fetching general statistics:", error);
-
-    if (isAxiosError(error)) {
-      throw new Error(
-        error.response?.data.message || "حدث خطأ ما حاول مرة أخرى "
-      );
-    }
-    throw error;
+    throw handleApiError(error);
   }
 }
 export async function getOrdersStatistics(year: number | string) {
@@ -44,13 +32,6 @@ export async function getOrdersStatistics(year: number | string) {
     );
     return response.data;
   } catch (error) {
-    console.error("Error fetching orders statistics:", error);
-
-    if (isAxiosError(error)) {
-      throw new Error(
-        error.response?.data.message || "حدث خطأ ما حاول مرة أخرى "
-      );
-    }
-    throw error;
+    throw handleApiError(error);
   }
 }

@@ -1,6 +1,6 @@
 import api from "@/lib/axios";
 import { pricingPlanSchema } from "@/schemas/pricingPlanSchema";
-import { isAxiosError } from "axios";
+import { handleApiError } from "@/utils/handleApiError";
 
 export async function getPlansStatistics() {
   try {
@@ -9,12 +9,7 @@ export async function getPlansStatistics() {
     );
     return response.data;
   } catch (error) {
-    if (isAxiosError(error)) {
-      throw new Error(
-        error.response?.data.message || "حدث خطأ ما حاول مرة أخرى "
-      );
-    }
-    throw error;
+    throw handleApiError(error);
   }
 }
 export async function getPlans() {
@@ -22,12 +17,7 @@ export async function getPlans() {
     const response = await api.get<IApiResponse<IPlan[]>>("/plans");
     return response.data;
   } catch (error) {
-    if (isAxiosError(error)) {
-      throw new Error(
-        error.response?.data.message || "حدث خطأ ما حاول مرة أخرى "
-      );
-    }
-    throw error;
+    throw handleApiError(error);
   }
 }
 export async function deletePlan(planId: string | number) {
@@ -35,12 +25,7 @@ export async function deletePlan(planId: string | number) {
     const response = await api.delete(`/admin/plans/${planId}`);
     return response.data;
   } catch (error) {
-    if (isAxiosError(error)) {
-      throw new Error(
-        error.response?.data.message || "حدث خطأ ما حاول مرة أخرى "
-      );
-    }
-    throw error;
+    throw handleApiError(error);
   }
 }
 
@@ -57,12 +42,7 @@ export async function postPlan(planData: {
     );
     return response.data;
   } catch (error) {
-    if (isAxiosError(error)) {
-      throw new Error(
-        error.response?.data.message || "حدث خطأ ما حاول مرة أخرى "
-      );
-    }
-    throw error;
+    throw handleApiError(error);
   }
 }
 
@@ -77,12 +57,6 @@ export async function updatePlan(
     );
     return response.data;
   } catch (error) {
-    if (isAxiosError(error)) {
-      throw new Error(
-        error.response?.data.message || "حدث خطأ ما حاول مرة أخرى "
-      );
-    }
-    throw error;
+    throw handleApiError(error);
   }
 }
-

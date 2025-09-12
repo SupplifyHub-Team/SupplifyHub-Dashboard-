@@ -1,6 +1,5 @@
 import api from "@/lib/axios";
-import { isAxiosError } from "axios";
-// funcation to get all products
+import { handleApiError } from "@/utils/handleApiError";
 
 interface IProductsFilters {
   page?: number;
@@ -17,12 +16,7 @@ export async function getProducts(filters: IProductsFilters) {
     );
     return response.data;
   } catch (error) {
-    if (isAxiosError(error)) {
-      const errorResponse: IErrorResponse = error.response?.data;
-      throw new Error(errorResponse.data.message);
-    }
-    console.error("An unexpected error occurred:", error);
-    throw error;
+    throw handleApiError(error);
   }
 }
 
@@ -34,11 +28,6 @@ export async function patchProduct(requestId: string, operationType: string) {
     );
     return res?.data;
   } catch (error) {
-    if (isAxiosError(error)) {
-      throw new Error(
-        error.response?.data.message || "Failed to accept product"
-      );
-    }
-    throw error;
+    throw handleApiError(error);
   }
 }
