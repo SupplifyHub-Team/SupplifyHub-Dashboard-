@@ -15,6 +15,12 @@ interface IApiResponse<T> {
   data: T;
 }
 
+interface IApiMessage {
+  data: {
+    message: string;
+  };
+}
+
 interface IErrorResponse {
   data: {
     message: string;

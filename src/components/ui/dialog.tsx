@@ -60,11 +60,10 @@ function DialogContent({
         data-slot="dialog-content"
         className={cn(
           "data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 fixed top-[50%] left-[50%] z-50 grid w-full max-w-[calc(100%-2rem)] translate-x-[-50%] translate-y-[-50%] gap-4 rounded-lg  shadow-lg duration-200 bg-[#1F1F1F] p-6 md:w-full",
-          "max-h-[50dvh] overflow-auto",
+          " overflow-auto",
           className
         )}
-        {...props}
-      >
+        {...props}>
         {children}
       </DialogPrimitive.Content>
     </DialogPortal>
@@ -137,8 +136,7 @@ export function DialogTitleWithCancel({
         className={cn(
           "flex    items-center justify-between gap-4 ",
           className
-        )}
-      >
+        )}>
         <div className="text-start flex items-center gap-2">
           {icon}
           <h3 className="text-lg">{title}</h3>
@@ -148,8 +146,7 @@ export function DialogTitleWithCancel({
           <Button
             onClick={() => onCancel?.()}
             variant="link"
-            className="p-2 text-sm transition"
-          >
+            className="p-2 text-sm transition">
             إلغاء
           </Button>
         </DialogClose>

@@ -3,14 +3,14 @@ import Cookies from "js-cookie";
 import { useEffect } from "react";
 import { Outlet, useNavigate } from "react-router";
 
-export default function ProtectedRoute() {
+export default function AuthRoute() {
   const { user } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
     const token = Cookies.get("token");
-    if (!token) navigate("/login");
-    if (!user) navigate("/login");
+    if (token) navigate("/");
+    if (user) navigate("/");
   }, [user, navigate]);
 
   return <Outlet />;

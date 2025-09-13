@@ -130,11 +130,11 @@ export function AreYouSureDeleteing({
             <AlertTriangle className="w-8 h-8 text-red-600" />
           </div>
 
-          <DrawerTitle className="text-xl font-bold text-gray-900 text-center!">
+          <DrawerTitle className="text-xl font-bold text-white text-center!">
             {t}
           </DrawerTitle>
 
-          <DrawerDescription className="text-gray-600 text-base leading-relaxed px-4 text-center">
+          <DrawerDescription className="text-white text-base leading-relaxed px-4 text-center">
             {d}
           </DrawerDescription>
         </DrawerHeader>

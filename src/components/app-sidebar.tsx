@@ -8,6 +8,7 @@ import {
   Megaphone,
   ShoppingCart,
   Handshake,
+  Book,
 } from "lucide-react";
 
 import { NavMain } from "@/components/nav-main";
@@ -30,12 +31,13 @@ const data = {
     { title: "إدارة الفئات", url: "/categories", icon: Boxes },
     { title: "إدارة المنتجات", url: "/products", icon: ShoppingCart },
     { title: "إدارة الصفقات", url: "/deals", icon: Handshake },
+    { title: "إدارة المدونات", url: "/blogs", icon: Book },
   ],
 };
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
-    <Sidebar  collapsible="icon" {...props}>
+    <Sidebar collapsible="icon" {...props}>
       <SidebarHeader>
         <img
           src="/Logo.webp"

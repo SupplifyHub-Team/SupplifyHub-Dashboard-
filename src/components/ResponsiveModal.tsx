@@ -76,13 +76,12 @@ export function ResponsiveModal({
     return heightMap[height];
   };
 
-
   if (isDesktop) {
     return (
       <Dialog open={open} onOpenChange={onOpenChange}>
         <DialogTrigger asChild>{trigger}</DialogTrigger>
         <DialogContent
-          className={`${getMaxWidthClass()} ${
+          className={`${getMaxWidthClass()}  ${
             scrollable ? `${getHeightClass()} overflow-auto` : ""
           }`}
           dir={dir}>
@@ -95,9 +94,7 @@ export function ResponsiveModal({
             )}
           </DialogHeader>
 
-          <div className={scrollable ? "flex-1 overflow-y-auto" : ""}>
-            {children}
-          </div>
+          <div className={scrollable ? "flex-1 " : ""}>{children}</div>
         </DialogContent>
       </Dialog>
     );

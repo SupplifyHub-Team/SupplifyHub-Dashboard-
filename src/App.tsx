@@ -10,6 +10,8 @@ import { BrowserRouter, Route, Routes } from "react-router";
 import AdvsManagementPage from "./pages/AdvsManagementPage";
 import ProductsManagementPage from "./pages/ProductsManagementPage";
 import DealsManagementPage from "./pages/DealsManagementPage";
+import NotFoundPage from "./pages/NotFoundPage";
+import AuthRoute from "./components/AuthRoute";
 
 const LoginPage = lazy(() => import("./pages/LoginPage"));
 const OverviewPage = lazy(() => import("./pages/OverviewPage"));
@@ -19,6 +21,7 @@ const PricingPlanPage = lazy(() => import("./pages/PricingPlanPage"));
 const CategoriesManagementPage = lazy(
   () => import("./pages/CategoriesManagementPage")
 );
+const BlogsManagementPage = lazy(() => import("./pages/BlogsManagement"));
 
 function App() {
   return (
@@ -37,7 +40,9 @@ function App() {
         />
         <Suspense fallback={<LoadingPage />}>
           <Routes>
-            <Route path="/login" element={<LoginPage />} />
+            <Route element={<AuthRoute />}>
+              <Route path="/login" element={<LoginPage />} />
+            </Route>
             <Route element={<ProtectedRoute />}>
               <Route element={<AppLayout />}>
                 <Route path="/" element={<OverviewPage />} />
@@ -57,13 +62,11 @@ function App() {
                   path="/categories"
                   element={<CategoriesManagementPage />}
                 />
+                <Route path="/blogs" element={<BlogsManagementPage />} />
               </Route>
             </Route>
 
-            <Route
-              path="*"
-              element={<div className="min-h-screen">Page Not Found</div>}
-            />
+            <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </Suspense>
       </BrowserRouter>
