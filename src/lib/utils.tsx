@@ -84,3 +84,17 @@ export const getFileIcon = (file: File) => {
     return <FileText className="w-8 h-8 text-yellow-500" />;
   return <File className="w-8 h-8 text-gray-500" />;
 };
+
+export function debounce<T extends (...args: any[]) => void>(
+  func: T,
+  delay: number
+): (...args: Parameters<T>) => void {
+  let timer: NodeJS.Timeout;
+
+  return (...args: Parameters<T>) => {
+    if (timer) clearTimeout(timer);
+    timer = setTimeout(() => {
+      func(...args);
+    }, delay);
+  };
+}

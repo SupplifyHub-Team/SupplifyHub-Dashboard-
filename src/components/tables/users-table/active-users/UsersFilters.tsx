@@ -1,14 +1,15 @@
 import { Form } from "@/components/ui/form";
 import FormSelect from "@/components/forms-fields/FormSelect";
 import { Button } from "@/components/ui/button";
-import FormInfiniteSelect from "@/components/forms-fields/FormInfiniteSelect";
 import { getCategories } from "@/services/categoriesServices";
 import { USERS_TABLE_NAME } from "@/lib/constants";
 import FormInput from "@/components/forms-fields/FormInput";
 import { Search } from "lucide-react";
-import { useFilterForm } from "@/hooks/useFilterForm";
 import { userFiltersSchema } from "@/schemas/filtersScehmas";
 import FormInfiniteCombobox from "@/components/forms-fields/FormInfiniteCombobox";
+import useSearchForm from "@/hooks/useSearchForm";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 const defaultFilters: userFiltersSchema = {
   search: "",
@@ -19,11 +20,13 @@ const defaultFilters: userFiltersSchema = {
 };
 
 export default function UsersFilters() {
-  const { form, resetFilters } = useFilterForm<userFiltersSchema>({
-    schema: userFiltersSchema,
+  const form = useForm<userFiltersSchema>({
     defaultValues: defaultFilters,
-    namespace: USERS_TABLE_NAME,
+    mode: "onChange",
+    resolver: zodResolver(userFiltersSchema),
   });
+
+  useSearchForm({ form, baseKey: USERS_TABLE_NAME });
 
   return (
     <Form {...form}>
@@ -74,7 +77,7 @@ export default function UsersFilters() {
         variant="link"
         type="button"
         className="h-10"
-        onClick={resetFilters}>
+        onClick={() => form.reset(defaultFilters)}>
         ألغي الفلاتر
       </Button>
     </Form>

@@ -7,7 +7,7 @@ import { subscribedSuppliersFiltersSchema } from "@/schemas/filtersScehmas";
 export default function SortAndStatusFilters() {
   const form = useFormContext<subscribedSuppliersFiltersSchema>();
   return (
-    <div className="flex gap-2 flex-wrap md:flex-nowrap md:gap-4">
+    <div className="flex gap-2 flex-wrap  md:gap-4">
       <FormAsyncSelect<subscribedSuppliersFiltersSchema, IPlan>
         control={form.control}
         name="planName"

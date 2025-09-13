@@ -25,14 +25,13 @@ export default function LoginPage() {
     mutate(values);
   }
   return (
-    <div className="flex items-center justify-center min-h-screen bg-black">
+    <div className="flex   items-center justify-center min-h-screen bg-black">
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className=" md:w-1/3 bg-card  shadow-2xl border-gray-700 rounded-xl px-6 py-10 text-center  space-y-6"
-        >
+          className=" bg-card w-[clamp(300px,93vw,600px)] shadow-2xl border-gray-700 rounded-xl px-6 py-10 text-center  space-y-6">
           <div className="flex flex-col justify-center items-center gap-4 mb-6">
-            <img src="/Logo.webp" alt="Logo" className="size-20 rounded-full" />
+            <img src="/Logo.webp" alt="Logo" className=" " />
             <h2 className="text-white text-2xl font-semibold">مرحبًا بعودتك</h2>
             <p className="text-gray-400 text-sm ">
               قم بتسجيل الدخول إلى حساب لوحة إدارة SuppliFy الخاصة بك.
@@ -62,8 +61,7 @@ export default function LoginPage() {
             disabled={isPending}
             size="lg"
             type="submit"
-            className={`w-full mt-6 h-11 rounded-full bg-indigo-500 text-white hover:bg-indigo-600 transition-colors`}
-          >
+            className={`w-full mt-6 h-11 rounded-full bg-indigo-500 text-white hover:bg-indigo-600 transition-colors`}>
             {isPending ? <Spinner /> : "تسجيل الدخول"}
           </Button>
         </form>

@@ -41,7 +41,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       <SidebarHeader>
         <img
           src="/Logo.webp"
-          className="w-12 h-12 object-contain rounded-full"
+          className="size-36 object-contain rounded-full"
           alt="logo"
         />
       </SidebarHeader>

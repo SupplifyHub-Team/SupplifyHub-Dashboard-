@@ -10,7 +10,6 @@ const PricingPlanPage = () => {
     <div className="flex flex-col gap-1 ">
       {/* <PricingPlansStats /> */}
 
-      <PricingPlansList />
 
       <SubscribedTable />
 
