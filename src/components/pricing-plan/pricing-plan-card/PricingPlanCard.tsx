@@ -8,7 +8,7 @@ export default function PricingPlanCard({ plan }: { plan: IPlan }) {
     <div>
       <div
         onDoubleClick={() => setIsEditing(!isEditing)}
-        className="rounded-2xl   bg-gradient-to-br from-background  p-4 w-full flex flex-col justify-between ">
+        className="rounded-2xl   bg-gradient-to-br from-background   w-full flex flex-col justify-between ">
         {isEditing ? (
           <PricingPlanForm setIsEditing={setIsEditing} plan={plan} />
         ) : (

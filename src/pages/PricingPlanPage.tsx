@@ -3,13 +3,15 @@ import SubscribedTable from "@/components/tables/subscribed-suppliers-table/acti
 import PricingPlansList from "@/components/pricing-plan/PricingPlansList";
 
 import PendingSubscriptionsTable from "@/components/tables/subscribed-suppliers-table/pending-subscribers/PendingSubscriptionsTable";
+import PricingPlansStats from "@/components/pricing-plan/stats/PricingPlansStats";
 //
 
 const PricingPlanPage = () => {
   return (
     <div className="flex flex-col gap-1 ">
-      {/* <PricingPlansStats /> */}
+      <PricingPlansStats />
 
+      <PricingPlansList />
 
       <SubscribedTable />
 
