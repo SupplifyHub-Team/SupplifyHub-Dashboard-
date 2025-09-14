@@ -93,7 +93,7 @@ export default function EditBlogForm({ blog }: { blog: IBlogCard }) {
         <fieldset disabled={isUpdating} className="space-y-6 p-6">
           {data?.data.coverImageUrl && (
             <img
-              src={data.data.coverImageUrl}
+              src={blog.coverImageUrl}
               alt="Cover Image"
               className="w-96 object-contain rounded-lg"
             />
