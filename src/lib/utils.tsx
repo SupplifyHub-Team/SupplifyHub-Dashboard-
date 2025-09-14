@@ -3,6 +3,7 @@ import { twMerge } from "tailwind-merge";
 import { queryClient } from "./react-query/queryClient";
 import useAuth from "@/store/authStore";
 import { File, FileText, FileVideo, ImageIcon, Music } from "lucide-react";
+import { FieldNamesMarkedBoolean, FieldValues } from "react-hook-form";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -97,4 +98,14 @@ export function debounce<T extends (...args: any[]) => void>(
       func(...args);
     }, delay);
   };
+}
+
+export function getDirtyFields<T extends FieldValues>(
+  data: T,
+  dirtyFields: Partial<FieldNamesMarkedBoolean<T>>
+): Partial<T> {
+  return (Object.keys(dirtyFields) as (keyof T)[]).reduce((acc, key) => {
+    acc[key] = data[key];
+    return acc;
+  }, {} as Partial<T>);
 }

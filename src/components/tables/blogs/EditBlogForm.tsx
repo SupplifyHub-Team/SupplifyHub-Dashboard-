@@ -16,6 +16,7 @@ import { editBlogSchema } from "@/schemas/blogSchema";
 import usePatchBlogPost from "@/hooks/blogs/usePatchBlogPost";
 import useGetBlogPost from "@/hooks/blogs/useGetBlogPost";
 import { Link } from "react-router";
+import { getDirtyFields } from "@/lib/utils";
 
 const defaultValues: editBlogSchema = {
   Title: "",
@@ -35,8 +36,9 @@ export default function EditBlogForm({ blog }: { blog: IBlogCard }) {
   });
 
   const onSubmit = (data: editBlogSchema) => {
-    console.log("Contact form submitted:", data);
-    postBlog(data, {
+    const onlyDirty = getDirtyFields(data, form.formState.dirtyFields);
+
+    postBlog(onlyDirty, {
       onError: (error: ApiError) => {
         setFormErrors(form, error);
       },
@@ -139,7 +141,7 @@ export default function EditBlogForm({ blog }: { blog: IBlogCard }) {
               to={data.data.pdfUrl}
               target="_blank"
               rel="noopener noreferrer">
-              <Button>عرض ملف PDF</Button>
+              <Button type="button">عرض ملف PDF</Button>
             </Link>
           )}
           <FormErrorBox errors={formErrors} />
