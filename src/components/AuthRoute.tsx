@@ -10,7 +10,7 @@ export default function AuthRoute() {
   useEffect(() => {
     const token = Cookies.get("token");
     if (token) navigate("/");
-    if (user) navigate("/");
+    else if (user) navigate("/");
   }, [user, navigate]);
 
   return <Outlet />;

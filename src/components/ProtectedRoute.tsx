@@ -10,7 +10,7 @@ export default function ProtectedRoute() {
   useEffect(() => {
     const token = Cookies.get("token");
     if (!token) navigate("/login");
-    if (!user) navigate("/login");
+    else if (!user) navigate("/login");
   }, [user, navigate]);
 
   return <Outlet />;

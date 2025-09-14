@@ -46,7 +46,6 @@ api.interceptors.response.use(
 
       try {
         const accessToken = await refreshToken();
-        console.log(originalRequest, "debug here");
 
         Cookies.set("token", accessToken.token);
 
@@ -56,7 +55,6 @@ api.interceptors.response.use(
 
         return api(originalRequest);
       } catch (refreshError) {
-        console.error("Token refresh failed:", refreshError);
         useAuth.getState().logout();
         window.location.href = "/login";
         return Promise.reject(refreshError);
