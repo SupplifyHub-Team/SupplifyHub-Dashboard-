@@ -1,4 +1,5 @@
 import { queryClient } from "@/lib/react-query/queryClient";
+import { navigateTo } from "@/lib/router";
 import Cookies from "js-cookie";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
@@ -20,6 +21,7 @@ const useAuth = create<AuthState & AuthActions>()(
       logout: () => {
         Cookies.remove("token");
         queryClient.clear();
+        navigateTo("/login");
         set({ user: null });
       },
     }),

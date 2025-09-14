@@ -25,8 +25,8 @@ const BlogsManagementPage = lazy(() => import("./pages/BlogsManagement"));
 
 function App() {
   return (
-    <MainProvider>
-      <BrowserRouter>
+    <BrowserRouter>
+      <MainProvider>
         <Toaster
           position="top-right"
           toastOptions={{ duration: 3000 }}
@@ -69,8 +69,8 @@ function App() {
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </Suspense>
-      </BrowserRouter>
-    </MainProvider>
+      </MainProvider>
+    </BrowserRouter>
   );
 }
 
