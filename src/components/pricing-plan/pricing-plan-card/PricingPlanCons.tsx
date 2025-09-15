@@ -39,7 +39,6 @@ export default function PricingPlanCons() {
         type="button"
         variant="default"
         onClick={() => {
-          console.log("click");
           appendPons("عيب جديد");
         }}
         className="mt-2">

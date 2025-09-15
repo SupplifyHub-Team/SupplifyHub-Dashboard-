@@ -33,7 +33,6 @@ export default function PricingPlanForm({
   const isDirty = form.formState.isDirty;
 
   function onSubmit(values: pricingPlanSchema) {
-    console.log(values);
     mutate({ ...values, id: plan.id });
     if (setIsEditing) setIsEditing(false);
   }

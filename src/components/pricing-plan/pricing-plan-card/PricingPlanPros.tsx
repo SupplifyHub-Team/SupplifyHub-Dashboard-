@@ -39,7 +39,6 @@ export default function PricingPlanPros() {
         type="button"
         variant="default"
         onClick={() => {
-          console.log("click");
           appendPros("ميزة جديدة");
         }}
         className="mt-2">

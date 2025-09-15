@@ -9,7 +9,6 @@ import { Skeleton } from "@/components/ui/skeleton";
 export default function DealsManagementPage() {
   const { data, isLoading, isError, refetch } = useGetDealsConfirm();
 
-  console.log(data);
 
   if (isLoading) {
     return (

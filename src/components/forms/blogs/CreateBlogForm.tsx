@@ -32,7 +32,6 @@ export default function CreateBlogForm() {
   });
 
   const onSubmit = (data: blogSchema) => {
-    console.log("Contact form submitted:", data);
     postBlog(data, {
       onSuccess: () => {
         form.reset();
