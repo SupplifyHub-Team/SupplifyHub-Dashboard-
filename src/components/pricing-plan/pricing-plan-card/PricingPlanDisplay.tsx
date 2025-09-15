@@ -23,9 +23,9 @@ export default function PricingPlanDisplay({
           {plan.planName}
         </span>
         <span className="mb-2 text-3xl font-bold text-primary">
-          $ {plan.price} /{" "}
+          {" " + plan.price + " ريال"}/
           <span className="text-gray-200 text-sm">
-            {plan.duration + " شهر"}
+            {plan.duration + " شهر "}
           </span>
         </span>
 
@@ -41,8 +41,7 @@ export default function PricingPlanDisplay({
             {plan.pros!.map((pro, index) => (
               <li
                 key={index}
-                className="flex items-center gap-3 text-sm text-white"
-              >
+                className="flex items-center gap-3 text-sm text-white">
                 <span className="grid  place-content-center rounded-full bg-indigo-500 text-white">
                   <CircleCheck className="inline  text-white" />
                 </span>
@@ -60,8 +59,7 @@ export default function PricingPlanDisplay({
             {plan.cons!.map((con, index) => (
               <li
                 key={index}
-                className="flex items-center gap-3 text-sm text-white"
-              >
+                className="flex items-center gap-3 text-sm text-white">
                 <span className="grid place-content-center rounded-full bg-red-500 text-white">
                   <CircleX className="inline  text-white " />
                 </span>
@@ -75,8 +73,7 @@ export default function PricingPlanDisplay({
       <div className="mt-6 grid grid-cols-2 gap-4">
         <Button
           onClick={() => setIsEditing(true)}
-          className="w-full bg-indigo-600 text-white hover:bg-indigo-700 transition-colors"
-        >
+          className="w-full bg-indigo-600 text-white hover:bg-indigo-700 transition-colors">
           تعديل الخطة
         </Button>
 
