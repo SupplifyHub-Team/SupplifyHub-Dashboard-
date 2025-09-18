@@ -26,7 +26,7 @@ export default function LoginPage() {
     mutate(values);
   }
   return (
-    <div className="flex   items-center justify-center min-h-screen bg-black">
+    <div className="flex  w-full items-center justify-center min-h-screen bg-black">
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}

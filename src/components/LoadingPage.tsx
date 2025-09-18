@@ -2,7 +2,7 @@ import { Loader2 } from "lucide-react";
 
 export default function LoadingPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-card-50 to-background-200 flex items-center justify-center">
+    <div className="min-h-screen w-full bg-gradient-to-br from-card-50 to-background-200 flex items-center justify-center">
       <div className="text-center">
         {/* Main loading animation */}
         <div className="relative mb-8">
