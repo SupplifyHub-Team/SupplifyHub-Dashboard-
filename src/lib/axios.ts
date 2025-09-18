@@ -27,6 +27,7 @@ api.interceptors.request.use((config) => {
 api.interceptors.response.use(
   (response) => response,
   async (error: AxiosError) => {
+    console.error(error.response?.data || error.message || "Unknown error");
     const originalRequest: ICustomAxiosInternalConfig | undefined =
       error.config;
 
