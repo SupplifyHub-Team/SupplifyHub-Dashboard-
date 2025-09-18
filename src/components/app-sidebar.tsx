@@ -20,6 +20,7 @@ import {
   SidebarFooter,
   SidebarHeader,
 } from "@/components/ui/sidebar";
+import Logo from "./Logo";
 
 const data = {
   navMain: [
@@ -39,11 +40,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
     <Sidebar collapsible="icon" {...props}>
       <SidebarHeader>
-        <img
-          src="/Logo.webp"
-          className="size-36 object-contain rounded-full"
-          alt="logo"
-        />
+        <Logo size={150} />
       </SidebarHeader>
       <SidebarContent>
         <NavMain items={data.navMain} />

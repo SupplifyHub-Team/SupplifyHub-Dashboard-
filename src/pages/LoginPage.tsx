@@ -10,6 +10,7 @@ import FormPassword from "@/components/forms-fields/FormPassword";
 import { loginSchema } from "@/schemas/loginSchema";
 import useLogin from "@/hooks/useLogin";
 import Spinner from "@/components/Spinner";
+import Logo from "@/components/Logo";
 
 export default function LoginPage() {
   const form = useForm<loginSchema>({
@@ -31,7 +32,7 @@ export default function LoginPage() {
           onSubmit={form.handleSubmit(onSubmit)}
           className=" bg-card w-[clamp(300px,93vw,600px)] shadow-2xl border-gray-700 rounded-xl px-6 py-10 text-center  space-y-6">
           <div className="flex flex-col justify-center items-center gap-4 mb-6">
-            <img src="/Logo.webp" alt="Logo" className=" " />
+            <Logo size={300} />
             <h2 className="text-white text-2xl font-semibold">مرحبًا بعودتك</h2>
             <p className="text-gray-400 text-sm ">
               قم بتسجيل الدخول إلى حساب لوحة إدارة SuppliFy الخاصة بك.
