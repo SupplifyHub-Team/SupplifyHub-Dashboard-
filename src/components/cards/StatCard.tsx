@@ -71,7 +71,7 @@ export const StatCard: FC<StatCardProps> = ({
   return (
     <div
       className={clsx(
-        "w-full rounded-xl p-4 shadow-sm flex justify-between items-start gap-2 text-sm  text-gray-800 border",
+        "flex-1 rounded-xl p-4 shadow-sm flex justify-between items-start gap-2 text-sm  text-gray-800 border",
         bg,
         border,
         className

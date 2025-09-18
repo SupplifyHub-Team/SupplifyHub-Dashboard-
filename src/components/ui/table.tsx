@@ -6,10 +6,10 @@ function Table({ className, ...props }: React.ComponentProps<"table">) {
   return (
     <div
       data-slot="table-container"
-      className="relative w-full overflow-x-auto  rounded-lg">
+      className="relative w-full overflow-x-auto">
       <table
         data-slot="table"
-        className={cn("w-full caption-bottom ", className)}
+        className={cn("w-full caption-bottom text-sm", className)}
         {...props}
       />
     </div>
@@ -30,7 +30,10 @@ function TableBody({ className, ...props }: React.ComponentProps<"tbody">) {
   return (
     <tbody
       data-slot="table-body"
-      className={cn("[&_tr:last-child]:border-0 bg-[#404040] text-wh", className)}
+      className={cn(
+        "[&_tr:last-child]:border-0 bg-[#404040] text-wh",
+        className
+      )}
       {...props}
     />
   );
@@ -41,7 +44,7 @@ function TableFooter({ className, ...props }: React.ComponentProps<"tfoot">) {
     <tfoot
       data-slot="table-footer"
       className={cn(
-        " border-t border-accent-foreground font-medium bg-[#515254] text-white",
+        " border-t border-accent-foreground  font-medium bg-[#515254] text-white",
         className
       )}
       {...props}
@@ -54,7 +57,7 @@ function TableRow({ className, ...props }: React.ComponentProps<"tr">) {
     <tr
       data-slot="table-row"
       className={cn(
-        "hover:bg-m data-[state=selected]:bg-[#] px-4! text-white border-b border-accent-foreground transition-colors",
+        "hover:bg-m data-[state=selected]:bg-[#] px-4!  text-white border-b border-accent-foreground transition-colors",
         className
       )}
       {...props}
@@ -67,7 +70,7 @@ function TableHead({ className, ...props }: React.ComponentProps<"th">) {
     <th
       data-slot="table-head"
       className={cn(
-        "relative  h-10 px-2 text-start  align-middle font-medium whitespace-nowrap bg-[#515254] text-white! text-xs  break-all",
+        "relative  h-10 px-2 text-start align-middle font-medium whitespace-nowrap bg-[#515254] text-white! text-xs  break-all",
         "[&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]",
         "",
 
@@ -83,7 +86,7 @@ function TableCell({ className, ...props }: React.ComponentProps<"td">) {
     <td
       data-slot="table-cell"
       className={cn(
-        "p-2 text-[11px] sm:text-sm align-middle whitespace-normal ",
+        "p-2 text-[11px] sm:text-sm  align-middle whitespace-normal ",
         "[&:has([role=checkbox])]:pr-0  [&>[role=checkbox]]:translate-y-[2px]",
         "text-start",
         className

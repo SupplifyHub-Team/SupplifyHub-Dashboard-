@@ -1,5 +1,6 @@
 import RouterProvider from "@/components/RouterProvider";
 import ReactQueryProvider from "./ReactQueryProvider";
+import { SidebarProvider } from "@/components/ui/sidebar";
 
 export default function MainProvider({
   children,
@@ -8,8 +9,10 @@ export default function MainProvider({
 }) {
   return (
     <ReactQueryProvider>
-      {children}
-      <RouterProvider />
+      <SidebarProvider>
+        {children}
+        <RouterProvider />
+      </SidebarProvider>
     </ReactQueryProvider>
   );
 }
