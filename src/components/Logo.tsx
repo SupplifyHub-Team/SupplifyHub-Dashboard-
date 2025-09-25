@@ -1,4 +1,4 @@
-import LogoImage from "@/../public/logov3.png";
+import LogoImage from "@/../public/logo_supplifyhup.png";
 export default function Logo({ size }: { size: number }) {
   return (
     <div>
