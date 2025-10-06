@@ -44,7 +44,8 @@ export default function PendingUserTableRow({
             <Badge
               key={category}
               variant="default"
-              className="rounded-full px-2 font-meduim! text-nowrap py-1 text-sm bg-primary/40 shadow-2xl text-white dark:bg-card-700">
+              className="rounded-full px-2 font-meduim! text-nowrap py-1 text-sm bg-primary/40 shadow-2xl text-white dark:bg-card-700"
+            >
               {category}
             </Badge>
           ))}
@@ -52,13 +53,20 @@ export default function PendingUserTableRow({
       </TableCell>
       <TableCell>
         <Button
-          onClick={() => handleDownload(pendingUser.name)}
+          onClick={() =>
+            handleDownload(
+              pendingUser.pdfURL, 
+              `${pendingUser.name}-document.pdf` 
+            )
+          }
           rel="noopener noreferrer"
           variant="link"
-          className="text-blue-600 hover:underline">
+          className="text-blue-600 hover:underline"
+        >
           عرض التوثيق
         </Button>
       </TableCell>
+
       <TableCell>
         <span> {formattedData(pendingUser.createdAt)}</span>
       </TableCell>
